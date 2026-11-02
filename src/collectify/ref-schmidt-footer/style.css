@@ -199,10 +199,6 @@
   transition: color 0.3s;
 }
 
-.cf-sc__strong {
-  color: var(--sc-text);
-}
-
 .cf-sc__info a:hover {
   color: var(--sc-text);
 }
