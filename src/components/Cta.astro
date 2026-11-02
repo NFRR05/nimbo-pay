@@ -2,12 +2,13 @@
 // Final call to action: layout and motion of Collectify «ref-dark-cta» (src/collectify/ref-dark-cta),
 // in black and white. Without the review card the text sits in the middle, and the five coloured marks
 // (one per product) stand in the glow at the bottom of the card.
+import { iconSvg } from "../lib/icons.js";
 import copy from "../copy/cta.js";
 import { markSvg, MARKS } from "../lib/brand.js";
 
 const { lang = "it" } = Astro.props;
 const c = copy[lang] || copy.it;
-const arrow = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.5 12h15M13.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
+const arrow = iconSvg("arrow-right", { size: 16 });
 ---
 
 <section class="cf-dk" id="finale" data-cf-dk data-theme="dark" aria-labelledby="final-title">

@@ -3,11 +3,12 @@
 // redrawn with the Nimbo identity: black ribbed glass with a soft light behind it, Outfit title,
 // white button. No panel, no figure behind the glass and no row of points along the bottom.
 // Behind the ribs two soft white shades drift from side to side, so the curtain of glass seems to move.
+import { iconSvg } from "../lib/icons.js";
 import copy from "../copy/hero.js";
 
 const { lang = "it" } = Astro.props;
 const h = copy[lang];
-const arrow = `<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4.5 12h15M13.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
+const arrow = iconSvg("arrow-right", { size: 14 });
 ---
 
 <section class="cf-pm" data-cf-pm data-theme="dark" aria-labelledby="hero-title">

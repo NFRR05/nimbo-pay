@@ -211,7 +211,7 @@
 
 .cf-pm__btn svg,
 .cf-pm__link svg {
-  width: calc(12 * var(--pm-u));
+  width: calc(14 * var(--pm-u));
   height: auto;
   transition: transform 0.45s var(--pm-ease);
 }
@@ -303,7 +303,7 @@
 
   .cf-pm__btn svg,
   .cf-pm__link svg {
-    width: 12px;
+    width: 14px;
   }
 }
 

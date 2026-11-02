@@ -1,7 +1,7 @@
 /* Bento from Collectify «ref-finax-bento», simplified with the Nimbo design system.
    Kept: the white panel on a grey page, the five-card grid (three thirds above, two halves below), the dotted
    map behind the transfer, the cascade entrance and one small animation per card. What changes: Nimbo header,
-   Phosphor Fill icons, black-and-white interfaces made of the same bordered tile (12px corners, no shadows),
+   Nimbo icons, black-and-white interfaces made of the same bordered tile (12px corners, no shadows),
    a coloured mark only as the avatar of an event, no phone, no infinity rings, no chart, no purple.
    Under 700px the cards become a row you swipe. */
 .cf-fx {

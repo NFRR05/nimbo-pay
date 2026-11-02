@@ -1,6 +1,6 @@
 ---
 // Bento: layout and motion of Collectify «ref-finax-bento» (src/collectify/ref-finax-bento), simplified with
-// the Nimbo design system: a white panel with five cards (three above, two wide below), each with a Phosphor
+// the Nimbo design system: a white panel with five cards (three above, two wide below), each with a Nimbo
 // icon, a title, one sentence and one small black-and-white interface. Thin borders, no shadows; the only
 // colour is a mark used as the avatar of an event (coral on the transfer, amber on the new account).
 // The two wide cards stay plain: two figures for the treasury, a short bill for the costs.
@@ -12,7 +12,7 @@ const { t, lang = "it" } = Astro.props;
 const b = copy[lang] || copy.it;
 const locale = t?.locale || (lang === "en" ? "en-IE" : "it-IT");
 const euro = (n, d = 2) => new Intl.NumberFormat(locale, { style: "currency", currency: "EUR", minimumFractionDigits: d, maximumFractionDigits: d, useGrouping: "always" }).format(n);
-const check = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
+const check = iconSvg("check", { size: 14 });
 ---
 
 <section class="cf-fx" data-cf-fx data-theme="light" aria-labelledby="bento-title">

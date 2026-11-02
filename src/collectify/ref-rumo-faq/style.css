@@ -75,14 +75,9 @@
 
 .cf-rm__chev {
   flex: none;
-  width: 14px;
-  height: 8px;
-  margin-top: 10px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 

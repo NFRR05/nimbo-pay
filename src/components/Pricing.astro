@@ -2,6 +2,7 @@
 // Pricing: layout of Collectify «ref-nexwealth-pricing» (src/collectify/ref-nexwealth-pricing), reduced for Nimbo.
 // Three plans side by side, the usage plan in black; a volume switch (transactions a month) updates the
 // Scale estimate straight away: 0,05 € per transaction above the free 10.000.
+import { iconSvg } from "../lib/icons.js";
 import copy from "../copy/pricing.js";
 
 const { t, lang = "it" } = Astro.props;
@@ -10,8 +11,8 @@ const locale = t?.locale || (lang === "en" ? "en-IE" : "it-IT");
 const euro = new Intl.NumberFormat(locale, { style: "currency", currency: "EUR", maximumFractionDigits: 0, useGrouping: "always" });
 const num = new Intl.NumberFormat(locale);
 const estimate = (n) => Math.max(0, n - 10000) * 0.05;
-const arrow = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.5 12h15M13.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
-const check = `<svg class="cf-nx__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
+const arrow = iconSvg("arrow-right", { size: 16 });
+const check = iconSvg("check", { size: 18, className: "cf-nx__check" });
 ---
 
 <section class="cf-nx" id="prezzi" data-cf-nx data-cf-nx-locale={locale} data-theme="light" aria-labelledby="cf-nx-title">

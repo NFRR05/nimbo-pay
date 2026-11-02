@@ -1,10 +1,12 @@
 ---
 // FAQ: layout of Collectify «ref-rumo-faq» (src/collectify/ref-rumo-faq), reduced for Nimbo:
 // the header on the left, the questions on the right, one answer open at a time.
+import { iconSvg } from "../lib/icons.js";
 import copy from "../copy/faq.js";
 
 const { lang = "it" } = Astro.props;
 const c = copy[lang] || copy.it;
+const chevron = iconSvg("chevron-down", { size: 18, className: "cf-rm__chev" });
 ---
 
 <section class="cf-rm" id="domande" data-cf-rm data-theme="light" aria-labelledby="cf-rm-title">
@@ -20,7 +22,7 @@ const c = copy[lang] || copy.it;
           <h3 class="cf-rm__q">
             <button class="cf-rm__btn" type="button" id={`cf-rm-q-${i}`} aria-expanded={i === 0 ? "true" : "false"} aria-controls={`cf-rm-a-${i}`} data-cf-rm-btn>
               <span>{f.q}</span>
-              <svg class="cf-rm__chev" viewBox="0 0 14 8" aria-hidden="true" focusable="false"><path d="M.7.7 7 7 13.3.7" /></svg>
+              <Fragment set:html={chevron} />
             </button>
           </h3>
           <div class="cf-rm__panel" id={`cf-rm-a-${i}`} role="region" aria-labelledby={`cf-rm-q-${i}`} inert={i === 0 ? undefined : true} data-cf-rm-panel>

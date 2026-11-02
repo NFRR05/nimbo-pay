@@ -20,6 +20,8 @@ Online su https://nimbo-pay.vercel.app.
 - Animazioni semplici da Collectify: `stat-odometer` (i numeri sotto l'hero rotolano come un contachilometri),
   `hero-line-reveal` (i titoli di sezione salgono riga per riga) e `scroll-reveal` (testi, card e domande entrano in coda).
   Con movimento ridotto tutto è già al suo posto.
+- Icone: il set Nimbo disegnato per il brand (`src/lib/icons.js`), lo stesso del componente Icon del design system;
+  nessuna icona di altri set.
 - Testi: `src/i18n.js` (meta e navbar) e `src/copy/<sezione>.js` (IT ed EN per ogni sezione).
 
 ```sh
