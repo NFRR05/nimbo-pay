@@ -2,7 +2,7 @@
    Kept: the white panel on a grey page, the five-card grid (three thirds above, two halves below), the dotted
    map behind the transfer, the cascade entrance and one small animation per card. What changes: Nimbo header,
    Phosphor Fill icons, black-and-white interfaces made of the same bordered tile (12px corners, no shadows),
-   a coloured mark only as the avatar of an event, no phone, no infinity rings, no purple.
+   a coloured mark only as the avatar of an event, no phone, no infinity rings, no chart, no purple.
    Under 700px the cards become a row you swipe. */
 .cf-fx {
   --fx-line: #e7e7e5;
@@ -229,87 +229,80 @@
   color: #a3a3a0 !important;
 }
 
-/* 4. balance chart */
-.cf-fx-chart {
+/* 4. two figures side by side */
+.cf-fx-pair {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: end;
+  gap: 8px;
+  min-height: 0;
 }
 
-.cf-fx-chart__y {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-bottom: 4px;
-  color: var(--fx-muted);
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
-}
-
-.cf-fx-chart__svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  min-height: 180px;
-  overflow: visible;
-}
-
-.cf-fx-chart__line {
-  fill: none;
-  stroke: var(--fx-ink);
-  stroke-width: 2;
-  vector-effect: non-scaling-stroke;
-}
-
-.cf-fx-chart__tip {
-  position: absolute;
-  top: 0;
-  left: 96px;
+.cf-fx-stat {
   display: grid;
-  gap: 2px;
-  padding: 12px 14px;
+  align-content: start;
+  gap: 4px;
+  padding: 16px;
 }
 
-.cf-fx-chart__tip small {
+.cf-fx-stat small {
   color: var(--fx-text);
-  font-size: 12px;
+  font-size: 13px;
 }
 
-.cf-fx-chart__tip b {
+.cf-fx-stat b {
   font-family: var(--cf-font-display);
-  font-size: 22px;
+  font-size: clamp(20px, 1rem + 0.8vw, 26px);
   font-weight: 600;
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
-.cf-fx-chart__tip span {
+.cf-fx-stat span {
   color: var(--fx-text);
-  font-size: 12px;
+  font-size: 13px;
 }
 
-/* 5. struck-through costs */
-.cf-fx-fees {
+/* 5. the bill */
+.cf-fx-billwrap {
   display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: center;
-  gap: 10px 8px;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 0;
 }
 
-.cf-fx-fee {
-  padding: 10px 14px;
-  border: 1px solid var(--fx-line);
-  border-radius: var(--cf-radius-s);
-  background: #ffffff;
+.cf-fx-bill {
+  margin: 0;
+  padding: 4px 16px;
+}
+
+.cf-fx-bill div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-top: 1px solid var(--fx-line);
+}
+
+.cf-fx-bill div:first-child {
+  border-top: 0;
+}
+
+.cf-fx-bill dt {
   color: var(--fx-text);
-  font-size: 14px;
-  rotate: var(--r);
 }
 
-.cf-fx-fee s {
-  text-decoration-thickness: 1px;
-  text-decoration-color: var(--fx-ink);
+.cf-fx-bill dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.cf-fx-bill__usage dt,
+.cf-fx-bill__usage dd {
+  color: var(--fx-ink);
+  font-weight: 600;
 }
 
 /* ---------- Tablet: two columns ---------- */
@@ -371,8 +364,8 @@
     padding: 0 20px 20px;
   }
 
-  .cf-fx-chart__tip {
-    left: 84px;
+  .cf-fx-pair {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

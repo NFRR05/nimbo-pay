@@ -6,8 +6,8 @@ gsap.registerPlugin(ScrollTrigger);
 /**
  * Bento from Collectify «ref-finax-bento», simplified for Nimbo. Same idea as the original, fewer moving parts:
  * - the cards come in one after the other when the grid reaches the viewport;
- * - then in each card: the tiles rise in, the new account arrives turning slightly, the balance line draws
- *   itself and the total counts up, the struck-through costs drop in one after the other.
+ * - then in each card the tiles and rows rise in one after the other, the new account arrives turning
+ *   slightly and today's balance counts up.
  * Everything runs once. With reduced motion everything is still and visible.
  * Original notes — Bento «Finax»: ingresso a cascata delle card, poi in ogni card la sua animazione
  * (bonifico che sale, righe che entrano, linea del grafico che si disegna, importo che conta, etichette che cadono).
@@ -42,13 +42,6 @@ function setup(section) {
       const fresh = card.querySelector("[data-cf-fx-new]");
       if (fresh) tl.from(fresh, { autoAlpha: 0, y: 30, rotate: 8, duration: 1.1, ease: "back.out(1.6)" }, 0.5);
 
-      const line = card.querySelector("[data-cf-fx-line]");
-      if (line) {
-        tl.fromTo(line, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.6, ease: "power2.inOut" }, 0.1);
-        const area = card.querySelector("[data-cf-fx-area]");
-        if (area) tl.from(area, { opacity: 0, duration: 1.2, ease: "power2.out" }, 0.8);
-      }
-
       const amount = card.querySelector("[data-cf-fx-amount]");
       if (amount) {
         const target = Number(amount.dataset.cfFxAmount) || 0;
@@ -56,9 +49,6 @@ function setup(section) {
         const state = { v: target * 0.9 };
         tl.to(state, { v: target, duration: 1.6, ease: "power3.out", onUpdate: () => (amount.textContent = euro.format(Math.round(state.v))) }, 0.4);
       }
-
-      const fees = card.querySelectorAll("[data-cf-fx-fee]");
-      if (fees.length) tl.from(fees, { autoAlpha: 0, y: -40, duration: 0.9, stagger: 0.08, ease: "back.out(1.4)" }, 0.2);
 
       ScrollTrigger.create({ trigger: card, start: "top 80%", once: true, onEnter: () => tl.play() });
     });
