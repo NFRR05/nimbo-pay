@@ -53,14 +53,11 @@
 
 .cf-pd__eyebrow {
   color: var(--pd-text);
-  font-family: var(--pd-mono);
-  font-size: max(12px, calc(16 * var(--pd-u)));
+  font-size: max(12px, calc(13 * var(--pd-u)));
+  font-weight: 600;
+  letter-spacing: 0.06em;
   line-height: 1.5;
-  white-space: nowrap;
-}
-
-.cf-pd__slashes {
-  color: #8a8a87;
+  text-transform: uppercase;
 }
 
 .cf-pd__title {
@@ -117,20 +114,12 @@
   gap: calc(10 * var(--pd-u));
   margin-top: calc(36 * var(--pd-u));
   color: var(--pd-text);
-  font-family: var(--pd-mono);
-  font-size: max(12px, calc(15 * var(--pd-u)));
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  font-size: max(12px, calc(13 * var(--pd-u)));
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   line-height: 1;
   text-transform: uppercase;
-}
-
-.cf-pd__chip::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--pd-ink);
 }
 
 .cf-pd__step-title {

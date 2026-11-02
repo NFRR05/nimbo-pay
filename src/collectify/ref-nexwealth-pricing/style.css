@@ -286,22 +286,6 @@
   text-transform: uppercase;
 }
 
-/* Token sits on the top edge of the black card */
-.cf-nx__nimbi {
-  position: absolute;
-  top: calc(-58 * var(--nx-s));
-  right: calc(26 * var(--nx-s));
-  width: calc(84 * var(--nx-s));
-  height: calc(90 * var(--nx-s));
-  filter: drop-shadow(0 calc(10 * var(--nx-s)) calc(14 * var(--nx-s)) rgb(0 0 0 / 0.18));
-}
-
-.cf-nx__nimbi svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
 
 .cf-nx__price {
   display: flex;
@@ -520,13 +504,6 @@
   .cf-nx__card--pro {
     background: linear-gradient(165deg, #262626 0%, #111111 45%, #050505 100%);
     box-shadow: 0 20px 50px rgb(0 0 0 / 0.22);
-  }
-
-  .cf-nx__nimbi {
-    top: -50px;
-    right: 18px;
-    width: 64px;
-    height: 68px;
   }
 
   .cf-nx__flag {

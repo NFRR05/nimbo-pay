@@ -1,63 +1,22 @@
 ---
 // Hero: layout and motion of Collectify «ref-pelmatech-hero» (src/collectify/ref-pelmatech-hero),
-// redrawn with the Nimbo identity. The blurred figure behind the ribbed glass becomes the five colour marks:
-// they are the only colour on the page, and the one that matches the active point comes into focus.
-import { markSvg, MARKS } from "../lib/brand.js";
+// redrawn with the Nimbo identity: black ribbed glass with a soft light behind it, Outfit title,
+// white button, the five points along the bottom. No panel and no figure behind the glass.
 import { iconSvg } from "../lib/icons.js";
 import copy from "../copy/hero.js";
 
 const { lang = "it" } = Astro.props;
 const h = copy[lang];
 const icons = ["clock", "euro", "shield", "check", "code"];
-const upRight = `<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M7 17 17 7M8 7h9v9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
+const arrow = `<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4.5 12h15M13.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
 ---
 
 <section class="cf-pm" data-cf-pm data-theme="dark" aria-labelledby="hero-title">
   <div class="cf-pm__bg" aria-hidden="true">
-    <div class="cf-pm__bg-img" data-cf-pm-bg>
-      {MARKS.map((c, i) => (
-        <div class={`cf-pm__nimbi cf-pm__nimbi--${i + 1}`} data-cf-pm-nimbi set:html={markSvg(c, { size: 400 })} />
-      ))}
-    </div>
+    <div class="cf-pm__bg-img" data-cf-pm-bg></div>
   </div>
 
   <div class="cf-pm__inner">
-    <aside class="cf-pm__panel" aria-label={h.panelLabel}>
-      <div class="cf-pm__panel-in" data-cf-pm-in="panel">
-        <span class="cf-pm__handle" aria-hidden="true"></span>
-        <p class="cf-pm__address">
-          <Fragment set:html={iconSvg("bank", { size: 14 })} />
-          {h.account}
-        </p>
-
-        <ul class="cf-pm__slots">
-          {h.slots.map((s) => (
-            <li class="cf-pm__slot" data-cf-pm-in="slot">
-              <div class="cf-pm__slot-head">
-                <h2 class="cf-pm__day">{s.name}</h2>
-                <span class="cf-pm__level">{s.kind}</span>
-              </div>
-              <dl class="cf-pm__times">
-                <div class="cf-pm__time">
-                  <dt>{s.from[0]}</dt>
-                  <dd>{s.from[1]}</dd>
-                </div>
-                <div class="cf-pm__dur">
-                  <dt class="cf-pm__sr">{h.tookLabel}</dt>
-                  <dd>{s.took}</dd>
-                </div>
-                <div class="cf-pm__time cf-pm__time--end">
-                  <dt>{s.to[0]}</dt>
-                  <dd>{s.to[1]}</dd>
-                </div>
-              </dl>
-              <span class="cf-pm__ruler" aria-hidden="true"></span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </aside>
-
     <div class="cf-pm__body">
       <h1 class="cf-pm__title" id="hero-title">
         {h.title.map((line) => (
@@ -71,8 +30,8 @@ const upRight = `<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="tr
         <p class="cf-pm__lede" data-cf-pm-in="copy">{h.lede}</p>
 
         <div class="cf-pm__actions" data-cf-pm-in="copy">
-          <a class="cf-pm__btn" href="#prezzi">{h.primary}<Fragment set:html={upRight} /></a>
-          <a class="cf-pm__link" href="#come">{h.secondary}<Fragment set:html={upRight} /></a>
+          <a class="cf-pm__btn" href="#prezzi">{h.primary}<Fragment set:html={arrow} /></a>
+          <a class="cf-pm__link" href="#come">{h.secondary}<Fragment set:html={arrow} /></a>
         </div>
       </div>
     </div>

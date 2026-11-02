@@ -160,7 +160,7 @@
 /* ---------- Titolo ---------- */
 
 .cf-so__title {
-  margin-top: calc(110 * var(--so-s));
+  margin-top: calc(24 * var(--so-s));
   font-family: var(--so-display);
   font-size: calc(64 * var(--so-s));
   font-weight: 600;
@@ -370,7 +370,7 @@
   }
 
   .cf-so__title {
-    margin-top: clamp(64px, 12vw, 112px);
+    margin-top: 0;
     font-size: clamp(2.4rem, 7.4vw, 3.75rem);
   }
 

@@ -9,7 +9,6 @@ import copy from "../copy/products.js";
 const { lang = "it" } = Astro.props;
 const c = copy[lang] || copy.it;
 const [pay, treasury, compliance, analytics, api] = c.cards;
-const fmtMin = (m) => `${Math.floor(m / 60)}H ${m % 60}M`;
 const check = `<svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6.6 10.2 2.3 2.3 4.5-4.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
 const sticker = (card) => markSvg(card.mark, { size: 92 });
 ---
@@ -29,7 +28,7 @@ const sticker = (card) => markSvg(card.mark, { size: 92 });
         <p class="cf-tv__label">
           <span class="cf-tv__num">{String(i + 1).padStart(2, "0")}</span>
           <span class="cf-tv__sep">·</span>
-          {card.tag}
+          {card.tag.split(" — ")[0]}
         </p>
         <div class="cf-tv__copy" data-cf-tv-copy>
           <h3 class="cf-tv__title">{card.title[0]} <br />{card.title[1]}</h3>
@@ -58,11 +57,6 @@ const sticker = (card) => markSvg(card.mark, { size: 92 });
                 <li class="is-done is-current" data-cf-tv-part="step">{pay.ui.steps[1]}</li>
                 <li data-cf-tv-part="step">{pay.ui.steps[2]}</li>
               </ul>
-              <div class="cf-tv__prompt" data-cf-tv-part="float">
-                <span class="cf-tv__prompt-label">{pay.ui.promptLabel}</span>
-                <span class="cf-tv__prompt-text" data-cf-tv-type>{pay.ui.prompt}</span>
-              </div>
-              <span class="cf-tv__toast" data-cf-tv-part="toast">{pay.ui.toast}</span>
             </div>
           )}
 
@@ -98,10 +92,6 @@ const sticker = (card) => markSvg(card.mark, { size: 92 });
 
           {card.id === "compliance" && (
             <div class="cf-tv__assist">
-              <span class="cf-tv__badge" data-cf-tv-part="drop">{compliance.ui.badge}</span>
-              <ul class="cf-tv__context" role="list">
-                {compliance.ui.context.map((x) => <li data-cf-tv-part="ctx">{x}</li>)}
-              </ul>
               <div class="cf-tv__chat" data-cf-tv-part="rise">
                 <p class="cf-tv__msg cf-tv__msg--me" data-cf-tv-part="me">{compliance.ui.me}</p>
                 <div class="cf-tv__reply" data-cf-tv-part="reply">
@@ -113,17 +103,12 @@ const sticker = (card) => markSvg(card.mark, { size: 92 });
                   <span class="cf-tv__place-body"><b>{compliance.ui.doc}</b><small>{compliance.ui.docMeta}</small></span>
                   <span class="cf-tv__book">{compliance.ui.action}</span>
                 </div>
-                <p class="cf-tv__typing"><span><i data-cf-tv-part="dot"></i><i data-cf-tv-part="dot"></i><i data-cf-tv-part="dot"></i></span>{compliance.ui.typing}</p>
               </div>
             </div>
           )}
 
           {card.id === "analytics" && (
             <div class="cf-tv__wallet">
-              <p class="cf-tv__status">
-                <span class="cf-tv__pill cf-tv__pill--dark" data-cf-tv-part="drop"><span>{analytics.ui.next} <span data-cf-tv-countdown={analytics.ui.minutes}>{fmtMin(analytics.ui.minutes)}</span></span></span>
-                <span class="cf-tv__pill" data-cf-tv-part="drop">{analytics.ui.total}</span>
-              </p>
               <ul class="cf-tv__passes" role="list" data-cf-tv-part="rise">
                 {analytics.ui.rows.map((r, j) => (
                   <li class={j === 0 ? "is-next" : undefined} data-cf-tv-part="row">
@@ -155,10 +140,6 @@ const sticker = (card) => markSvg(card.mark, { size: 92 });
                 <pre class="cf-tv__code cf-tv__code--resp" data-cf-tv-part="result"><code><span class="cf-tv__dim">"status":</span> "settled",
 <span class="cf-tv__dim">"co2_grams":</span> 0.4</code></pre>
               </div>
-              <p class="cf-tv__sdk">
-                {api.ui.sdk.map((s) => <span data-cf-tv-part="ctx">{s}</span>)}
-              </p>
-              <span class="cf-tv__toast cf-tv__toast--api" data-cf-tv-part="toast">{api.ui.toast}</span>
             </div>
           )}
         </div>

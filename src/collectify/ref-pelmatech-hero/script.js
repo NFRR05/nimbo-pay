@@ -1,8 +1,8 @@
 import gsap from "gsap";
 
 /**
- * Hero from Collectify «ref-pelmatech-hero», restyled for Nimbo: no bar or panel toggle (the site navbar
- * takes their place), and each point brings its mark into focus behind the ribbed glass.
+ * Hero from Collectify «ref-pelmatech-hero», restyled for Nimbo: no bar, no schedule panel (the site navbar
+ * takes the bar's place); the line still moves from one point to the next.
  * Original notes — Hero «Pelmatech».
  * - Ingresso: fondo che si mette a fuoco, barra, titolo riga per riga, testo e bottoni con blur,
  *   scheda degli orari da destra con le card una dopo l'altra, punti in basso.
@@ -41,9 +41,6 @@ function setupMotion(section) {
   const fill = progress?.firstElementChild;
   const items = [...section.querySelectorAll("[data-cf-pm-feature]")];
   const bg = section.querySelector("[data-cf-pm-bg]");
-  const nimbi = [...section.querySelectorAll("[data-cf-pm-nimbi]")];
-  const focus = (i) => nimbi.forEach((n, k) => n.toggleAttribute("data-on", k === i));
-  focus(0);
   const mm = gsap.matchMedia();
 
   // Linea sopra il punto attivo, anche senza animazioni (si riallinea quando cambia la larghezza)
@@ -84,7 +81,6 @@ function setupMotion(section) {
         items[active]?.classList.remove("is-active");
         active = i;
         items[active].classList.add("is-active");
-        focus(active);
         place();
         cycle = gsap.fromTo(fill, { scaleX: 0 }, { scaleX: 1, duration: 4.2, ease: "none", onComplete: () => go((active + 1) % items.length) });
         if (!visible) cycle.pause();
@@ -105,7 +101,6 @@ function setupMotion(section) {
       drift?.kill();
       items.forEach((el, i) => el.classList.toggle("is-active", i === 0));
       active = 0;
-      focus(0);
       if (fill) gsap.set(fill, { clearProps: "transform" });
       place();
     };

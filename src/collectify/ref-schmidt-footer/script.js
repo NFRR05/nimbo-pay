@@ -5,7 +5,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Footer from Collectify «ref-schmidt-footer», restyled for Nimbo: same intro and drifting glow,
- * plus the colour marks popping up from behind the wordmark one after the other.
  * Original notes — Footer «Schmidt».
  * - Ingresso quando il footer entra nella pagina: l'alone si accende, menu e contatti salgono con blur,
  *   il nome emerge dal basso mettendosi a fuoco.
@@ -47,8 +46,7 @@ function setup(footer) {
       .from(pick("item"), { autoAlpha: 0, y: 18, filter: "blur(8px)", duration: 1.1, stagger: 0.07, clearProps: "filter" }, 0.15)
       .from(pick("icon"), { autoAlpha: 0, y: 12, duration: 0.9, stagger: 0.06 }, 0.25)
       .from(pick("line"), { autoAlpha: 0, y: 14, filter: "blur(6px)", duration: 1, stagger: 0.07, clearProps: "filter" }, 0.35)
-      .from(pick("word"), { autoAlpha: 0, yPercent: 22, filter: "blur(28px)", duration: 1.8, clearProps: "filter" }, 0.3)
-      .from(footer.querySelectorAll("[data-cf-sc-nimbi] svg"), { yPercent: 90, duration: 0.9, stagger: 0.08, ease: "back.out(1.8)" }, 1.1);
+      .from(pick("word"), { autoAlpha: 0, yPercent: 22, filter: "blur(28px)", duration: 1.8, clearProps: "filter" }, 0.3);
 
     const enter = ScrollTrigger.create({
       trigger: footer,
