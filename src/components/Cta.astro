@@ -1,49 +1,63 @@
 ---
-// Final call to action: layout and motion of Collectify «ref-refit-contact» (src/collectify/ref-refit-contact),
-// with the Nimbo identity: black box with the heading, three facts and a white form beside it.
-// No badge and no social icons. The form sends nothing: on submit it says that Nimbo is a demo.
+// Final call to action: layout and motion of Collectify «ref-dark-cta» (src/collectify/ref-dark-cta),
+// in black and white. The review card becomes the first sandbox payment, and the five coloured marks
+// (one per product) stand in the glow at the bottom of the card.
 import copy from "../copy/cta.js";
+import { markSvg, MARKS } from "../lib/brand.js";
 
 const { lang = "it" } = Astro.props;
 const c = copy[lang] || copy.it;
-const f = c.fields;
 const arrow = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.5 12h15M13.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
-const req = `<span class="cf-rf-form__req" aria-hidden="true">*</span>`;
 ---
 
-<section class="cf-rf cf-rf-contact" id="finale" data-cf-rf="contact" data-theme="light" aria-labelledby="final-title">
-  <div class="cf-rf-contact__box" data-theme="dark">
-    <div class="cf-rf-wrap cf-rf-contact__grid">
-      <div class="cf-rf-contact__info" data-cf-rf-reveal>
-        <h2 class="nb-h2 cf-rf-h2" id="final-title">{c.title}</h2>
-        <p class="cf-rf-lede">{c.lede}</p>
-        <dl class="cf-rf-contact__lines">
-          {c.facts.map(([term, text]) => (
-            <div><dt>{term}</dt><dd>{text}</dd></div>
-          ))}
-        </dl>
+<section class="cf-dk" id="finale" data-cf-dk data-theme="dark" aria-labelledby="final-title">
+  <div class="cf-dk__stack">
+    <span class="cf-dk__ghost cf-dk__ghost--back" aria-hidden="true" data-cf-dk-ghost></span>
+    <span class="cf-dk__ghost cf-dk__ghost--mid" aria-hidden="true" data-cf-dk-ghost></span>
+
+    <div class="cf-dk__card" data-cf-dk-card>
+      <div class="cf-dk__fx" aria-hidden="true">
+        <canvas class="cf-dk__dots" data-cf-dk-dots></canvas>
+        <span class="cf-dk__glow" data-cf-dk-glow></span>
       </div>
 
-      <form class="cf-rf-form" method="dialog" aria-label={c.formLabel} data-cf-rf-reveal data-cf-rf-form data-cf-rf-sent={c.sent}>
-        <label class="cf-rf-form__field">
-          <span class="cf-rf-form__label">{f.name.label}<Fragment set:html={req} /></span>
-          <span class="cf-rf-form__box"><input type="text" name="name" placeholder={f.name.placeholder} autocomplete="name" required /></span>
-        </label>
-        <label class="cf-rf-form__field">
-          <span class="cf-rf-form__label">{f.email.label}<Fragment set:html={req} /></span>
-          <span class="cf-rf-form__box"><input type="email" name="email" placeholder={f.email.placeholder} autocomplete="email" required /></span>
-        </label>
-        <label class="cf-rf-form__field">
-          <span class="cf-rf-form__label">{f.company.label}</span>
-          <span class="cf-rf-form__box"><input type="text" name="company" placeholder={f.company.placeholder} autocomplete="organization" /></span>
-        </label>
-        <label class="cf-rf-form__field">
-          <span class="cf-rf-form__label">{f.message.label}<Fragment set:html={req} /></span>
-          <span class="cf-rf-form__box cf-rf-form__box--area"><textarea name="message" placeholder={f.message.placeholder} required></textarea></span>
-        </label>
-        <button class="cf-rf-form__submit" type="submit">{c.submit}<Fragment set:html={arrow} /></button>
-        <p class="cf-rf-form__status" role="status" data-cf-rf-status></p>
-      </form>
+      <div class="cf-dk__copy">
+        <h2 class="cf-dk__title" id="final-title">
+          {c.lines.map((line) => (
+            <>
+              <span class="cf-dk__line" data-cf-dk-in="line">{line}</span>{" "}
+            </>
+          ))}
+        </h2>
+        <p class="cf-dk__lede" data-cf-dk-in="copy">{c.text}</p>
+        <div class="cf-dk__actions" data-cf-dk-in="copy">
+          <button class="cf-dk__btn cf-dk__btn--ghost" type="button" data-cf-dk-demo>{c.secondary}</button>
+          <button class="cf-dk__btn cf-dk__btn--light" type="button" data-cf-dk-demo>{c.primary}<Fragment set:html={arrow} /></button>
+        </div>
+        <p class="cf-dk__status" role="status" data-cf-dk-status={c.status}></p>
+      </div>
+
+      <figure class="cf-dk__quote" data-cf-dk-in="quote">
+        <figcaption class="cf-dk__code-head">
+          <span>{c.codeTitle}</span>
+          <span class="cf-dk__code-tag">{c.codeTag}</span>
+        </figcaption>
+        <pre class="cf-dk__code"><code><span class="cf-dk__k">POST</span> /v1/payments
+{"{"}
+  <span class="cf-dk__dim">"amount":</span> 125000,
+  <span class="cf-dk__dim">"currency":</span> "EUR",
+  <span class="cf-dk__dim">"to":</span> "IT60 X054 2811 1010 0000 0123 456"
+{"}"}</code></pre>
+        <p class="cf-dk__result" data-cf-dk-star>
+          <span class="cf-dk__ok" aria-hidden="true"></span>{c.codeResult}
+        </p>
+        <pre class="cf-dk__code cf-dk__code--resp" data-cf-dk-star><code><span class="cf-dk__dim">"status":</span> "settled",
+<span class="cf-dk__dim">"co2_grams":</span> 0.4</code></pre>
+      </figure>
+
+      <div class="cf-dk__lineup" role="img" aria-label={c.lineupLabel} data-cf-dk-lineup>
+        {MARKS.map((m) => <Fragment set:html={markSvg(m, { size: 84 })} />)}
+      </div>
     </div>
   </div>
 </section>

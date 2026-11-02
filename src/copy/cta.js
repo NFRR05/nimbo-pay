@@ -1,42 +1,25 @@
-// Final call to action (layout from Collectify «ref-refit-contact»): heading, three facts and a form.
-// The form is a demo: it sends nothing and says so.
+// Final call to action (layout from Collectify «ref-dark-cta»).
 export default {
   it: {
-    title: "Sposta il primo euro oggi.",
-    lede: "Scrivici due righe: ti mandiamo l'accesso alla sandbox o fissiamo una chiamata con i nostri tecnici.",
-    facts: [
-      ["Sandbox", "Gratuita, pronta in due minuti"],
-      ["Risposta", "Entro un giorno lavorativo"],
-      ["Dati", "Restano nell'Unione Europea"],
-    ],
-    formLabel: "Richiesta di contatto",
-    fields: {
-      name: { label: "Nome", placeholder: "Giulia Verdi" },
-      email: { label: "Email di lavoro", placeholder: "nome@azienda.it" },
-      company: { label: "Azienda", placeholder: "Verdi S.p.A." },
-      message: { label: "Messaggio", placeholder: "Vorremmo provare i bonifici istantanei per…" },
-    },
-    required: "obbligatorio",
-    submit: "Invia la richiesta",
-    sent: "Grazie! Nimbo è un progetto dimostrativo: il messaggio non è stato inviato.",
+    lines: ["Sposta il primo euro", "oggi."],
+    text: "Apri una sandbox gratuita: ti servono un'email di lavoro e due minuti. Se sei una banca, parliamo prima.",
+    primary: "Apri una sandbox",
+    secondary: "Parla con noi",
+    status: "Nimbo è un progetto dimostrativo: la sandbox e i contatti non sono attivi.",
+    codeTitle: "Il tuo primo pagamento",
+    codeTag: "Sandbox",
+    codeResult: "201 Created · arrivato in 4 s",
+    lineupLabel: "I cinque prodotti di Nimbo: pagamenti, tesoreria, conformità, analisi e API",
   },
   en: {
-    title: "Move your first euro today.",
-    lede: "Drop us a line: we'll send you sandbox access or set up a call with our technical team.",
-    facts: [
-      ["Sandbox", "Free, ready in two minutes"],
-      ["Reply", "Within one working day"],
-      ["Data", "Stays in the European Union"],
-    ],
-    formLabel: "Contact request",
-    fields: {
-      name: { label: "Name", placeholder: "Emma Clarke" },
-      email: { label: "Work email", placeholder: "name@company.com" },
-      company: { label: "Company", placeholder: "Clarke Ltd" },
-      message: { label: "Message", placeholder: "We'd like to try instant transfers for…" },
-    },
-    required: "required",
-    submit: "Send request",
-    sent: "Thanks! Nimbo is a demo project, so your message wasn't sent.",
+    lines: ["Move your first euro", "today."],
+    text: "Open a free sandbox: all you need is a work email and two minutes. If you're a bank, let's talk first.",
+    primary: "Open a sandbox",
+    secondary: "Talk to us",
+    status: "Nimbo is a demo project: the sandbox and contact details are not live.",
+    codeTitle: "Your first payment",
+    codeTag: "Sandbox",
+    codeResult: "201 Created · landed in 4 s",
+    lineupLabel: "Nimbo's five products: payments, treasury, compliance, analytics and API",
   },
 };
