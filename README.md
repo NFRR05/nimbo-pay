@@ -3,14 +3,17 @@
 Landing page (IT su `/`, EN su `/en/`) per **Nimbo**, concept di brand per un'infrastruttura di pagamento B2B.
 Online su https://nimbo-pay.vercel.app.
 
-- Astro 7 + GSAP + Lenis, tutto statico.
-- Layout e animazioni vengono dai componenti "da reference" di Collectify (`src/collectify/<slug>`):
-  hero `ref-pelmatech-hero`, prodotti `ref-travelora-features`, numeri `ref-stepout-stats`,
-  come funziona `ref-prime-steps`, prezzi `ref-nexwealth-pricing`, FAQ `ref-rumo-faq`,
-  CTA `ref-widgets-cta`, footer `ref-schmidt-footer`, più `smart-navbar` e `smooth-scroll`.
+- Astro 7 + GSAP, tutto statico.
 - Colori, font (Outfit, Inter, Geist Mono) e forme vengono dal design system Nimbo (`src/styles/nimbo.css`):
-  interfaccia in bianco e nero, il colore è solo sui Nimbi (`src/lib/brand.js`), che sbattono le palpebre
-  e seguono il puntatore (`src/lib/nimbi-life.js`).
+  interfaccia in bianco e nero, bordi sottili invece delle ombre, raggi 12/20/28, una sola testata di sezione
+  (`.nb-head`) e un solo bottone (`.nb-btn`).
+- Il colore è solo sui cinque marchi colorati (`src/lib/brand.js`), uno per prodotto, accanto al nome del prodotto.
+  Ogni tanto sbattono le palpebre (`src/lib/mark-life.js`); con movimento ridotto non si muove niente.
+- Sezioni:
+  - hero con la console della sandbox, sicurezza e invito finale: componenti Nimbo (`src/styles/sections.css`);
+  - prodotti, prezzi, domande e footer: layout dei componenti "da reference" di Collectify (`src/collectify/<slug>`),
+    ridotti all'essenziale: `ref-travelora-features` (le card che si impilano, l'unico effetto allo scroll),
+    `ref-nexwealth-pricing`, `ref-rumo-faq`, `ref-schmidt-footer`, più `smart-navbar` e `fluid-tokens`.
 - Testi: `src/i18n.js` (meta e navbar) e `src/copy/<sezione>.js` (IT ed EN per ogni sezione).
 
 ```sh

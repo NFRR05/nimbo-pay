@@ -1,7 +1,7 @@
 ---
-// Pricing: layout and motion of Collectify «ref-nexwealth-pricing» (src/collectify/ref-nexwealth-pricing),
-// redrawn with the Nimbo identity. The Monthly/Annual switch becomes a volume switch: the Scale card counts
-// to the monthly estimate for the chosen volume. The dark Pro card becomes the black Scale card.
+// Pricing: layout of Collectify «ref-nexwealth-pricing» (src/collectify/ref-nexwealth-pricing), reduced for Nimbo.
+// Three plans side by side, the usage plan in black; a volume switch (transactions a month) updates the
+// Scale estimate straight away: 0,05 € per transaction above the free 10.000.
 import copy from "../copy/pricing.js";
 
 const { t, lang = "it" } = Astro.props;
@@ -10,25 +10,21 @@ const locale = t?.locale || (lang === "en" ? "en-IE" : "it-IT");
 const euro = new Intl.NumberFormat(locale, { style: "currency", currency: "EUR", maximumFractionDigits: 0, useGrouping: "always" });
 const num = new Intl.NumberFormat(locale);
 const estimate = (n) => Math.max(0, n - 10000) * 0.05;
-const arrow = `<svg class="cf-nx__arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
-const check = `<span class="cf-nx__check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m7.5 12.4 3 3 6-6.4" /></svg></span>`;
+const arrow = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.5 12h15M13.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
+const check = `<svg class="cf-nx__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
 ---
 
-<section class="cf-nx" id="prezzi" data-cf-nx data-cf-nx-locale={locale} aria-labelledby="cf-nx-title">
-  <div class="cf-nx__panel">
+<section class="cf-nx" id="prezzi" data-cf-nx data-cf-nx-locale={locale} data-theme="light" aria-labelledby="cf-nx-title">
+  <div class="nb-wrap">
     <div class="cf-nx__head">
-      <h2 class="cf-nx__title" id="cf-nx-title">
-        {c.lines.map((line) => (
-          <>
-            <span class="cf-nx__line" data-cf-nx-in="line">{line}</span>{" "}
-          </>
-        ))}
-      </h2>
+      <header class="nb-head">
+        <h2 class="nb-h2" id="cf-nx-title">{c.title}</h2>
+        <p class="nb-lede">{c.lede}</p>
+      </header>
 
-      <div class="cf-nx__volume" data-cf-nx-in="period">
+      <div class="cf-nx__volume">
         <span class="cf-nx__volume-label" id="cf-nx-volume-label">{c.volumeLabel}</span>
         <div class="cf-nx__period" role="group" aria-labelledby="cf-nx-volume-label">
-          <span class="cf-nx__period-pill" aria-hidden="true"></span>
           {c.volumes.map((v) => (
             <button class="cf-nx__period-btn" type="button" aria-pressed={v === c.defaultVolume ? "true" : "false"} data-cf-nx-volume={v}>{num.format(v)}</button>
           ))}
@@ -38,25 +34,27 @@ const check = `<span class="cf-nx__check" aria-hidden="true"><svg viewBox="0 0 2
 
     <div class="cf-nx__plans" role="group" aria-label={c.plansLabel} tabindex="0">
       {c.plans.map((p) => (
-        <article class={p.kind === "usage" ? "cf-nx__card cf-nx__card--pro" : "cf-nx__card"} aria-labelledby={`cf-nx-${p.id}`} data-cf-nx-in="card">
+        <article class={p.kind === "usage" ? "cf-nx__card cf-nx__card--pro" : "cf-nx__card"} data-theme={p.kind === "usage" ? "dark" : undefined} aria-labelledby={`cf-nx-${p.id}`}>
           <div class="cf-nx__top">
             <h3 class="cf-nx__name" id={`cf-nx-${p.id}`}>{p.name}</h3>
             {p.flag && <p class="cf-nx__flag">{p.flag}</p>}
           </div>
-          {p.kind === "fixed" && (
-            <p class="cf-nx__price"><span>{euro.format(p.price)}</span> <small>{p.per}</small></p>
-          )}
-          {p.kind === "usage" && (
-            <>
-              <p class="cf-nx__price"><span data-cf-nx-price>{euro.format(estimate(c.defaultVolume))}</span> <small>{p.per}</small></p>
-              <p class="cf-nx__est" aria-live="polite" data-cf-nx-est={p.estimate}>{p.estimate.replace("{n}", num.format(c.defaultVolume))}</p>
-            </>
-          )}
-          {p.kind === "custom" && <p class="cf-nx__price cf-nx__price--text">{p.priceText}</p>}
+          <div class="cf-nx__amount">
+            {p.kind === "fixed" && (
+              <p class="cf-nx__price"><span>{euro.format(p.price)}</span> <small>{p.per}</small></p>
+            )}
+            {p.kind === "usage" && (
+              <>
+                <p class="cf-nx__price"><span data-cf-nx-price>{euro.format(estimate(c.defaultVolume))}</span> <small>{p.per}</small></p>
+                <p class="cf-nx__est" aria-live="polite" data-cf-nx-est={p.estimate}>{p.estimate.replace("{n}", num.format(c.defaultVolume))}</p>
+              </>
+            )}
+            {p.kind === "custom" && <p class="cf-nx__price">{p.priceText}</p>}
+          </div>
           <p class="cf-nx__desc">{p.desc}</p>
-          <a class="cf-nx__cta" href="#finale">{p.cta}<Fragment set:html={arrow} /></a>
+          <a class="nb-btn nb-btn--block cf-nx__cta" href="#finale">{p.cta}<Fragment set:html={arrow} /></a>
           <h4 class="cf-nx__inc">{c.included}</h4>
-          <ul class="cf-nx__list">
+          <ul class="cf-nx__list" role="list">
             {p.features.map((f) => (
               <li><Fragment set:html={check} />{f}</li>
             ))}
@@ -65,6 +63,6 @@ const check = `<span class="cf-nx__check" aria-hidden="true"><svg viewBox="0 0 2
       ))}
     </div>
 
-    <p class="cf-nx__note" data-cf-nx-in="period">{c.note}</p>
+    <p class="cf-nx__note">{c.note}</p>
   </div>
 </section>

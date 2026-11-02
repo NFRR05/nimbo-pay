@@ -1,145 +1,38 @@
 ---
-// Products: layout and motion of Collectify «ref-travelora-features» (src/collectify/ref-travelora-features):
-// cards that stack on scroll over a dark field with a lit sphere, text on the left, a live mini interface
-// on the right. Redrawn with the Nimbo identity: black and white UI, Outfit titles, one card per product,
-// and each product's mark as the only colour.
+// Products: the stacking cards of Collectify «ref-travelora-features» (src/collectify/ref-travelora-features).
+// One white card per product over the dark section; each card shows the product's colour mark beside its
+// name, a title, one sentence and three specs. The marks are the only colour on the page.
 import { markSvg } from "../lib/brand.js";
 import copy from "../copy/products.js";
 
 const { lang = "it" } = Astro.props;
 const c = copy[lang] || copy.it;
-const [pay, treasury, compliance, analytics, api] = c.cards;
-const check = `<svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6.6 10.2 2.3 2.3 4.5-4.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
-const sticker = (card) => markSvg(card.mark, { size: 92 });
 ---
 
 <section class="cf-tv" id="prodotti" data-cf-tv data-theme="dark" aria-labelledby="products-title">
-  <div class="cf-tv__bg" aria-hidden="true"></div>
-
-  <header class="cf-tv__head">
-    <h2 class="cf-tv__h2" id="products-title" data-cf-tv-head>{c.title}</h2>
-    <p class="cf-tv__intro" data-cf-tv-head>{c.lede}</p>
-  </header>
+  <div class="nb-wrap">
+    <header class="nb-head cf-tv__head">
+      <h2 class="nb-h2" id="products-title">{c.title}</h2>
+      <p class="nb-lede">{c.lede}</p>
+    </header>
+  </div>
 
   <ol class="cf-tv__stack" role="list" aria-label={c.listLabel} tabindex="0">
     {c.cards.map((card, i) => (
       <li class="cf-tv__card" style={`--i: ${i}`} data-cf-tv-card={card.id}>
-        <p class="cf-tv__label">
-          {card.tag.split(" — ")[0]}
-        </p>
-        <div class="cf-tv__copy" data-cf-tv-copy>
-          <h3 class="cf-tv__title">{card.title[0]} <br />{card.title[1]}</h3>
-          <p class="cf-tv__lede">{card.lede}</p>
-          <ul class="cf-tv__points" role="list">
-            {card.points.map((p) => (
-              <li><Fragment set:html={check} />{p}</li>
-            ))}
-          </ul>
+        <p class="cf-tv__area"><Fragment set:html={markSvg(card.mark, { size: 24 })} />{card.area}</p>
+        <div class="cf-tv__copy">
+          <h3 class="cf-tv__title">{card.title}</h3>
+          <p class="cf-tv__text">{card.text}</p>
         </div>
-
-        <div class="cf-tv__panel" aria-hidden="true">
-          <span class="cf-tv__nimbi" data-cf-tv-part="nimbi" set:html={sticker(card)} />
-
-          {card.id === "pay" && (
-            <div class="cf-tv__phone" data-cf-tv-part="rise">
-              <div class="cf-tv__orb">
-                <span class="cf-tv__orbit" data-cf-tv-part="orbit"><i></i></span>
-                <span class="cf-tv__orbit cf-tv__orbit--inner"></span>
-                <span class="cf-tv__core" data-cf-tv-part="core"><i></i><i></i></span>
-              </div>
-              <p class="cf-tv__phone-title">{pay.ui.title}</p>
-              <p class="cf-tv__phone-text">{pay.ui.text}</p>
-              <ul class="cf-tv__steps" role="list">
-                <li class="is-done" data-cf-tv-part="step">{pay.ui.steps[0]}</li>
-                <li class="is-done is-current" data-cf-tv-part="step">{pay.ui.steps[1]}</li>
-                <li data-cf-tv-part="step">{pay.ui.steps[2]}</li>
-              </ul>
+        <dl class="cf-tv__specs">
+          {card.specs.map(([term, value]) => (
+            <div>
+              <dt>{term}</dt>
+              <dd>{value}</dd>
             </div>
-          )}
-
-          {card.id === "treasury" && (
-            <div class="cf-tv__day" data-cf-tv-part="rise">
-              <p class="cf-tv__day-head"><span>{treasury.ui.day}</span><span>{treasury.ui.count}</span></p>
-              {treasury.ui.slots.map((slot) => (
-                <div class={slot.past ? "cf-tv__slot cf-tv__slot--past" : "cf-tv__slot"}>
-                  <p class="cf-tv__slot-name">{slot.name}</p>
-                  {slot.stops.map((s) => (
-                    <div class={s.now ? "cf-tv__stop cf-tv__stop--now" : "cf-tv__stop"} data-cf-tv-part="stop">
-                      <span class="cf-tv__time">{s.time}</span>
-                      <span class={s.now ? "cf-tv__pin cf-tv__pin--now" : s.next ? "cf-tv__pin cf-tv__pin--next" : "cf-tv__pin"}>
-                        {s.now && <i data-cf-tv-part="ping"></i>}
-                      </span>
-                      <span class="cf-tv__stop-body">
-                        {s.now && <em>{s.now}</em>}
-                        <b>{s.title}</b>
-                        <small>{s.meta}</small>
-                        {s.chip && (
-                          <span class={s.dark ? "cf-tv__chip cf-tv__chip--dark" : "cf-tv__chip"}>
-                            {s.chip}
-                            <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" /></svg>
-                          </span>
-                        )}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          )}
-
-          {card.id === "compliance" && (
-            <div class="cf-tv__assist">
-              <div class="cf-tv__chat" data-cf-tv-part="rise">
-                <p class="cf-tv__msg cf-tv__msg--me" data-cf-tv-part="me">{compliance.ui.me}</p>
-                <div class="cf-tv__reply" data-cf-tv-part="reply">
-                  <span class="cf-tv__ai"></span>
-                  <p class="cf-tv__msg">{compliance.ui.reply}</p>
-                </div>
-                <div class="cf-tv__place" data-cf-tv-part="place">
-                  <span class="cf-tv__doc"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5M9 13h6M9 17h4" /></svg></span>
-                  <span class="cf-tv__place-body"><b>{compliance.ui.doc}</b><small>{compliance.ui.docMeta}</small></span>
-                  <span class="cf-tv__book">{compliance.ui.action}</span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {card.id === "analytics" && (
-            <div class="cf-tv__wallet">
-              <ul class="cf-tv__passes" role="list" data-cf-tv-part="rise">
-                {analytics.ui.rows.map((r, j) => (
-                  <li class={j === 0 ? "is-next" : undefined} data-cf-tv-part="row">
-                    <span class="cf-tv__ico">
-                      {j === 0 && <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" /><path d="M14 3v5h5M9 14l2 2 4-4" /></svg>}
-                      {j === 1 && <svg viewBox="0 0 24 24"><path d="M12 4v13M6.5 11.5 12 17l5.5-5.5M5 20h14" /></svg>}
-                      {j === 2 && <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.7L20 8.6M20 4v4.6h-4.6M20 12a8 8 0 0 1-13.7 5.7L4 15.4M4 20v-4.6h4.6" /></svg>}
-                      {j === 3 && <svg viewBox="0 0 24 24"><path d="M5 20V10M10 20V4M15 20v-7M20 20v-4" /></svg>}
-                    </span>
-                    <span class="cf-tv__pass-body"><b>{r.title}</b><small>{r.meta}</small></span>
-                    {j === 0 ? <span class="cf-tv__today" data-cf-tv-part="today">{analytics.ui.done}</span> : <svg class="cf-tv__chev" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" /></svg>}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {card.id === "api" && (
-            <div class="cf-tv__api">
-              <div class="cf-tv__term" data-cf-tv-part="rise">
-                <p class="cf-tv__term-bar"><span class="cf-tv__term-dots"><i></i><i></i><i></i></span>{api.ui.file}</p>
-                <pre class="cf-tv__code"><code><span class="cf-tv__k">POST</span> <span data-cf-tv-type>/v1/payments</span>
-<span class="cf-tv__line" data-cf-tv-part="line">{"{"}</span>
-<span class="cf-tv__line" data-cf-tv-part="line">  <span class="cf-tv__dim">"amount":</span> 125000,</span>
-<span class="cf-tv__line" data-cf-tv-part="line">  <span class="cf-tv__dim">"currency":</span> "EUR",</span>
-<span class="cf-tv__line" data-cf-tv-part="line">  <span class="cf-tv__dim">"to":</span> "IT60 X054 2811 1010 0000 0123 456"</span>
-<span class="cf-tv__line" data-cf-tv-part="line">{"}"}</span></code></pre>
-                <p class="cf-tv__result" data-cf-tv-part="result"><i data-cf-tv-part="blink"></i>{api.ui.result}</p>
-                <pre class="cf-tv__code cf-tv__code--resp" data-cf-tv-part="result"><code><span class="cf-tv__dim">"status":</span> "settled",
-<span class="cf-tv__dim">"co2_grams":</span> 0.4</code></pre>
-              </div>
-            </div>
-          )}
-        </div>
+          ))}
+        </dl>
       </li>
     ))}
   </ol>

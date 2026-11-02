@@ -1,27 +1,24 @@
 ---
-// Nimbo landing. Layout and motion come from Collectify reference components (src/collectify/<slug>),
-// colours, type and shapes come from the Nimbo design system (src/styles/nimbo.css).
-// Sections: hero Pelmatech · products Travelora · numbers Stepout · pricing Nexwealth ·
-// FAQ Rumo · CTA Widgets · footer Schmidt.
+// Nimbo landing. Colours, type and shapes come from the Nimbo design system (src/styles/nimbo.css).
+// Hero, security and final call to action are Nimbo's own (src/styles/sections.css); products, pricing,
+// FAQ and footer keep the layout of Collectify reference components (src/collectify/<slug>):
+// products Travelora (the stacking cards) · pricing Nexwealth · FAQ Rumo · footer Schmidt.
 import "@fontsource-variable/outfit/wght.css";
 import "@fontsource-variable/inter/wght.css";
 import "@fontsource-variable/geist-mono/wght.css";
 import "../collectify/fluid-tokens/style.css";
-import "../collectify/smooth-scroll/style.css";
 import "../collectify/smart-navbar/style.css";
-import "../collectify/ref-pelmatech-hero/style.css";
 import "../collectify/ref-travelora-features/style.css";
-import "../collectify/ref-stepout-stats/style.css";
 import "../collectify/ref-nexwealth-pricing/style.css";
 import "../collectify/ref-rumo-faq/style.css";
-import "../collectify/ref-widgets-cta/style.css";
 import "../collectify/ref-schmidt-footer/style.css";
 import "../styles/nimbo.css";
+import "../styles/sections.css";
 import { copy } from "../i18n.js";
 import { wordmarkSvg } from "../lib/brand.js";
 import Hero from "./Hero.astro";
 import Products from "./Products.astro";
-import Numbers from "./Numbers.astro";
+import Security from "./Security.astro";
 import Pricing from "./Pricing.astro";
 import Faq from "./Faq.astro";
 import Cta from "./Cta.astro";
@@ -34,7 +31,7 @@ const site = "https://nimbo-pay.vercel.app";
 ---
 
 <!doctype html>
-<html lang={lang} data-cf-scroll-offset="88">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -59,6 +56,7 @@ const site = "https://nimbo-pay.vercel.app";
         <a class="cf-nav__brand" href={t.path} set:html={wordmarkSvg({ height: 26, label: "Nimbo" })} />
         <nav class="cf-nav__links" id="cf-nav-links" aria-label={t.nav.label}>
           <a href="#prodotti">{t.nav.products}</a>
+          <a href="#sicurezza">{t.nav.security}</a>
           <a href="#prezzi">{t.nav.pricing}</a>
           <a href="#domande">{t.nav.faq}</a>
         </nav>
@@ -73,7 +71,7 @@ const site = "https://nimbo-pay.vercel.app";
     <main id="main">
       <Hero t={t} lang={lang} />
       <Products t={t} lang={lang} />
-      <Numbers t={t} lang={lang} />
+      <Security t={t} lang={lang} />
       <Pricing t={t} lang={lang} />
       <Faq t={t} lang={lang} />
       <Cta t={t} lang={lang} />
@@ -82,26 +80,16 @@ const site = "https://nimbo-pay.vercel.app";
     <Footer t={t} lang={lang} />
 
     <script>
-      import initSmoothScroll from "../collectify/smooth-scroll/script.js";
       import initSmartNav from "../collectify/smart-navbar/script.js";
-      import initHero from "../collectify/ref-pelmatech-hero/script.js";
       import initProducts from "../collectify/ref-travelora-features/script.js";
-      import initNumbers from "../collectify/ref-stepout-stats/script.js";
       import initPricing from "../collectify/ref-nexwealth-pricing/script.js";
       import initFaq from "../collectify/ref-rumo-faq/script.js";
-      import initCta from "../collectify/ref-widgets-cta/script.js";
-      import initFooter from "../collectify/ref-schmidt-footer/script.js";
       import initMarkLife from "../lib/mark-life.js";
 
-      initSmoothScroll();
       initSmartNav();
-      initHero();
       initProducts();
-      initNumbers();
       initPricing();
       initFaq();
-      initCta();
-      initFooter();
       initMarkLife();
     </script>
   </body>

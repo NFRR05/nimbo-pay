@@ -1,31 +1,25 @@
-// Hero copy (layout from Collectify «ref-pelmatech-hero»).
+// Hero copy.
 export default {
   it: {
-    title: ["Il denaro si muove.", "Con chiarezza."],
-    lede: "Pagamenti istantanei, open banking e compliance in un'unica API per banche e fintech. Le prime 10.000 transazioni di ogni mese sono gratis.",
-    primary: "Inizia gratis",
+    title: "Pagamenti SEPA in quattro secondi, con un'API sola.",
+    lede: "Nimbo è l'infrastruttura di pagamento per banche e fintech: bonifici istantanei, conti virtuali, verifiche KYC e riconciliazione dietro un unico contratto e un'unica integrazione.",
+    primary: "Apri una sandbox",
     secondary: "Vedi i prezzi",
-    featuresLabel: "Cosa fa Nimbo",
-    features: [
-      ["Accrediti istantanei,", "anche la domenica"],
-      ["10.000 transazioni gratis", "ogni mese, per sempre"],
-      ["KYC, KYB e AML", "già integrati"],
-      ["Una ricevuta di CO₂", "per ogni pagamento"],
-      ["API REST e webhook,", "sandbox gratuita"],
-    ],
+    consoleLabel: "Esempio di pagamento in sandbox: richiesta e risposta dell'API",
+    env: "Sandbox",
+    request: "Richiesta",
+    response: "Risposta",
+    status: "201 Created · 3,8 s",
   },
   en: {
-    title: ["Money moves.", "Clearly."],
-    lede: "Instant payments, open banking and compliance in one API for banks and fintechs. Your first 10,000 transactions every month are free.",
-    primary: "Start free",
+    title: "SEPA payments in four seconds, through one API.",
+    lede: "Nimbo is payment infrastructure for banks and fintechs: instant transfers, virtual accounts, KYC checks and reconciliation behind one contract and one integration.",
+    primary: "Open a sandbox",
     secondary: "See pricing",
-    featuresLabel: "What Nimbo does",
-    features: [
-      ["Instant payments,", "even on Sundays"],
-      ["10,000 free transactions", "every month, forever"],
-      ["KYC, KYB and AML", "built in"],
-      ["A CO₂ receipt", "for every payment"],
-      ["REST API and webhooks,", "free sandbox"],
-    ],
+    consoleLabel: "Example sandbox payment: API request and response",
+    env: "Sandbox",
+    request: "Request",
+    response: "Response",
+    status: "201 Created · 3.8 s",
   },
 };

@@ -15,7 +15,7 @@ const ALIAS = {
 /**
  * SVG for one coloured mark: the app icon (radius 28 at 128) in a brand colour, with two white eyes.
  * size = side in px; label = accessible name (empty = decorative). Each eye is a .nb-eye group with a
- * .nb-pupil dot, so the page can make the marks blink and glance at the pointer.
+ * .nb-pupil dot, so the page can make the marks blink (src/lib/mark-life.js).
  */
 export function markSvg(color = "black", { size = 64, label = "", className = "" } = {}) {
   const fill = MARK_COLORS[ALIAS[color] || color] || color;

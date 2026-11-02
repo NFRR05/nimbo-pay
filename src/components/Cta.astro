@@ -1,112 +1,22 @@
 ---
-// Final call to action: layout and motion of Collectify «ref-widgets-cta» (src/collectify/ref-widgets-cta),
-// with the Nimbo identity: white panel with title and buttons, silver panel with dark Nimbo dashboard widgets.
-// The CO₂ feed avatar is the coral payments mark, the only colour in the section; the other tiles use monochrome icons.
+// Final call to action: one dark panel with the title, a line of text and the two actions.
 import copy from "../copy/cta.js";
-import { markSvg } from "../lib/brand.js";
-import { iconSvg } from "../lib/icons.js";
 
-const { t, lang = "it" } = Astro.props;
+const { lang = "it" } = Astro.props;
 const c = copy[lang] || copy.it;
-const locale = t?.locale || (lang === "en" ? "en-IE" : "it-IT");
-const euro = new Intl.NumberFormat(locale, { style: "currency", currency: "EUR", maximumFractionDigits: 0, signDisplay: "always" });
-const sep = new Intl.NumberFormat(locale).format(1.5).charAt(1);
-const rate = (v, unit) => {
-  const cents = Math.round(v * 100);
-  return `${String(Math.floor(cents / 100)).padStart(2, "0")}${sep}<span>${String(cents % 100).padStart(2, "0")}${unit}</span>`;
-};
-const arrow = `<svg class="cf-wg__arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
+const arrow = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.5 12h15M13.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
 ---
 
-<section class="cf-wg" id="finale" data-cf-wg data-cf-wg-locale={locale} aria-labelledby="final-title">
-  <div class="cf-wg__inner">
-    <div class="cf-wg__copy">
-
-      <h2 class="cf-wg__title" id="final-title">
-        {c.lines.map((line) => (
-          <>
-            <span class="cf-wg__line"><span class="cf-wg__line-in" data-cf-wg-in="line">{line}</span></span>{" "}
-          </>
-        ))}
-      </h2>
-
-      <p class="cf-wg__lede" data-cf-wg-in="copy">{c.text}</p>
-
-      <div class="cf-wg__actions" data-cf-wg-in="copy">
-        <a class="cf-wg__btn cf-wg__btn--dark" href="#main">{c.primary}<Fragment set:html={arrow} /></a>
-        <a class="cf-wg__btn cf-wg__btn--light" href="#domande">{c.secondary}</a>
+<section class="nb-section nb-cta" id="finale" data-theme="light" aria-labelledby="final-title">
+  <div class="nb-wrap">
+    <div class="nb-cta__panel" data-theme="dark">
+      <div>
+        <h2 class="nb-h2" id="final-title">{c.title}</h2>
+        <p class="nb-lede">{c.text}</p>
       </div>
-    </div>
-
-    <div class="cf-wg__board" data-cf-wg-board role="img" aria-label={c.boardLabel}>
-      <div class="cf-wg__light" aria-hidden="true"></div>
-      <div class="cf-wg__stage" aria-hidden="true">
-        <!-- Incoming payment -->
-        <div class="cf-wg__w cf-wg__w--risk" data-cf-wg-in="widget">
-          <div class="cf-wg__row">
-            <span class="cf-wg__h">{c.pay.head}</span>
-            <span class="cf-wg__aside">{c.pay.aside}</span>
-          </div>
-          <div class="cf-wg__stats">
-            <span class="cf-wg__stat">
-              <span class="cf-wg__label">{c.pay.amountLabel}</span>
-              <span class="cf-wg__val" data-cf-wg-count={c.pay.amount}>{euro.format(c.pay.amount)}</span>
-            </span>
-            <span class="cf-wg__stat cf-wg__stat--sep">
-              <span class="cf-wg__label">{c.pay.fromLabel}</span>
-              <span class="cf-wg__val">{c.pay.from}</span>
-            </span>
-          </div>
-          <span class="cf-wg__meter"><span class="cf-wg__meter-fill" data-cf-wg-part="meter"></span></span>
-          <div class="cf-wg__row cf-wg__row--scale">
-            <span>{c.pay.start}</span>
-            <span>{c.pay.end}</span>
-          </div>
-        </div>
-
-        <!-- CO2 receipt feed -->
-        <div class="cf-wg__w cf-wg__w--news" data-cf-wg-in="widget">
-          <div class="cf-wg__row">
-            <span class="cf-wg__h">{c.feed.head}</span>
-            <span class="cf-wg__icon-btn cf-wg__icon-btn--expand">
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2.5h4v4M13.5 2.5 9 7M6.5 13.5h-4v-4M2.5 13.5 7 9" /></svg>
-            </span>
-          </div>
-          <div class="cf-wg__author">
-            <span class="cf-wg__avatar" set:html={markSvg("coin", { size: 40 })} />
-            <span class="cf-wg__who">
-              <span class="cf-wg__name">{c.feed.name}</span>
-              <span class="cf-wg__sub">{c.feed.sub}</span>
-            </span>
-          </div>
-          <span class="cf-wg__read">{c.feed.action}</span>
-          <span class="cf-wg__label cf-wg__label--online">{c.feed.label}</span>
-          <span class="cf-wg__body">{c.feed.body}</span>
-          <div class="cf-wg__row cf-wg__row--meta">
-            <span>{c.feed.date}</span>
-            <span>{c.feed.ago}</span>
-          </div>
-        </div>
-
-        <!-- Uptime -->
-        <div class="cf-wg__w cf-wg__w--coin cf-wg__w--zec" data-cf-wg-in="widget">
-          <div class="cf-wg__row cf-wg__row--coin">
-            <span class="cf-wg__coin" set:html={iconSvg("shield", { size: 18 })} />
-          </div>
-          <span class="cf-wg__coin-name">{c.uptime.name} <span>{c.uptime.span}</span></span>
-          <span class="cf-wg__label">{c.uptime.label}</span>
-          <span class="cf-wg__rate" data-cf-wg-rate={c.uptime.value} data-cf-wg-unit={c.uptime.unit} set:html={rate(c.uptime.value, c.uptime.unit)} />
-        </div>
-
-        <!-- Settlement time -->
-        <div class="cf-wg__w cf-wg__w--coin cf-wg__w--rpl" data-cf-wg-in="widget">
-          <div class="cf-wg__row cf-wg__row--coin">
-            <span class="cf-wg__coin" set:html={iconSvg("clock", { size: 18 })} />
-          </div>
-          <span class="cf-wg__coin-name">{c.speed.name} <span>{c.speed.span}</span></span>
-          <span class="cf-wg__label">{c.speed.label}</span>
-          <span class="cf-wg__rate" data-cf-wg-rate={c.speed.value} data-cf-wg-unit={c.speed.unit} set:html={rate(c.speed.value, c.speed.unit)} />
-        </div>
+      <div class="nb-actions">
+        <a class="nb-btn nb-btn--solid" href="#finale">{c.primary}<Fragment set:html={arrow} /></a>
+        <a class="nb-btn nb-btn--line" href="#finale">{c.secondary}<Fragment set:html={arrow} /></a>
       </div>
     </div>
   </div>

@@ -7,14 +7,15 @@ export const copy = {
     meta: {
       title: "Nimbo — infrastruttura di pagamento per banche e fintech",
       description:
-        "Pagamenti istantanei, open banking e compliance in un'unica API. Gratis fino a 10.000 transazioni al mese, con una ricevuta di CO₂ per ogni pagamento.",
+        "Pagamenti SEPA istantanei, conti virtuali, verifiche KYC e riconciliazione per banche e fintech, con un'unica API. Gratis fino a 10.000 transazioni al mese.",
     },
     nav: {
       label: "Principale",
       products: "Prodotti",
+      security: "Sicurezza",
       pricing: "Prezzi",
       faq: "Domande",
-      cta: "Inizia gratis",
+      cta: "Apri una sandbox",
       menu: "Menu",
       langLabel: "Read in English",
       langShort: "EN",
@@ -27,14 +28,15 @@ export const copy = {
     meta: {
       title: "Nimbo — payment infrastructure for banks and fintechs",
       description:
-        "Instant payments, open banking and compliance in one API. Free up to 10,000 transactions a month, with a CO₂ receipt for every payment.",
+        "Instant SEPA payments, virtual accounts, KYC checks and reconciliation for banks and fintechs, through one API. Free up to 10,000 transactions a month.",
     },
     nav: {
       label: "Main",
       products: "Products",
+      security: "Security",
       pricing: "Pricing",
       faq: "FAQ",
-      cta: "Start free",
+      cta: "Open a sandbox",
       menu: "Menu",
       langLabel: "Leggi in italiano",
       langShort: "IT",

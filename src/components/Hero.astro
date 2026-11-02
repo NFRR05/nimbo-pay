@@ -1,51 +1,49 @@
 ---
-// Hero: layout and motion of Collectify «ref-pelmatech-hero» (src/collectify/ref-pelmatech-hero),
-// redrawn with the Nimbo identity: black ribbed glass with a soft light behind it, Outfit title,
-// white button, the five points along the bottom. No panel and no figure behind the glass.
-import { iconSvg } from "../lib/icons.js";
+// Hero: what Nimbo is, two actions, and one real-looking product moment: a sandbox payment
+// request and its response, with the CO₂ receipt in the last line. Static, no animation.
 import copy from "../copy/hero.js";
 
 const { lang = "it" } = Astro.props;
-const h = copy[lang];
-const icons = ["clock", "euro", "shield", "check", "code"];
-const arrow = `<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4.5 12h15M13.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
+const h = copy[lang] || copy.it;
+const arrow = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.5 12h15M13.5 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
 ---
 
-<section class="cf-pm" data-cf-pm data-theme="dark" aria-labelledby="hero-title">
-  <div class="cf-pm__bg" aria-hidden="true">
-    <div class="cf-pm__bg-img" data-cf-pm-bg></div>
-  </div>
-
-  <div class="cf-pm__inner">
-    <div class="cf-pm__body">
-      <h1 class="cf-pm__title" id="hero-title">
-        {h.title.map((line) => (
-          <>
-            <span class="cf-pm__line"><span class="cf-pm__line-in" data-cf-pm-in="line">{line}</span></span>{" "}
-          </>
-        ))}
-      </h1>
-
-      <div class="cf-pm__row">
-        <p class="cf-pm__lede" data-cf-pm-in="copy">{h.lede}</p>
-
-        <div class="cf-pm__actions" data-cf-pm-in="copy">
-          <a class="cf-pm__btn" href="#finale">{h.primary}<Fragment set:html={arrow} /></a>
-          <a class="cf-pm__link" href="#prezzi">{h.secondary}<Fragment set:html={arrow} /></a>
-        </div>
+<section class="nb-hero" data-theme="light" aria-labelledby="hero-title">
+  <div class="nb-wrap nb-hero__grid">
+    <div class="nb-hero__copy">
+      <h1 class="nb-hero__title" id="hero-title">{h.title}</h1>
+      <p class="nb-hero__lede">{h.lede}</p>
+      <div class="nb-actions">
+        <a class="nb-btn nb-btn--solid" href="#finale">{h.primary}<Fragment set:html={arrow} /></a>
+        <a class="nb-btn nb-btn--line" href="#prezzi">{h.secondary}<Fragment set:html={arrow} /></a>
       </div>
     </div>
 
-    <div class="cf-pm__features">
-      <span class="cf-pm__progress" aria-hidden="true" data-cf-pm-progress><span></span></span>
-      <ul aria-label={h.featuresLabel}>
-        {h.features.map((f, i) => (
-          <li class={i === 0 ? "cf-pm__feature is-active" : "cf-pm__feature"} data-cf-pm-in="feature" data-cf-pm-feature>
-            <Fragment set:html={iconSvg(icons[i], { size: 16 })} />
-            <p>{f[0]} <br class="cf-pm__br" />{f[1]}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <figure class="nb-console" aria-label={h.consoleLabel}>
+      <figcaption class="nb-console__bar"><span>{h.env}</span><span>sk_test_••••4f2a</span></figcaption>
+      <div class="nb-console__block">
+        <p class="nb-console__label">{h.request}</p>
+        <pre><code><span class="m">POST</span> /v1/payments
+<span class="k">Idempotency-Key:</span> 9b2e7c41-5d0a-4e3f
+{"{"}
+  <span class="k">"amount":</span> 125000,
+  <span class="k">"currency":</span> "EUR",
+  <span class="k">"scheme":</span> "sct_inst",
+  <span class="k">"creditor":</span> {"{"}
+    <span class="k">"name":</span> "Verdi S.p.A.",
+    <span class="k">"iban":</span> "IT60X0542811101000000123456"
+  {"}"}
+{"}"}</code></pre>
+      </div>
+      <div class="nb-console__block">
+        <p class="nb-console__label">{h.response}<b>{h.status}</b></p>
+        <pre><code>{"{"}
+  <span class="k">"id":</span> "pay_7Hq2LxV4nR",
+  <span class="k">"status":</span> "settled",
+  <span class="k">"settled_at":</span> "2026-11-02T09:41:07Z",
+  <span class="hl"><span class="k">"co2_grams":</span> 0.4</span>
+{"}"}</code></pre>
+      </div>
+    </figure>
   </div>
 </section>

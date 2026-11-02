@@ -52,6 +52,16 @@
   outline-offset: 3px;
 }
 
+html {
+  scroll-padding-top: 88px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   overflow-x: clip;
 }
@@ -173,4 +183,101 @@ body {
   .nb-nav .cf-nav__cta {
     display: none;
   }
+}
+
+/* ---------- Shared section pieces: one width, one header, one button ---------- */
+
+.nb-wrap {
+  width: min(var(--cf-max-width), 100% - 2 * var(--cf-gutter));
+  margin-inline: auto;
+}
+
+.nb-section {
+  padding-block: clamp(72px, 4rem + 4vw, 128px);
+  background: var(--cf-bg);
+  color: var(--cf-text);
+}
+
+.nb-head {
+  display: grid;
+  gap: 16px;
+  max-width: 44rem;
+  margin-bottom: clamp(32px, 1.5rem + 2.5vw, 64px);
+}
+
+.nb-h2 {
+  margin: 0;
+  font-family: var(--cf-font-display);
+  font-size: clamp(32px, 1.4rem + 2.4vw, 52px);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.nb-lede {
+  max-width: 36em;
+  margin: 0;
+  color: var(--cf-muted);
+  font-size: clamp(16px, 0.95rem + 0.2vw, 18px);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.nb-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.nb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 20px;
+  border: 1px solid transparent;
+  border-radius: var(--cf-radius-s);
+  font-family: var(--cf-font-body);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color var(--cf-duration-s, 0.2s) linear,
+    border-color var(--cf-duration-s, 0.2s) linear;
+}
+
+.nb-btn svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.nb-btn--solid {
+  background: var(--cf-accent);
+  color: var(--cf-accent-contrast);
+}
+
+.nb-btn--solid:hover {
+  background: var(--cf-accent-hover);
+}
+
+.nb-btn--line {
+  border-color: #8a8a87;
+  color: var(--cf-text);
+}
+
+.nb-btn--line:hover {
+  background: color-mix(in srgb, var(--cf-text) 6%, transparent);
+}
+
+[data-theme="dark"] .nb-btn--line {
+  border-color: #5f5f5c;
+}
+
+.nb-btn--block {
+  width: 100%;
 }
