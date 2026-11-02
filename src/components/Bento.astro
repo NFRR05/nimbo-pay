@@ -1,0 +1,120 @@
+---
+// Bento: layout and motion of Collectify «ref-finax-bento» (src/collectify/ref-finax-bento), simplified with
+// the Nimbo design system: a white panel with five cards (three above, two wide below), each with a Phosphor
+// icon, a title, one sentence and one small black-and-white interface. Thin borders, no shadows; the only
+// colour is a mark used as the avatar of an event (coral on the transfer, amber on the new account).
+import { markSvg } from "../lib/brand.js";
+import { iconSvg } from "../lib/icons.js";
+import copy from "../copy/bento.js";
+
+const { t, lang = "it" } = Astro.props;
+const b = copy[lang] || copy.it;
+const locale = t?.locale || (lang === "en" ? "en-IE" : "it-IT");
+const euro = (n, d = 2) => new Intl.NumberFormat(locale, { style: "currency", currency: "EUR", minimumFractionDigits: d, maximumFractionDigits: d, useGrouping: "always" }).format(n);
+const check = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
+const tilts = [-5, 3, -2, 4, -4, 2];
+---
+
+<section class="cf-fx" data-cf-fx data-theme="light" aria-labelledby="bento-title">
+  <div class="nb-wrap">
+    <div class="cf-fx__panel">
+      <header class="nb-head cf-fx__head">
+        <h2 class="nb-h2" id="bento-title" data-cf-line-reveal="scroll">{b.title}</h2>
+        <p class="nb-lede" data-cf-reveal>{b.lede}</p>
+      </header>
+
+      <div class="cf-fx__grid">
+        <!-- 1. Instant transfers: the transfer card over the dotted map -->
+        <article class="cf-fx__card cf-fx__card--third" data-cf-fx-in="card">
+          <div class="cf-fx__text">
+            <Fragment set:html={iconSvg("globe", { className: "cf-fx__icon", size: 22 })} />
+            <h3 class="cf-fx__h3">{b.sepa.title}</h3>
+            <p class="cf-fx__p">{b.sepa.text}</p>
+          </div>
+          <div class="cf-fx__stage cf-fx-map" aria-hidden="true">
+            <div class="cf-fx-tile cf-fx-transfer" data-cf-fx-part>
+              <p class="cf-fx-tile__row"><span class="cf-fx-ava" set:html={markSvg("coral", { size: 24 })} /><b>{b.sepa.name}</b></p>
+              <p class="cf-fx-transfer__amount">{euro(b.sepa.amount)}</p>
+              <p class="cf-fx-transfer__eta"><Fragment set:html={check} />{b.sepa.eta}<span class="cf-fx-route">IT → DE</span></p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Reconciliation: invoices matched one after the other -->
+        <article class="cf-fx__card cf-fx__card--third" data-cf-fx-in="card">
+          <div class="cf-fx__text">
+            <Fragment set:html={iconSvg("clock", { className: "cf-fx__icon", size: 22 })} />
+            <h3 class="cf-fx__h3">{b.recon.title}</h3>
+            <p class="cf-fx__p">{b.recon.text}</p>
+          </div>
+          <ul class="cf-fx__stage cf-fx-list" role="list" aria-hidden="true">
+            {b.recon.rows.map(([n, amount]) => (
+              <li class="cf-fx-tile cf-fx-tile__row" data-cf-fx-part>
+                <b>{b.recon.invoice} {n}</b>
+                <span>{euro(amount)}</span>
+                <span class="cf-fx-ok" set:html={check} />
+              </li>
+            ))}
+          </ul>
+        </article>
+
+        <!-- 3. Virtual accounts: two accounts and the new one arriving -->
+        <article class="cf-fx__card cf-fx__card--third" data-cf-fx-in="card">
+          <div class="cf-fx__text">
+            <Fragment set:html={iconSvg("card", { className: "cf-fx__icon", size: 22 })} />
+            <h3 class="cf-fx__h3">{b.accounts.title}</h3>
+            <p class="cf-fx__p">{b.accounts.text}</p>
+          </div>
+          <div class="cf-fx__stage cf-fx-list" aria-hidden="true">
+            {b.accounts.rows.map(([name, iban]) => (
+              <p class="cf-fx-tile cf-fx-tile__row" data-cf-fx-part><b>{name}</b><span>{iban}</span></p>
+            ))}
+            <p class="cf-fx-tile cf-fx-tile__row cf-fx-new" data-cf-fx-new>
+              <span class="cf-fx-ava" set:html={markSvg("amber", { size: 24 })} />
+              <b>{b.accounts.chip[0]}</b>
+              <span>{b.accounts.chip[1]}</span>
+            </p>
+          </div>
+        </article>
+
+        <!-- 4. Treasury: the balance line draws itself, the total counts up -->
+        <article class="cf-fx__card cf-fx__card--half" data-cf-fx-in="card">
+          <div class="cf-fx__text">
+            <Fragment set:html={iconSvg("bank", { className: "cf-fx__icon", size: 22 })} />
+            <h3 class="cf-fx__h3">{b.treasury.title}</h3>
+            <p class="cf-fx__p">{b.treasury.text}</p>
+          </div>
+          <div class="cf-fx__stage cf-fx-chart" aria-hidden="true">
+            <ul class="cf-fx-chart__y" role="list">{b.treasury.axis.map((a) => <li>{a}</li>)}</ul>
+            <svg class="cf-fx-chart__svg" viewBox="0 0 520 180" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="cf-fx-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e7e7e5" /><stop offset="1" stop-color="#e7e7e5" stop-opacity="0" /></linearGradient>
+              </defs>
+              <path class="cf-fx-chart__area" d="M0 150C30 132 52 128 78 130s50 18 82 16 46-20 72-26 52 6 76 14 40 4 60-10 34-38 64-48 46-22 88-40V180H0Z" fill="url(#cf-fx-area)" data-cf-fx-area />
+              <path class="cf-fx-chart__line" d="M0 150C30 132 52 128 78 130s50 18 82 16 46-20 72-26 52 6 76 14 40 4 60-10 34-38 64-48 46-22 88-40" pathLength="1" data-cf-fx-line />
+            </svg>
+            <div class="cf-fx-tile cf-fx-chart__tip" data-cf-fx-part>
+              <small>{b.treasury.label}</small>
+              <b data-cf-fx-amount={b.treasury.amount} data-cf-fx-locale={locale}>{euro(b.treasury.amount, 0)}</b>
+              <span>{b.treasury.delta}</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. No hidden costs: struck-through labels -->
+        <article class="cf-fx__card cf-fx__card--half" data-cf-fx-in="card">
+          <div class="cf-fx__text">
+            <Fragment set:html={iconSvg("euro", { className: "cf-fx__icon", size: 22 })} />
+            <h3 class="cf-fx__h3">{b.fees.title}</h3>
+            <p class="cf-fx__p">{b.fees.text}</p>
+          </div>
+          <ul class="cf-fx__stage cf-fx-fees" role="list" aria-label={b.fees.label}>
+            {b.fees.items.map((item, i) => (
+              <li class="cf-fx-fee" style={`--r: ${tilts[i % tilts.length]}deg`} data-cf-fx-fee><s>{item}</s></li>
+            ))}
+          </ul>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

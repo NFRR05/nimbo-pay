@@ -11,8 +11,9 @@ Online su https://nimbo-pay.vercel.app.
   Ogni tanto sbattono le palpebre (`src/lib/mark-life.js`); con movimento ridotto non si muove niente.
 - Sezioni:
   - numeri e sicurezza: componenti Nimbo (`src/styles/sections.css`);
-  - hero, prodotti, prezzi, domande, invito finale e footer: layout dei componenti "da reference" di Collectify (`src/collectify/<slug>`):
-    `ref-pelmatech-hero` (vetro rigato nero e i cinque punti in fila), `ref-travelora-features` (le card che si impilano),
+  - hero, bento, prodotti, domande, prezzi, invito finale e footer: layout dei componenti "da reference" di Collectify (`src/collectify/<slug>`):
+    `ref-pelmatech-hero` (vetro rigato nero), `ref-finax-bento` (cinque card con una mini interfaccia ciascuna),
+    `ref-travelora-features` (le card che si impilano),
     `ref-nexwealth-pricing` (il prezzo di Scale conta fino alla nuova stima), `ref-rumo-faq`,
     `ref-dark-cta` (card nera con puntini che scendono, bagliore e i cinque marchi colorati), `ref-schmidt-footer`,
     più `smart-navbar` e `fluid-tokens`.

@@ -1,0 +1,385 @@
+/* Bento from Collectify «ref-finax-bento», simplified with the Nimbo design system.
+   Kept: the white panel on a grey page, the five-card grid (three thirds above, two halves below), the dotted
+   map behind the transfer, the cascade entrance and one small animation per card. What changes: Nimbo header,
+   Phosphor Fill icons, black-and-white interfaces made of the same bordered tile (12px corners, no shadows),
+   a coloured mark only as the avatar of an event, no phone, no infinity rings, no purple.
+   Under 700px the cards become a row you swipe. */
+.cf-fx {
+  --fx-line: #e7e7e5;
+  --fx-ink: #111111;
+  --fx-text: #5f5f5c;
+  --fx-muted: #8a8a87;
+
+  padding-block: clamp(72px, 4rem + 4vw, 128px);
+  background: #f4f4f3;
+  color: var(--fx-ink);
+}
+
+.cf-fx *,
+.cf-fx *::before,
+.cf-fx *::after {
+  box-sizing: border-box;
+}
+
+.cf-fx :where(h3, p, ul, li) {
+  margin: 0;
+  padding: 0;
+}
+
+.cf-fx :where(ul) {
+  list-style: none;
+}
+
+.cf-fx__panel {
+  padding: clamp(20px, 1rem + 3vw, 56px);
+  border: 1px solid var(--fx-line);
+  border-radius: var(--cf-radius-l);
+  background: #ffffff;
+}
+
+.cf-fx__head {
+  margin-bottom: clamp(28px, 1rem + 2vw, 48px);
+}
+
+/* ---------- Grid and cards ---------- */
+
+.cf-fx__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.cf-fx__card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--fx-line);
+  border-radius: var(--cf-radius-m);
+  background: #fafafa;
+}
+
+.cf-fx__card--third {
+  grid-column: span 2;
+}
+
+.cf-fx__card--half {
+  grid-column: span 3;
+}
+
+.cf-fx__text {
+  padding: 28px 28px 0;
+}
+
+.cf-fx__icon {
+  display: block;
+  margin-bottom: 18px;
+  color: var(--fx-ink);
+}
+
+.cf-fx__h3 {
+  font-family: var(--cf-font-display);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.cf-fx__p {
+  max-width: 34em;
+  margin-top: 8px;
+  color: var(--fx-text);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.cf-fx__stage {
+  position: relative;
+  flex: 1;
+  min-height: 220px;
+  margin-top: 24px;
+  padding: 0 28px 28px;
+}
+
+/* ---------- The tile every small interface is made of ---------- */
+
+.cf-fx-tile {
+  border: 1px solid var(--fx-line);
+  border-radius: var(--cf-radius-s);
+  background: #ffffff;
+  font-size: 14px;
+}
+
+.cf-fx-tile__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.cf-fx-tile__row b {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.cf-fx-tile__row > span:not(.cf-fx-ava):not(.cf-fx-ok) {
+  margin-left: auto;
+  overflow: hidden;
+  color: var(--fx-text);
+  font-variant-numeric: tabular-nums;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cf-fx-ava {
+  display: block;
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+
+.cf-fx-ava svg {
+  display: block;
+}
+
+/* 1. transfer over the dotted map */
+.cf-fx-map {
+  display: grid;
+  place-items: center;
+  background: url("/media/map-dots.webp") center / 100% auto no-repeat;
+}
+
+.cf-fx-transfer {
+  width: min(100%, 280px);
+  padding: 14px 16px 16px;
+}
+
+.cf-fx-route {
+  margin-left: auto;
+  color: var(--fx-muted);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.cf-fx-transfer__amount {
+  margin-top: 14px;
+  font-family: var(--cf-font-display);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.cf-fx-transfer__eta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  color: var(--fx-text);
+  font-size: 13px;
+}
+
+.cf-fx-transfer__eta svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* 2 and 3. stacked rows */
+.cf-fx-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.cf-fx-list > * {
+  width: 100%;
+  max-width: 460px;
+}
+
+.cf-fx-list .cf-fx-tile {
+  padding: 12px 14px;
+}
+
+.cf-fx-ok {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--fx-ink);
+  color: #ffffff;
+}
+
+.cf-fx-ok svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* the new account: the one dark tile, a little tilted */
+.cf-fx-new {
+  border-color: #111111;
+  background: #111111;
+  color: #ffffff;
+  rotate: -1.5deg;
+}
+
+.cf-fx-new > span:not(.cf-fx-ava) {
+  color: #a3a3a0 !important;
+}
+
+/* 4. balance chart */
+.cf-fx-chart {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+}
+
+.cf-fx-chart__y {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 4px;
+  color: var(--fx-muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.cf-fx-chart__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 180px;
+  overflow: visible;
+}
+
+.cf-fx-chart__line {
+  fill: none;
+  stroke: var(--fx-ink);
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.cf-fx-chart__tip {
+  position: absolute;
+  top: 0;
+  left: 96px;
+  display: grid;
+  gap: 2px;
+  padding: 12px 14px;
+}
+
+.cf-fx-chart__tip small {
+  color: var(--fx-text);
+  font-size: 12px;
+}
+
+.cf-fx-chart__tip b {
+  font-family: var(--cf-font-display);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.cf-fx-chart__tip span {
+  color: var(--fx-text);
+  font-size: 12px;
+}
+
+/* 5. struck-through costs */
+.cf-fx-fees {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  gap: 10px 8px;
+}
+
+.cf-fx-fee {
+  padding: 10px 14px;
+  border: 1px solid var(--fx-line);
+  border-radius: var(--cf-radius-s);
+  background: #ffffff;
+  color: var(--fx-text);
+  font-size: 14px;
+  rotate: var(--r);
+}
+
+.cf-fx-fee s {
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--fx-ink);
+}
+
+/* ---------- Tablet: two columns ---------- */
+
+@media (max-width: 1099px) {
+  .cf-fx__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cf-fx__card--third,
+  .cf-fx__card--half {
+    grid-column: span 1;
+  }
+
+  .cf-fx__card--third:nth-child(3),
+  .cf-fx__card--half {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Phone: a row of cards you swipe ---------- */
+
+@media (max-width: 699px) {
+  .cf-fx__panel {
+    padding: 20px 0 20px;
+    border-radius: var(--cf-radius-m);
+  }
+
+  .cf-fx__head {
+    padding-inline: 20px;
+  }
+
+  .cf-fx__grid {
+    display: flex;
+    gap: 12px;
+    padding: 0 20px 4px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 20px;
+    scrollbar-width: none;
+  }
+
+  .cf-fx__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cf-fx__card {
+    flex: 0 0 86%;
+    scroll-snap-align: start;
+  }
+
+  .cf-fx__text {
+    padding: 22px 20px 0;
+  }
+
+  .cf-fx__stage {
+    min-height: 180px;
+    padding: 0 20px 20px;
+  }
+
+  .cf-fx-chart__tip {
+    left: 84px;
+  }
+}
+
+/* ---------- Motion ---------- */
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .cf-fx [data-cf-fx-in] {
+    visibility: hidden;
+  }
+}

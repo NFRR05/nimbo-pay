@@ -2,7 +2,7 @@
 // Nimbo landing. Colours, type and shapes come from the Nimbo design system (src/styles/nimbo.css).
 // Numbers and security are Nimbo's own (src/styles/sections.css); hero, products, pricing, FAQ, final call
 // to action and footer keep the layout of Collectify reference components (src/collectify/<slug>):
-// hero Pelmatech · products Travelora (the stacking cards) · FAQ Rumo · pricing Nexwealth · CTA Dark ·
+// hero Pelmatech · bento Finax · products Travelora (the stacking cards) · FAQ Rumo · pricing Nexwealth · CTA Dark ·
 // footer Schmidt.
 // Motion from Collectify: stat-odometer (numbers), hero-line-reveal (section titles), scroll-reveal (the rest).
 import "@fontsource-variable/outfit/wght.css";
@@ -12,6 +12,7 @@ import "../collectify/fluid-tokens/style.css";
 import "../collectify/smart-navbar/style.css";
 import "../collectify/ref-pelmatech-hero/style.css";
 import "../collectify/stat-odometer/style.css";
+import "../collectify/ref-finax-bento/style.css";
 import "../collectify/scroll-reveal/style.css";
 import "../collectify/hero-line-reveal/style.css";
 import "../collectify/ref-travelora-features/style.css";
@@ -26,6 +27,7 @@ import { wordmarkSvg } from "../lib/brand.js";
 import Hero from "./Hero.astro";
 import Products from "./Products.astro";
 import Numbers from "./Numbers.astro";
+import Bento from "./Bento.astro";
 import Security from "./Security.astro";
 import Pricing from "./Pricing.astro";
 import Faq from "./Faq.astro";
@@ -79,6 +81,7 @@ const site = "https://nimbo-pay.vercel.app";
     <main id="main">
       <Hero t={t} lang={lang} />
       <Numbers t={t} lang={lang} />
+      <Bento t={t} lang={lang} />
       <Products t={t} lang={lang} />
       <Security t={t} lang={lang} />
       <Faq t={t} lang={lang} />
@@ -92,6 +95,7 @@ const site = "https://nimbo-pay.vercel.app";
       import initSmartNav from "../collectify/smart-navbar/script.js";
       import initHero from "../collectify/ref-pelmatech-hero/script.js";
       import initOdometer from "../collectify/stat-odometer/script.js";
+      import initBento from "../collectify/ref-finax-bento/script.js";
       import initScrollReveal from "../collectify/scroll-reveal/script.js";
       import initLineReveal from "../collectify/hero-line-reveal/script.js";
       import initProducts from "../collectify/ref-travelora-features/script.js";
@@ -103,6 +107,7 @@ const site = "https://nimbo-pay.vercel.app";
       initSmartNav();
       initHero();
       initOdometer();
+      initBento();
       initScrollReveal();
       initLineReveal();
       initProducts();
