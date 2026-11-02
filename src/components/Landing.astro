@@ -1,13 +1,14 @@
 ---
 // Nimbo landing. Colours, type and shapes come from the Nimbo design system (src/styles/nimbo.css).
-// Hero, security and final call to action are Nimbo's own (src/styles/sections.css); products, pricing,
+// Security and final call to action are Nimbo's own (src/styles/sections.css); hero, products, pricing,
 // FAQ and footer keep the layout of Collectify reference components (src/collectify/<slug>):
-// products Travelora (the stacking cards) · pricing Nexwealth · FAQ Rumo · footer Schmidt.
+// hero Pelmatech · products Travelora (the stacking cards) · pricing Nexwealth · FAQ Rumo · footer Schmidt.
 import "@fontsource-variable/outfit/wght.css";
 import "@fontsource-variable/inter/wght.css";
 import "@fontsource-variable/geist-mono/wght.css";
 import "../collectify/fluid-tokens/style.css";
 import "../collectify/smart-navbar/style.css";
+import "../collectify/ref-pelmatech-hero/style.css";
 import "../collectify/ref-travelora-features/style.css";
 import "../collectify/ref-nexwealth-pricing/style.css";
 import "../collectify/ref-rumo-faq/style.css";
@@ -81,12 +82,14 @@ const site = "https://nimbo-pay.vercel.app";
 
     <script>
       import initSmartNav from "../collectify/smart-navbar/script.js";
+      import initHero from "../collectify/ref-pelmatech-hero/script.js";
       import initProducts from "../collectify/ref-travelora-features/script.js";
       import initPricing from "../collectify/ref-nexwealth-pricing/script.js";
       import initFaq from "../collectify/ref-rumo-faq/script.js";
       import initMarkLife from "../lib/mark-life.js";
 
       initSmartNav();
+      initHero();
       initProducts();
       initPricing();
       initFaq();
