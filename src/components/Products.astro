@@ -22,7 +22,7 @@ const sticker = (card) => markSvg(card.mark, { size: 92 });
     <p class="cf-tv__intro" data-cf-tv-head>{c.lede}</p>
   </header>
 
-  <ol class="cf-tv__stack" role="list" aria-label={c.listLabel}>
+  <ol class="cf-tv__stack" role="list" aria-label={c.listLabel} tabindex="0">
     {c.cards.map((card, i) => (
       <li class="cf-tv__card" style={`--i: ${i}`} data-cf-tv-card={card.id}>
         <p class="cf-tv__label">

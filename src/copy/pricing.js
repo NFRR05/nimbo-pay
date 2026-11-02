@@ -3,6 +3,7 @@
 // estimate for the chosen number of transactions (0,05 € each above the free 10.000).
 export default {
   it: {
+    plansLabel: "Piani",
     label: "Prezzi",
     lines: ["Paghi solo quando", "il denaro si muove."],
     volumeLabel: "Transazioni al mese",
@@ -44,6 +45,7 @@ export default {
     ],
   },
   en: {
+    plansLabel: "Plans",
     label: "Pricing",
     lines: ["You only pay", "when money moves."],
     volumeLabel: "Transactions a month",

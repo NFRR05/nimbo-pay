@@ -802,18 +802,51 @@
 
 @media (max-width: 699px) {
   .cf-pd__frame {
-    --pd-m: calc((100cqi - 32px) / 420);
-    padding: 72px 16px;
+    --pd-m: calc((100cqi - 32px) * 0.84 / 420);
+    padding: 64px 16px;
+  }
+
+  .cf-pd__rule {
+    margin-top: 32px;
+  }
+
+  /* the three steps sit in a row you swipe, each one a card wide */
+  .cf-pd__steps {
+    display: flex;
+    gap: 16px;
+    margin-inline: -16px;
+    padding: 0 16px 4px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 16px;
+    scrollbar-width: none;
+  }
+
+  .cf-pd__steps::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cf-pd__steps:focus-visible {
+    outline: 2px solid var(--pd-ink);
+    outline-offset: 2px;
   }
 
   .cf-pd__step,
   .cf-pd__step:first-child {
     display: block;
-    padding: 28px 0 32px;
+    flex: 0 0 84%;
+    padding: 24px 0 8px;
+    border-bottom: 0;
+    scroll-snap-align: start;
   }
 
   .cf-pd__chip {
-    margin-top: 24px;
+    margin-top: 20px;
+  }
+
+  .cf-pd__perks {
+    margin-top: 32px;
   }
 
   .cf-pd__perks {

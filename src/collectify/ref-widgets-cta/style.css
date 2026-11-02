@@ -646,8 +646,14 @@
     height: calc(157 * var(--u));
   }
 
+  /* stacked on a phone, the feed is as tall as its content */
   .cf-wg__w--news {
-    height: calc(328 * var(--u));
+    height: auto;
+    padding-bottom: calc(16 * var(--u));
+  }
+
+  .cf-wg__w--news .cf-wg__row--meta {
+    margin-top: calc(14 * var(--u));
   }
 }
 

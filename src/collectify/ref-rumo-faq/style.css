@@ -291,12 +291,15 @@
     display: none;
   }
 
+  /* on a phone the five marks are a short strip, not a tall picture */
   .cf-rm__photo {
-    aspect-ratio: 2 / 1;
+    aspect-ratio: auto;
+    height: 80px;
+    margin-top: 20px;
   }
 
   .cf-rm__nimbi {
-    bottom: 12%;
+    bottom: 12px;
   }
 }
 

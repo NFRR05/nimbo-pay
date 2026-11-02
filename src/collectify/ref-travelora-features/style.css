@@ -1410,6 +1410,55 @@
   }
 }
 
+/* ---------- Phone and tablet: the cards become a horizontal row you swipe ---------- */
+
+@media (max-width: 899px) {
+  .cf-tv__stack {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+    padding: 0 16px 4px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 16px;
+    scrollbar-width: none;
+  }
+
+  .cf-tv__stack::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cf-tv__stack:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 4px;
+  }
+
+  .cf-tv__card {
+    flex: 0 0 min(86%, 540px);
+    gap: 20px;
+    scroll-snap-align: start;
+  }
+
+  /* the mini interfaces keep their layout, a size smaller */
+  .cf-tv__panel {
+    zoom: 0.76;
+  }
+}
+
+@media (max-width: 599px) {
+  /* on a phone the title and text say it; the three points would only repeat them */
+  .cf-tv__points {
+    display: none;
+  }
+
+  .cf-tv__title {
+    font-size: 27px;
+    line-height: 32px;
+  }
+}
+
 /* ---------- Ingressi: nascosti solo se lo script può animarli ---------- */
 
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
