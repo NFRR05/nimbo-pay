@@ -2,6 +2,7 @@
 // Hero: layout and motion of Collectify «ref-pelmatech-hero» (src/collectify/ref-pelmatech-hero),
 // redrawn with the Nimbo identity: black ribbed glass with a soft light behind it, Outfit title,
 // white button. No panel, no figure behind the glass and no row of points along the bottom.
+// Behind the ribs two soft white shades drift from side to side, so the curtain of glass seems to move.
 import copy from "../copy/hero.js";
 
 const { lang = "it" } = Astro.props;
@@ -12,6 +13,8 @@ const arrow = `<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true
 <section class="cf-pm" data-cf-pm data-theme="dark" aria-labelledby="hero-title">
   <div class="cf-pm__bg" aria-hidden="true">
     <div class="cf-pm__bg-img" data-cf-pm-bg></div>
+    <span class="cf-pm__shade" data-cf-pm-shade></span>
+    <span class="cf-pm__shade cf-pm__shade--soft" data-cf-pm-shade></span>
   </div>
 
   <div class="cf-pm__inner">

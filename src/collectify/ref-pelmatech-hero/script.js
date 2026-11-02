@@ -2,7 +2,9 @@ import gsap from "gsap";
 
 /**
  * Hero from Collectify «ref-pelmatech-hero», restyled for Nimbo: no bar, no schedule panel (the site navbar
- * takes the bar's place) and no row of points, so no line moving between them.
+ * takes the bar's place) and no row of points, so no line moving between them. New: two white shades drift
+ * behind the ribbed glass and the ribs sway a little, so the curtain moves (paused off screen, still with
+ * reduced motion).
  * Original notes — Hero «Pelmatech».
  * - Ingresso: fondo che si mette a fuoco, barra, titolo riga per riga, testo e bottoni con blur,
  *   scheda degli orari da destra con le card una dopo l'altra, punti in basso.
@@ -23,6 +25,8 @@ function setupMotion(section) {
   const pick = (name) => [...section.querySelectorAll(`[data-cf-pm-in="${name}"]`)];
   const all = [...section.querySelectorAll("[data-cf-pm-in]")];
   const bg = section.querySelector("[data-cf-pm-bg]");
+  const shades = [...section.querySelectorAll("[data-cf-pm-shade]")];
+  const ribs = section.querySelector(".cf-pm__bg");
   const mm = gsap.matchMedia();
 
   mm.add("(prefers-reduced-motion: no-preference)", () => {
@@ -43,15 +47,24 @@ function setupMotion(section) {
       drift = gsap.to(bg, { xPercent: -1.6, yPercent: 1.2, scale: 1.04, duration: 9, ease: "sine.inOut", yoyo: true, repeat: -1, delay: 2 });
     }
 
-    // Fuori schermo il respiro si ferma
+    // Curtain: the white shades cross the ribs slowly from side to side (at different speeds), and the
+    // ribs sway half a groove, so the folds of light shift as the shades pass
+    const loops = [drift].filter(Boolean);
+    const [main, soft] = shades;
+    if (main) loops.push(gsap.fromTo(main, { x: 0, xPercent: -20 }, { xPercent: 150, duration: 12, ease: "sine.inOut", yoyo: true, repeat: -1 }));
+    if (soft) loops.push(gsap.fromTo(soft, { x: 0, xPercent: 250 }, { xPercent: -30, duration: 16, ease: "sine.inOut", yoyo: true, repeat: -1 }));
+    if (ribs) loops.push(gsap.fromTo(ribs, { "--pm-sway": "0px" }, { "--pm-sway": "12px", duration: 5.5, ease: "sine.inOut", yoyo: true, repeat: -1 }));
+
+    // Fuori schermo il respiro e la tenda si fermano
     const io = new IntersectionObserver(([entry]) => {
-      if (drift) entry.isIntersecting ? drift.resume() : drift.pause();
+      loops.forEach((t) => (entry.isIntersecting ? t.resume() : t.pause()));
     });
     io.observe(section);
 
     return () => {
       io.disconnect();
-      drift?.kill();
+      loops.forEach((t) => t.kill());
+      gsap.set([...shades, ribs].filter(Boolean), { clearProps: "transform,--pm-sway" });
     };
   });
 

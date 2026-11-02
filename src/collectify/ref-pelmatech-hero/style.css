@@ -2,7 +2,8 @@
    Same board (1440×933 in px multiplied by --pm-u from 1080px up), ribbed glass, frosted panel on the right,
    big title, five points along the bottom with the line that moves from one to the next. What changes:
    the blurred photo becomes a soft light on a near-black field, no schedule panel, white instead of lime,
-   Outfit title, Nimbo copy. The bar is the site
+   Outfit title, Nimbo copy, and two white shades that drift behind the ribs so the glass curtain seems to move.
+   The bar is the site
    navbar (restyled as the same glass pill in nimbo.css), so the hero has no bar of its own. */
 .cf-pm {
   --pm-white: #ffffff;
@@ -68,10 +69,33 @@
 /* ---------- Fondo: foto sfocata + vetro a coste ---------- */
 
 .cf-pm__bg {
+  --pm-sway: 0px;
   position: absolute;
   inset: 0;
   z-index: -1;
   overflow: hidden;
+}
+
+/* The white shades behind the ribs: soft vertical light that the grooves fold, like light on a curtain.
+   Still (on the right, where the old light was) until the script moves them. */
+.cf-pm__shade {
+  position: absolute;
+  top: -12%;
+  bottom: -12%;
+  left: 0;
+  width: 44%;
+  background: radial-gradient(50% 58% at 50% 42%, rgb(255 255 255 / 0.34), rgb(255 255 255 / 0.12) 46%, rgb(255 255 255 / 0) 72%);
+  filter: blur(18px);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transform: translateX(95%);
+  will-change: transform;
+}
+
+.cf-pm__shade--soft {
+  width: 30%;
+  background: radial-gradient(50% 50% at 50% 60%, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0) 70%);
+  transform: translateX(40%);
 }
 
 .cf-pm__bg-img {
@@ -89,7 +113,8 @@
   position: absolute;
   inset: 0;
   --pm-r: calc(var(--pm-rib) * var(--pm-u, 1px));
-  background: repeating-linear-gradient(
+  background-position: var(--pm-sway) 0;
+  background-image: repeating-linear-gradient(
     90deg,
     rgb(255 255 255 / 0.05) 0,
     rgb(255 255 255 / 0.07) calc(var(--pm-r) * 0.5),
