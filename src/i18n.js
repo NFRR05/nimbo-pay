@@ -12,7 +12,6 @@ export const copy = {
     nav: {
       label: "Principale",
       products: "Prodotti",
-      how: "Come funziona",
       pricing: "Prezzi",
       faq: "Domande",
       cta: "Inizia gratis",
@@ -33,7 +32,6 @@ export const copy = {
     nav: {
       label: "Main",
       products: "Products",
-      how: "How it works",
       pricing: "Pricing",
       faq: "FAQ",
       cta: "Start free",

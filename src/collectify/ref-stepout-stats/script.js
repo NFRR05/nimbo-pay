@@ -67,7 +67,7 @@ function setup(section) {
       return () => card.removeEventListener("pointerenter", onEnter);
     });
 
-    const offWeight = setupWeight(section);
+    const offWeight = () => {};
 
     return () => {
       offHover.forEach((fn) => fn());

@@ -2,7 +2,7 @@
 export default {
   it: {
     navLabel: "Piè di pagina",
-    links: [["Prodotti", "#prodotti"], ["Come funziona", "#come"], ["Prezzi", "#prezzi"], ["Domande", "#domande"]],
+    links: [["Prodotti", "#prodotti"], ["Prezzi", "#prezzi"], ["Domande", "#domande"]],
     langLabel: "Lingua",
     info: ["Infrastruttura di pagamento per banche e fintech", "Server nell'Unione Europea, 100% rinnovabili"],
     top: "Torna su",
@@ -10,7 +10,7 @@ export default {
   },
   en: {
     navLabel: "Footer",
-    links: [["Products", "#prodotti"], ["How it works", "#come"], ["Pricing", "#prezzi"], ["FAQ", "#domande"]],
+    links: [["Products", "#prodotti"], ["Pricing", "#prezzi"], ["FAQ", "#domande"]],
     langLabel: "Language",
     info: ["Payment infrastructure for banks and fintechs", "Servers in the European Union, 100% renewable"],
     top: "Back to top",

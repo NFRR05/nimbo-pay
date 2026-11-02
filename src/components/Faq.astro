@@ -20,7 +20,6 @@ const c = copy[lang] || copy.it;
     </h2>
     <p class="cf-rm__sub" data-cf-rm-in="copy">{c.sub}</p>
     <figure class="cf-rm__photo" role="img" aria-label={c.nimbiLabel} data-cf-rm-in="photo">
-      <span class="cf-rm__floor" aria-hidden="true"></span>
       <span class="cf-rm__nimbi" aria-hidden="true">
         {MARKS.map((n) => <span class="cf-rm__nimbi-one" data-cf-rm-nimbi set:html={markSvg(n, { size: 120 })} />)}
       </span>

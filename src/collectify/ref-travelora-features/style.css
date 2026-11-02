@@ -61,9 +61,7 @@
   height: 100svh;
   margin-bottom: -100svh;
   overflow: hidden;
-  background:
-    linear-gradient(rgb(10 10 10 / 0), #0a0a0a calc(220 * var(--s))) calc(50vw - 625 * var(--s)) calc(50% + 100 * var(--s)) / calc(420 * var(--s)) 100% no-repeat,
-    var(--tv-dark);
+  background: var(--tv-dark);
 }
 
 /* Due "sfere" ruotate, misurate sui bordi visibili nella shot (canvas 1600×1200):
@@ -71,7 +69,7 @@
    davanti una più piccola rosso-arancio accesa sul bordo in basso (centro 1230,780 · 800×400 · −29,5°). */
 .cf-tv__bg::before,
 .cf-tv__bg::after {
-  content: "";
+  content: none;
   position: absolute;
   left: calc(50% + (var(--cx) - 800 - var(--rx)) * var(--s));
   top: calc(50% + (var(--cy) - 600 - var(--ry)) * var(--s));
@@ -203,7 +201,7 @@
 }
 
 .cf-tv__label::before {
-  content: "";
+  content: none;
   width: 6px;
   height: 6px;
   margin-right: 11px;

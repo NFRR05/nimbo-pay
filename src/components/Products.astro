@@ -17,7 +17,6 @@ const sticker = (card) => markSvg(card.mark, { size: 92 });
   <div class="cf-tv__bg" aria-hidden="true"></div>
 
   <header class="cf-tv__head">
-    <p class="cf-tv__eyebrow" data-cf-tv-head>{c.label}</p>
     <h2 class="cf-tv__h2" id="products-title" data-cf-tv-head>{c.title}</h2>
     <p class="cf-tv__intro" data-cf-tv-head>{c.lede}</p>
   </header>
@@ -26,8 +25,6 @@ const sticker = (card) => markSvg(card.mark, { size: 92 });
     {c.cards.map((card, i) => (
       <li class="cf-tv__card" style={`--i: ${i}`} data-cf-tv-card={card.id}>
         <p class="cf-tv__label">
-          <span class="cf-tv__num">{String(i + 1).padStart(2, "0")}</span>
-          <span class="cf-tv__sep">·</span>
           {card.tag.split(" — ")[0]}
         </p>
         <div class="cf-tv__copy" data-cf-tv-copy>

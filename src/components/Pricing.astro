@@ -12,18 +12,11 @@ const num = new Intl.NumberFormat(locale);
 const estimate = (n) => Math.max(0, n - 10000) * 0.05;
 const arrow = `<svg class="cf-nx__arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
 const check = `<span class="cf-nx__check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m7.5 12.4 3 3 6-6.4" /></svg></span>`;
-const RECTS = `<rect x="20.5" y="-82.5" width="60" height="86" rx="10" /><rect x="1086.5" y="-82.5" width="60" height="86" rx="10" /><rect x="20.5" y="76.5" width="60" height="86" rx="10" /><rect x="1086.5" y="76.5" width="60" height="86" rx="10" /><rect x="20.5" y="234.5" width="60" height="86" rx="10" /><rect x="1086.5" y="234.5" width="60" height="86" rx="10" /><rect x="20.5" y="392.5" width="60" height="86" rx="10" /><rect x="1086.5" y="392.5" width="60" height="86" rx="10" /><rect x="113.5" y="-37.5" width="60" height="86" rx="10" /><rect x="993.5" y="-37.5" width="60" height="86" rx="10" /><rect x="113.5" y="121.5" width="60" height="86" rx="10" /><rect x="993.5" y="121.5" width="60" height="86" rx="10" /><rect x="113.5" y="279.5" width="60" height="86" rx="10" /><rect x="993.5" y="279.5" width="60" height="86" rx="10" /><rect x="113.5" y="437.5" width="60" height="86" rx="10" /><rect x="993.5" y="437.5" width="60" height="86" rx="10" /><rect x="207.5" y="-6.5" width="60" height="86" rx="10" /><rect x="899.5" y="-6.5" width="60" height="86" rx="10" /><rect x="207.5" y="151.5" width="60" height="86" rx="10" /><rect x="899.5" y="151.5" width="60" height="86" rx="10" /><rect x="207.5" y="309.5" width="60" height="86" rx="10" /><rect x="899.5" y="309.5" width="60" height="86" rx="10" /><rect x="207.5" y="467.5" width="60" height="86" rx="10" /><rect x="899.5" y="467.5" width="60" height="86" rx="10" /><rect x="300.5" y="23.5" width="60" height="86" rx="10" /><rect x="806.5" y="23.5" width="60" height="86" rx="10" /><rect x="300.5" y="181.5" width="60" height="86" rx="10" /><rect x="806.5" y="181.5" width="60" height="86" rx="10" /><rect x="300.5" y="339.5" width="60" height="86" rx="10" /><rect x="806.5" y="339.5" width="60" height="86" rx="10" /><rect x="393.5" y="58.5" width="60" height="86" rx="10" /><rect x="713.5" y="58.5" width="60" height="86" rx="10" /><rect x="393.5" y="216.5" width="60" height="86" rx="10" /><rect x="713.5" y="216.5" width="60" height="86" rx="10" /><rect x="393.5" y="374.5" width="60" height="86" rx="10" /><rect x="713.5" y="374.5" width="60" height="86" rx="10" /><rect x="487.5" y="88.5" width="60" height="86" rx="10" /><rect x="619.5" y="88.5" width="60" height="86" rx="10" /><rect x="487.5" y="246.5" width="60" height="86" rx="10" /><rect x="619.5" y="246.5" width="60" height="86" rx="10" /><rect x="487.5" y="404.5" width="60" height="86" rx="10" /><rect x="619.5" y="404.5" width="60" height="86" rx="10" />`;
 ---
 
 <section class="cf-nx" id="prezzi" data-cf-nx data-cf-nx-locale={locale} aria-labelledby="cf-nx-title">
   <div class="cf-nx__panel">
-    <svg class="cf-nx__pattern" viewBox="0 0 1166 520" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false" data-cf-nx-pattern>
-      <defs><linearGradient id="cf-nx-fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e7e7e5" stop-opacity="0" /><stop offset="0.55" stop-color="#e7e7e5" stop-opacity="0.6" /><stop offset="1" stop-color="#dededc" /></linearGradient></defs>
-      <Fragment set:html={RECTS} />
-    </svg>
-
     <div class="cf-nx__head">
-      <p class="cf-nx__label" data-cf-nx-in="bar">{c.label}</p>
       <h2 class="cf-nx__title" id="cf-nx-title">
         {c.lines.map((line) => (
           <>

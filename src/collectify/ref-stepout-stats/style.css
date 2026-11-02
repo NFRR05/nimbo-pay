@@ -212,9 +212,6 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image:
-    linear-gradient(to left, var(--so-grid-light) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--so-grid-light) 1px, transparent 1px);
   background-position: right top;
   background-size: calc(38.8 * var(--so-s)) calc(38.8 * var(--so-s));
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgb(0 0 0 / 0.5) 30%, transparent 62%);
@@ -230,9 +227,6 @@
 }
 
 .cf-so__card--main::before {
-  background-image:
-    linear-gradient(to left, var(--so-grid-dark) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--so-grid-dark) 1px, transparent 1px);
   -webkit-mask-image: radial-gradient(130% 120% at 100% 0%, #000 0%, rgb(0 0 0 / 0.55) 55%, transparent 92%);
   mask-image: radial-gradient(130% 120% at 100% 0%, #000 0%, rgb(0 0 0 / 0.55) 55%, transparent 92%);
 }
