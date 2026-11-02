@@ -19,7 +19,7 @@ function setupNav(nav) {
   const setOpen = (open) => {
     nav.dataset.open = String(open);
     toggle?.setAttribute("aria-expanded", String(open));
-    if (toggle) toggle.textContent = open ? "Chiudi" : "Menu";
+    if (toggle) toggle.textContent = open ? toggle.dataset.cfNavClose || "Chiudi" : toggle.dataset.cfNavOpen || "Menu";
     window.cfLenis?.[open ? "stop" : "start"]?.();
   };
 

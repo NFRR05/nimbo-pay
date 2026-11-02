@@ -3,6 +3,7 @@
    The panel height eases open in CSS (grid rows); closed panels are hidden and inert. No photo, no entrance. */
 .cf-rm {
   padding-block: clamp(72px, 4rem + 4vw, 128px);
+  border-top: 1px solid var(--cf-line);
   background: var(--cf-bg);
   color: var(--cf-text);
 }

@@ -65,13 +65,13 @@ const site = "https://nimbo-pay.vercel.app";
         <nav class="cf-nav__links" id="cf-nav-links" aria-label={t.nav.label}>
           <a href="#prodotti">{t.nav.products}</a>
           <a href="#sicurezza">{t.nav.security}</a>
-          <a href="#prezzi">{t.nav.pricing}</a>
           <a href="#domande">{t.nav.faq}</a>
+          <a href="#prezzi">{t.nav.pricing}</a>
         </nav>
         <div class="nb-nav__end">
           <a class="nb-lang" href={other.path} hreflang={lang === "it" ? "en" : "it"} lang={lang === "it" ? "en" : "it"} aria-label={t.nav.langLabel}>{t.nav.langShort}</a>
           <a class="cf-nav__cta" href="#finale">{t.nav.cta}</a>
-          <button class="cf-nav__toggle" type="button" data-cf-nav-toggle aria-expanded="false" aria-controls="cf-nav-links">{t.nav.menu}</button>
+          <button class="cf-nav__toggle" type="button" data-cf-nav-toggle data-cf-nav-open={t.nav.menu} data-cf-nav-close={t.nav.close} aria-expanded="false" aria-controls="cf-nav-links">{t.nav.menu}</button>
         </div>
       </div>
     </header>
@@ -81,8 +81,8 @@ const site = "https://nimbo-pay.vercel.app";
       <Numbers t={t} lang={lang} />
       <Products t={t} lang={lang} />
       <Security t={t} lang={lang} />
-      <Pricing t={t} lang={lang} />
       <Faq t={t} lang={lang} />
+      <Pricing t={t} lang={lang} />
       <Cta t={t} lang={lang} />
     </main>
 
