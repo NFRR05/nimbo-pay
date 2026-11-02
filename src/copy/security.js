@@ -4,9 +4,9 @@ export default {
     title: "Dove stanno i dati, e chi può vederli",
     lede: "Non vendiamo e non condividiamo i dati dei tuoi clienti. Ecco come li trattiamo.",
     facts: [
-      ["Nell'Unione Europea", "Server, backup e copie di disaster recovery restano nell'UE, in data center a energia rinnovabile."],
+      ["Nell'Unione Europea", "Server, copie di sicurezza e siti di ripristino restano nell'UE, in centri dati a energia rinnovabile."],
       ["Cifrati", "AES-256 sui dati salvati e TLS 1.3 su tutto quello che passa in rete."],
-      ["Accessi controllati", "Single sign-on, ruoli per ogni persona del team e un log di ogni accesso."],
+      ["Accessi controllati", "Accesso con le credenziali aziendali, un ruolo per ogni persona e un registro di ogni accesso."],
       ["Tracciabili", "Pagamenti, verifiche e modifiche finiscono in un registro che non si può riscrivere."],
     ],
   },

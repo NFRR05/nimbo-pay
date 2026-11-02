@@ -6,7 +6,7 @@ export default {
       { value: 4, suffix: " s", text: "in media dall'invio all'accredito, a qualsiasi ora" },
       { value: 99.95, decimals: 2, suffix: "%", text: "di disponibilità garantita sul piano Scale" },
       { value: 0, suffix: " €", text: "di canone mensile: paghi solo le transazioni oltre le 10.000" },
-      { value: 100, suffix: "%", text: "di energia rinnovabile nei data center che usiamo" },
+      { value: 100, suffix: "%", text: "di energia rinnovabile nei centri dati che usiamo" },
     ],
   },
   en: {

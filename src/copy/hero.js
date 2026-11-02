@@ -2,7 +2,7 @@
 export default {
   it: {
     title: ["Il denaro si muove.", "Con chiarezza."],
-    lede: "Pagamenti istantanei, open banking e compliance in un'unica API per banche e fintech. Le prime 10.000 transazioni di ogni mese sono gratis.",
+    lede: "Pagamenti istantanei, accesso ai conti e controlli antiriciclaggio in un'unica API per banche e fintech. Le prime 10.000 transazioni di ogni mese sono gratis.",
     primary: "Inizia gratis",
     secondary: "Vedi i prezzi",
     featuresLabel: "Cosa fa Nimbo",

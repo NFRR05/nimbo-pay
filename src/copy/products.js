@@ -14,20 +14,20 @@ export default {
       {
         id: "treasury", mark: "amber", area: "Tesoreria",
         title: "Il saldo di tutti i conti, in un posto solo",
-        text: "Conti virtuali con un IBAN ciascuno, sweep automatici e previsioni di cassa che si aggiornano a ogni movimento.",
-        specs: [["Conti", "Virtuali e illimitati, un IBAN per conto"], ["Sweep", "Automatici tra conto operativo e riserva"], ["Previsioni", "Cassa a 30 giorni, aggiornata in tempo reale"]],
+        text: "Conti virtuali con un IBAN ciascuno, giroconti automatici e previsioni di cassa che si aggiornano a ogni movimento.",
+        specs: [["Conti", "Virtuali e illimitati, un IBAN per conto"], ["Giroconti", "Automatici tra conto operativo e riserva"], ["Previsioni", "Cassa a 30 giorni, aggiornata in tempo reale"]],
       },
       {
-        id: "compliance", mark: "mint", area: "Compliance",
+        id: "compliance", mark: "mint", area: "Conformità",
         title: "Le verifiche dentro il flusso, non dopo",
-        text: "KYC, KYB e monitoraggio AML girano mentre il cliente si registra e mentre paga, e lasciano un registro pronto per l'audit.",
+        text: "KYC, KYB e monitoraggio AML girano mentre il cliente si registra e mentre paga, e lasciano un registro pronto per le ispezioni.",
         specs: [["Verifiche", "Persone e aziende, in pochi minuti"], ["AML", "Monitoraggio su ogni transazione"], ["Registro", "Firmato, immutabile, esportabile"]],
       },
       {
-        id: "analytics", mark: "lavender", area: "Analytics",
+        id: "analytics", mark: "lavender", area: "Analisi",
         title: "La contabilità trova tutto già abbinato",
-        text: "Ogni notte abbiniamo pagamenti e fatture e prepariamo i report per il gestionale. Ogni pagamento ha anche la sua ricevuta di CO₂.",
-        specs: [["Riconciliazione", "Ogni notte, con il tuo gestionale"], ["Report", "CSV e PDF per la contabilità"], ["CO₂", "Grammi stimati su ogni pagamento"]],
+        text: "Ogni notte abbiniamo pagamenti e fatture e prepariamo i rendiconti per il gestionale. Ogni pagamento ha anche la sua ricevuta di CO₂.",
+        specs: [["Riconciliazione", "Ogni notte, con il tuo gestionale"], ["Rendiconti", "CSV e PDF per la contabilità"], ["CO₂", "Grammi stimati su ogni pagamento"]],
       },
       {
         id: "api", mark: "blue", area: "API",

@@ -14,7 +14,7 @@ Online su https://nimbo-pay.vercel.app.
   - hero, prodotti, prezzi, domande, invito finale e footer: layout dei componenti "da reference" di Collectify (`src/collectify/<slug>`):
     `ref-pelmatech-hero` (vetro rigato nero e i cinque punti in fila), `ref-travelora-features` (le card che si impilano),
     `ref-nexwealth-pricing` (il prezzo di Scale conta fino alla nuova stima), `ref-rumo-faq`,
-    `ref-widgets-cta` (pannello argentato con i widget e i contatori), `ref-schmidt-footer`,
+    `ref-refit-contact` (riquadro nero con titolo e form dimostrativo che non invia nulla), `ref-schmidt-footer`,
     più `smart-navbar` e `fluid-tokens`.
 - Animazioni semplici da Collectify: `stat-odometer` (i numeri sotto l'hero rotolano come un contachilometri),
   `hero-line-reveal` (i titoli di sezione salgono riga per riga) e `scroll-reveal` (testi, card e domande entrano in coda).

@@ -5,10 +5,10 @@ export default {
     sub: "Le cose che ci chiedono più spesso.",
     items: [
       { q: "Cosa succede quando supero le 10.000 transazioni?", a: "Passi da solo al piano Scale: a fine mese paghi 0,05 € per ogni transazione oltre la soglia. Niente canone, niente minimi, e il conteggio lo vedi in tempo reale." },
-      { q: "Quanto ci vuole a integrare Nimbo?", a: "La sandbox è pronta in un minuto. La maggior parte dei team va live in due settimane, compresa la verifica dell'azienda." },
+      { q: "Quanto ci vuole a integrare Nimbo?", a: "La sandbox è pronta in un minuto. La maggior parte delle aziende va in produzione in due settimane, compresa la verifica dell'azienda." },
       { q: "Nimbo funziona con il mio core banking?", a: "Abbiamo connettori pronti per i core banking più diffusi e un'API REST per tutti gli altri. Puoi provarli in sandbox prima di firmare." },
-      { q: "Come si calcola la ricevuta di CO₂?", a: "Per ogni pagamento stimiamo l'energia usata da server, rete e archiviazione e la convertiamo in grammi di CO₂ equivalente. Il valore arriva nella risposta dell'API e nel report mensile." },
-      { q: "Serve essere una banca per usare Nimbo?", a: "No. Fintech, marketplace e aziende con molti pagamenti usano gli stessi prodotti e gli stessi piani." },
+      { q: "Come si calcola la ricevuta di CO₂?", a: "Per ogni pagamento stimiamo l'energia usata da server, rete e archiviazione e la convertiamo in grammi di CO₂ equivalente. Il valore arriva nella risposta dell'API e nel resoconto mensile." },
+      { q: "Serve essere una banca per usare Nimbo?", a: "No. Fintech, negozi online e aziende con molti pagamenti usano gli stessi prodotti e gli stessi piani." },
     ],
   },
   en: {
