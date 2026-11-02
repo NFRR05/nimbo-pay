@@ -104,7 +104,7 @@
 .cf-rm__nimbi {
   position: absolute;
   left: calc(101 * var(--rm-s));
-  bottom: 18%;
+  top: calc(40 * var(--rm-s));
   display: flex;
   align-items: flex-end;
   gap: calc(14 * var(--rm-s));
@@ -249,6 +249,7 @@
 
   .cf-rm__nimbi {
     left: clamp(20px, 5vw, 56px);
+    top: auto;
     bottom: 14%;
     gap: clamp(8px, 2.4vw, 14px);
   }
@@ -299,6 +300,7 @@
   }
 
   .cf-rm__nimbi {
+    top: auto;
     bottom: 12px;
   }
 }
