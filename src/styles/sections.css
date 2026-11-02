@@ -66,3 +66,40 @@
 .nb-cta__panel .nb-lede {
   margin-top: 16px;
 }
+
+/* ---------- Numbers band (Collectify «stat-odometer» grid) ---------- */
+
+.nb-numbers {
+  padding-block: clamp(56px, 3rem + 3vw, 104px);
+  background: var(--cf-bg);
+  color: var(--cf-text);
+}
+
+.nb-numbers .cf-stats {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 40px 24px;
+}
+
+.nb-numbers .cf-stats li {
+  padding-top: 20px;
+}
+
+.nb-numbers .cf-stats__value {
+  font-size: clamp(44px, 1.8rem + 2.6vw, 72px);
+  letter-spacing: -0.045em;
+  color: var(--cf-text);
+}
+
+.nb-numbers .cf-stats__label {
+  max-width: 24ch;
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+@media (max-width: 40rem) {
+  .nb-numbers .cf-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 16px;
+  }
+}

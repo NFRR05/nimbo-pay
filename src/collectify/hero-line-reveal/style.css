@@ -1,0 +1,13 @@
+/* From Collectify «hero-line-reveal»: text that rises line by line from a mask. */
+/* Nasconde il testo solo se JS è attivo, così non lampeggia prima dello split */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-cf-line-reveal] {
+    visibility: hidden;
+  }
+}
+
+/* Spazio extra sotto ogni riga: la maschera non taglia le discendenti (g, p, q) */
+[data-cf-line-reveal] .cf-line {
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}

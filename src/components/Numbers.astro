@@ -1,0 +1,29 @@
+---
+// Numbers: a band of four figures under the hero. The figures roll in like an odometer when they reach
+// the viewport (Collectify «stat-odometer», src/collectify/stat-odometer) and the items rise in one after
+// the other (Collectify «scroll-reveal»). The text rendered here is the final value, so it reads without script.
+import copy from "../copy/numbers.js";
+
+const { t, lang = "it" } = Astro.props;
+const c = copy[lang] || copy.it;
+const locale = t?.locale || (lang === "en" ? "en-IE" : "it-IT");
+const show = (s) =>
+  `${s.prefix ?? ""}${new Intl.NumberFormat(locale, { minimumFractionDigits: s.decimals ?? 0, maximumFractionDigits: s.decimals ?? 0, useGrouping: "always" }).format(s.value)}${s.suffix ?? ""}`;
+---
+
+<section class="nb-numbers" data-theme="light" aria-label={c.label}>
+  <ul class="cf-stats nb-wrap" role="list">
+    {c.stats.map((s) => (
+      <li data-cf-reveal>
+        <span
+          class="cf-stats__value"
+          data-cf-odometer={s.value}
+          data-cf-decimals={s.decimals ?? 0}
+          data-cf-prefix={s.prefix}
+          data-cf-suffix={s.suffix}
+          data-cf-locale={locale}>{show(s)}</span>
+        <span class="cf-stats__label">{s.text}</span>
+      </li>
+    ))}
+  </ul>
+</section>

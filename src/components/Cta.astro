@@ -11,10 +11,10 @@ const arrow = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><pa
   <div class="nb-wrap">
     <div class="nb-cta__panel" data-theme="dark">
       <div>
-        <h2 class="nb-h2" id="final-title">{c.title}</h2>
-        <p class="nb-lede">{c.text}</p>
+        <h2 class="nb-h2" id="final-title" data-cf-line-reveal="scroll">{c.title}</h2>
+        <p class="nb-lede" data-cf-reveal>{c.text}</p>
       </div>
-      <div class="nb-actions">
+      <div class="nb-actions" data-cf-reveal>
         <a class="nb-btn nb-btn--solid" href="#finale">{c.primary}<Fragment set:html={arrow} /></a>
         <a class="nb-btn nb-btn--line" href="#finale">{c.secondary}<Fragment set:html={arrow} /></a>
       </div>

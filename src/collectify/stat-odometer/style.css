@@ -1,0 +1,73 @@
+/* From Collectify «stat-odometer»: numbers that roll like an odometer when they enter the viewport. */
+[data-cf-odometer] {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.cf-odo__visual {
+  display: inline-flex;
+  align-items: flex-end;
+}
+
+.cf-odo__digit {
+  display: inline-block;
+  height: 1lh;
+  overflow: clip;
+}
+
+.cf-odo__strip {
+  display: block;
+}
+
+.cf-odo__strip span {
+  display: block;
+  height: 1lh;
+  text-align: center;
+}
+
+.cf-odo__char {
+  display: inline-block;
+  white-space: pre; /* conserva gli spazi di prefisso e suffisso */
+}
+
+.cf-odo__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Griglia statistiche */
+.cf-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--cf-space-l) var(--cf-space-m);
+  margin-block: 0; /* margin-inline resta libero per .cf-container */
+  padding: 0;
+  list-style: none;
+}
+
+.cf-stats li {
+  min-width: 0;
+  padding-top: var(--cf-space-s);
+  border-top: 1px solid var(--cf-line);
+}
+
+.cf-stats__value {
+  display: block;
+  font-family: var(--cf-font-display);
+  font-size: var(--cf-step-5);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--cf-accent);
+}
+
+.cf-stats__label {
+  display: block;
+  margin-top: var(--cf-space-2xs);
+  color: var(--cf-muted);
+  max-width: 22ch;
+}

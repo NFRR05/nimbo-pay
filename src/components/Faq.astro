@@ -10,13 +10,13 @@ const c = copy[lang] || copy.it;
 <section class="cf-rm" id="domande" data-cf-rm data-theme="light" aria-labelledby="cf-rm-title">
   <div class="nb-wrap cf-rm__grid">
     <header class="nb-head cf-rm__intro">
-      <h2 class="nb-h2" id="cf-rm-title">{c.title}</h2>
-      <p class="nb-lede">{c.sub}</p>
+      <h2 class="nb-h2" id="cf-rm-title" data-cf-line-reveal="scroll">{c.title}</h2>
+      <p class="nb-lede" data-cf-reveal>{c.sub}</p>
     </header>
 
     <div class="cf-rm__list" data-cf-rm-acc="single">
       {c.items.map((f, i) => (
-        <div class="cf-rm__item">
+        <div class="cf-rm__item" data-cf-reveal>
           <h3 class="cf-rm__q">
             <button class="cf-rm__btn" type="button" id={`cf-rm-q-${i}`} aria-expanded={i === 0 ? "true" : "false"} aria-controls={`cf-rm-a-${i}`} data-cf-rm-btn>
               <span>{f.q}</span>

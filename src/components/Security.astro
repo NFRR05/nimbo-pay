@@ -10,12 +10,12 @@ const c = copy[lang] || copy.it;
 <section class="nb-section" id="sicurezza" data-theme="light" aria-labelledby="security-title">
   <div class="nb-wrap">
     <header class="nb-head">
-      <h2 class="nb-h2" id="security-title">{c.title}</h2>
-      <p class="nb-lede">{c.lede}</p>
+      <h2 class="nb-h2" id="security-title" data-cf-line-reveal="scroll">{c.title}</h2>
+      <p class="nb-lede" data-cf-reveal>{c.lede}</p>
     </header>
     <dl class="nb-facts">
       {c.facts.map(([term, text]) => (
-        <div class="nb-fact">
+        <div class="nb-fact" data-cf-reveal>
           <dt>{term}</dt>
           <dd>{text}</dd>
         </div>

@@ -18,11 +18,11 @@ const check = `<svg class="cf-nx__check" viewBox="0 0 24 24" aria-hidden="true" 
   <div class="nb-wrap">
     <div class="cf-nx__head">
       <header class="nb-head">
-        <h2 class="nb-h2" id="cf-nx-title">{c.title}</h2>
-        <p class="nb-lede">{c.lede}</p>
+        <h2 class="nb-h2" id="cf-nx-title" data-cf-line-reveal="scroll">{c.title}</h2>
+        <p class="nb-lede" data-cf-reveal>{c.lede}</p>
       </header>
 
-      <div class="cf-nx__volume">
+      <div class="cf-nx__volume" data-cf-reveal>
         <span class="cf-nx__volume-label" id="cf-nx-volume-label">{c.volumeLabel}</span>
         <div class="cf-nx__period" role="group" aria-labelledby="cf-nx-volume-label">
           {c.volumes.map((v) => (
@@ -34,7 +34,7 @@ const check = `<svg class="cf-nx__check" viewBox="0 0 24 24" aria-hidden="true" 
 
     <div class="cf-nx__plans" role="group" aria-label={c.plansLabel} tabindex="0">
       {c.plans.map((p) => (
-        <article class={p.kind === "usage" ? "cf-nx__card cf-nx__card--pro" : "cf-nx__card"} data-theme={p.kind === "usage" ? "dark" : undefined} aria-labelledby={`cf-nx-${p.id}`}>
+        <article class={p.kind === "usage" ? "cf-nx__card cf-nx__card--pro" : "cf-nx__card"} data-theme={p.kind === "usage" ? "dark" : undefined} aria-labelledby={`cf-nx-${p.id}`} data-cf-reveal>
           <div class="cf-nx__top">
             <h3 class="cf-nx__name" id={`cf-nx-${p.id}`}>{p.name}</h3>
             {p.flag && <p class="cf-nx__flag">{p.flag}</p>}

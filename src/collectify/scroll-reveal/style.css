@@ -1,0 +1,12 @@
+/* From Collectify «scroll-reveal»: elements enter when they reach the viewport, the ones arriving together one after the other. */
+/* Evita il lampo degli elementi prima che lo script imposti lo stato iniziale */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-cf-reveal] {
+    visibility: hidden;
+  }
+
+  [data-cf-reveal="clip"] {
+    visibility: visible;
+    clip-path: inset(0% 0% 100% 0%);
+  }
+}

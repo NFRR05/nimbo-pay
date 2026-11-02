@@ -10,10 +10,14 @@ Online su https://nimbo-pay.vercel.app.
 - Il colore è solo sui cinque marchi colorati (`src/lib/brand.js`), uno per prodotto, accanto al nome del prodotto.
   Ogni tanto sbattono le palpebre (`src/lib/mark-life.js`); con movimento ridotto non si muove niente.
 - Sezioni:
-  - sicurezza e invito finale: componenti Nimbo (`src/styles/sections.css`);
+  - numeri, sicurezza e invito finale: componenti Nimbo (`src/styles/sections.css`);
   - hero, prodotti, prezzi, domande e footer: layout dei componenti "da reference" di Collectify (`src/collectify/<slug>`):
     `ref-pelmatech-hero` (vetro rigato nero e i cinque punti in fila), `ref-travelora-features` (le card che si impilano),
-    `ref-nexwealth-pricing`, `ref-rumo-faq`, `ref-schmidt-footer`, più `smart-navbar` e `fluid-tokens`.
+    `ref-nexwealth-pricing` (il prezzo di Scale conta fino alla nuova stima), `ref-rumo-faq`, `ref-schmidt-footer`,
+    più `smart-navbar` e `fluid-tokens`.
+- Animazioni semplici da Collectify: `stat-odometer` (i numeri sotto l'hero rotolano come un contachilometri),
+  `hero-line-reveal` (i titoli di sezione salgono riga per riga) e `scroll-reveal` (testi, card e domande entrano in coda).
+  Con movimento ridotto tutto è già al suo posto.
 - Testi: `src/i18n.js` (meta e navbar) e `src/copy/<sezione>.js` (IT ed EN per ogni sezione).
 
 ```sh
