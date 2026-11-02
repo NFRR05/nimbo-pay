@@ -1,0 +1,829 @@
+/* Bento from Collectify «ref-finax-bento», restyled for Nimbo.
+   Same panel, five-card grid (three thirds, two halves) and illustrations in shot px (--u); what changes:
+   black and white instead of purple, Phosphor Fill icons, country codes instead of flags, Nimbo copy,
+   a heading above the grid, and the Nimbi (Coin in the infinity, Token as the app avatar) as the only colour. */
+.cf-fx {
+  --fx-page: #f4f4f3;
+  --fx-panel: #ffffff;
+  --fx-card: #fafafa;
+  --fx-line: #e7e7e5;
+  --fx-ink: #111111;
+  --fx-text: #5f5f5c;
+  --fx-muted: #8a8a87;
+  --fx-purple: #111111;
+  --fx-purple-2: #2a2a29;
+  --fx-lilac: #e7e7e5;
+  --fx-font: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fx-display: "Outfit Variable", "Outfit", "Inter Variable", system-ui, sans-serif;
+  --fx-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  padding: clamp(64px, 9vw, 120px) 20px;
+  background: var(--fx-page);
+  color: var(--fx-ink);
+  font-family: var(--fx-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+.cf-fx *,
+.cf-fx *::before,
+.cf-fx *::after {
+  box-sizing: border-box;
+}
+
+.cf-fx :where(h3, p, ul, li) {
+  margin: 0;
+  padding: 0;
+}
+
+.cf-fx :where(ul) {
+  list-style: none;
+}
+
+.cf-fx svg {
+  display: block;
+}
+
+.cf-fx__panel {
+  max-width: 1241px;
+  margin-inline: auto;
+  padding: 67px;
+  border-radius: 28px;
+  box-shadow: inset 0 0 0 1px var(--fx-line);
+  background: var(--fx-panel);
+}
+
+.cf-fx__head {
+  max-width: 720px;
+  margin-bottom: 44px;
+}
+
+.cf-fx__label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fx-text);
+}
+
+.cf-fx__label::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--fx-ink);
+}
+
+.cf-fx__title {
+  margin: 14px 0 0;
+  font-family: var(--fx-display);
+  font-size: clamp(32px, 4.4vw, 52px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.cf-fx__grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px 18.5px;
+}
+
+.cf-fx__card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--fx-line);
+  border-radius: 20px;
+  background: var(--fx-card);
+  container-type: inline-size;
+  transition: border-color 0.5s var(--fx-ease), box-shadow 0.5s var(--fx-ease);
+}
+
+.cf-fx__card:hover {
+  border-color: #d6d6d3;
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.06);
+}
+
+.cf-fx__card--third {
+  --w: 357;
+  grid-column: span 2;
+}
+
+.cf-fx__card--half {
+  --w: 546;
+  grid-column: span 3;
+}
+
+.cf-fx__in {
+  --u: clamp(0.5px, calc(100cqw / var(--w)), 1px);
+  position: relative;
+  min-height: calc(160px + 175 * var(--u));
+}
+
+.cf-fx__text {
+  position: relative;
+  z-index: 2;
+  padding: 30px 30px 0 30.5px;
+}
+
+.cf-fx__icon {
+  width: 24px;
+  height: 24px;
+  color: var(--fx-ink);
+}
+
+.cf-fx__h3 {
+  margin-top: 10px;
+  font-family: var(--fx-display);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 25px;
+  letter-spacing: -0.02em;
+  color: var(--fx-ink);
+}
+
+.cf-fx__p {
+  max-width: 300px;
+  margin-top: 9.5px;
+  font-size: 14.5px;
+  line-height: 21px;
+  color: var(--fx-text);
+}
+
+.cf-fx__card--half .cf-fx__p {
+  max-width: 380px;
+}
+
+/* Le illustrazioni: tela in px della shot ancorata in basso */
+.cf-fx__stage {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: calc(var(--w) * var(--u));
+  height: calc(335 * var(--u));
+  transform: translateX(-50%);
+}
+
+/* ---------- 1. Mappa e bonifico ---------- */
+
+.cf-fx-map__dots {
+  filter: grayscale(1) contrast(1.15);
+  position: absolute;
+  top: calc(165 * var(--u));
+  left: 0;
+  width: 100%;
+  height: calc(150 * var(--u));
+}
+
+.cf-fx-map__routes {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.cf-fx-map__routes path {
+  fill: none;
+  stroke: #4a4a4a;
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  vector-effect: non-scaling-stroke;
+}
+
+.cf-fx-pin {
+  position: absolute;
+  top: calc(var(--y) * var(--u));
+  left: calc(var(--x) * var(--u));
+  display: grid;
+  place-items: center;
+  width: calc(25 * var(--u));
+  height: calc(25 * var(--u));
+  border-radius: calc(6 * var(--u));
+  background: #ffffff;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.08);
+}
+
+.cf-fx-pin {
+  font-size: calc(8.5 * var(--u));
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--fx-ink);
+}
+
+.cf-fx-bank {
+  position: absolute;
+  top: calc(166 * var(--u));
+  left: calc(25 * var(--u));
+  width: calc(118.5 * var(--u));
+  padding: calc(9 * var(--u)) calc(9.5 * var(--u)) calc(10 * var(--u));
+  border-radius: calc(6 * var(--u));
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 0.04), 0 0 0 1px rgb(0 0 0 / 0.02);
+}
+
+.cf-fx-bank__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cf-fx-bank__ico {
+  display: grid;
+  place-items: center;
+  width: calc(16 * var(--u));
+  height: calc(16 * var(--u));
+  border-radius: 50%;
+  background: var(--fx-purple);
+}
+
+.cf-fx-bank__ico svg {
+  width: calc(10 * var(--u));
+  height: calc(10 * var(--u));
+  color: #ffffff;
+}
+
+.cf-fx-bank__free {
+  font-size: calc(7.5 * var(--u));
+  font-weight: 600;
+  line-height: 1.2;
+  color: #222222;
+}
+
+.cf-fx-bank__name {
+  margin-top: calc(10 * var(--u));
+  font-size: calc(9.5 * var(--u));
+  line-height: 1.2;
+  color: #111111;
+}
+
+.cf-fx-bank__route {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(21 * var(--u));
+  margin-top: calc(6 * var(--u));
+  padding: 0 calc(4 * var(--u));
+  border-radius: 99px;
+  background: #f3f3f5;
+  font-size: calc(7 * var(--u));
+  color: #222222;
+}
+
+.cf-fx-bank__cc {
+  display: grid;
+  place-items: center;
+  width: calc(14 * var(--u));
+  height: calc(14 * var(--u));
+  border-radius: 50%;
+  background: var(--fx-ink);
+  color: #fff;
+  font-size: calc(5 * var(--u));
+  font-weight: 700;
+}
+
+.cf-fx-bank__route i {
+  font-style: normal;
+  letter-spacing: -0.05em;
+}
+
+.cf-fx-bank__route b {
+  font-weight: 600;
+}
+
+.cf-fx-bank__label {
+  margin-top: calc(9 * var(--u));
+  font-size: calc(7.5 * var(--u));
+  color: #222222;
+}
+
+.cf-fx-bank__amount {
+  margin-top: calc(2.5 * var(--u));
+  font-size: calc(8.5 * var(--u));
+  font-weight: 700;
+  color: #111111;
+}
+
+.cf-fx-bank__eta {
+  margin-top: calc(4 * var(--u));
+  font-size: calc(5.6 * var(--u));
+  color: #333333;
+}
+
+/* ---------- 2. Infinito tempo / denaro ---------- */
+
+.cf-fx-inf svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.cf-fx-inf svg path,
+.cf-fx-inf svg line,
+.cf-fx-inf__hand {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.cf-fx-inf__main,
+.cf-fx-inf__hand {
+  stroke: var(--fx-purple);
+  stroke-width: 3.2;
+}
+
+.cf-fx-inf__hand {
+  stroke-width: 2.6;
+}
+
+circle.cf-fx-inf__hand {
+  fill: #f4f4f3;
+}
+
+.cf-fx-inf__soft {
+  stroke: #8a8a87;
+  stroke-width: 2;
+}
+
+.cf-fx-inf__faint {
+  stroke: #d6d6d3;
+  stroke-width: 1.6;
+}
+
+/* ---------- 3. Abbonamenti ---------- */
+
+.cf-fx-plan {
+  position: absolute;
+  top: calc(var(--y) * var(--u));
+  left: calc(var(--x) * var(--u));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: calc(3 * var(--u));
+  width: calc(182 * var(--u));
+  height: calc(46.5 * var(--u));
+  padding-left: calc(23 * var(--u));
+  border: 1px solid #e8e8eb;
+  border-radius: calc(6 * var(--u));
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.03);
+  white-space: nowrap;
+}
+
+.cf-fx-plan::before {
+  content: "";
+  position: absolute;
+  top: calc(9 * var(--u));
+  left: calc(11.5 * var(--u));
+  width: calc(3 * var(--u));
+  height: calc(28.5 * var(--u));
+  border-radius: 2px;
+  background: var(--fx-purple);
+}
+
+.cf-fx-plan b {
+  font-size: calc(13 * var(--u));
+  font-weight: 400;
+  line-height: 1.15;
+  color: #111111;
+}
+
+.cf-fx-plan span {
+  font-size: calc(10.5 * var(--u));
+  line-height: 1.15;
+  color: var(--fx-muted);
+}
+
+.cf-fx-plan--trial {
+  border-color: rgb(255 255 255 / 0.18);
+  background: linear-gradient(160deg, var(--fx-purple-2), var(--fx-purple));
+  box-shadow: 0 12px 26px rgb(0 0 0 / 0.28), inset 0 1px 0 rgb(255 255 255 / 0.15);
+  rotate: 8deg;
+}
+
+.cf-fx-plan--trial::before {
+  background: #ffffff;
+}
+
+.cf-fx-plan--trial b,
+.cf-fx-plan--trial span {
+  color: #ffffff;
+}
+
+.cf-fx-plan--trial span {
+  color: rgb(255 255 255 / 0.78);
+}
+
+/* ---------- 4. Grafico e telefono ---------- */
+
+.cf-fx-chart__y {
+  position: absolute;
+  top: calc(184 * var(--u));
+  left: calc(30 * var(--u));
+  display: flex;
+  flex-direction: column;
+  gap: calc(9.5 * var(--u));
+  font-size: calc(13 * var(--u));
+  line-height: calc(18.5 * var(--u));
+  color: #565656;
+}
+
+.cf-fx-chart__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cf-fx-chart__line {
+  fill: none;
+  stroke: #111111;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+.cf-fx-chart__drop {
+  stroke: #ffffff;
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+
+.cf-fx-chart__dot {
+  position: absolute;
+  top: calc(229 * var(--u));
+  left: calc(285 * var(--u));
+  width: calc(14 * var(--u));
+  height: calc(14 * var(--u));
+  border: calc(3.5 * var(--u)) solid #111111;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgb(0 0 0 / 0.25);
+}
+
+.cf-fx-chart__tip {
+  position: absolute;
+  top: calc(177.5 * var(--u));
+  left: calc(245 * var(--u));
+  width: calc(89 * var(--u));
+  padding: calc(8 * var(--u)) calc(9 * var(--u));
+  border-radius: calc(5 * var(--u));
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.07), 0 0 0 1px rgb(0 0 0 / 0.025);
+}
+
+.cf-fx-chart__tip b {
+  display: block;
+  font-size: calc(14.5 * var(--u));
+  font-weight: 600;
+  line-height: 1.2;
+  color: #111111;
+}
+
+.cf-fx-chart__tip span {
+  display: flex;
+  align-items: center;
+  gap: calc(4 * var(--u));
+  margin-top: calc(4 * var(--u));
+  font-size: calc(10.5 * var(--u));
+  color: #8a8a8e;
+  white-space: nowrap;
+}
+
+.cf-fx-chart__tip em {
+  font-style: normal;
+  color: var(--fx-purple);
+}
+
+.cf-fx-chart__tip svg {
+  width: calc(11 * var(--u));
+  height: calc(11 * var(--u));
+  fill: none;
+  stroke: var(--fx-purple);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cf-fx-phone {
+  position: absolute;
+  top: calc(156 * var(--u));
+  left: calc(356 * var(--u));
+  width: calc(119.5 * var(--u));
+  height: calc(250 * var(--u));
+  padding: calc(3.5 * var(--u));
+  border-radius: calc(19 * var(--u));
+  background: #161618;
+  box-shadow: inset 0 0 0 1px #3a3a3e, 0 10px 30px rgb(0 0 0 / 0.12);
+}
+
+.cf-fx-phone__screen {
+  height: 100%;
+  padding: calc(4 * var(--u)) calc(6.5 * var(--u)) 0;
+  overflow: hidden;
+  border-radius: calc(15.5 * var(--u));
+  background: #ffffff;
+  font-size: calc(5 * var(--u));
+  line-height: 1.25;
+  color: #111111;
+}
+
+.cf-fx-phone__status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(11 * var(--u));
+  font-size: calc(5.2 * var(--u));
+  font-weight: 600;
+}
+
+.cf-fx-phone__status i {
+  width: calc(33 * var(--u));
+  height: calc(9.5 * var(--u));
+  border-radius: 99px;
+  background: #0b0b0b;
+}
+
+.cf-fx-phone__sig {
+  font-size: calc(3.2 * var(--u));
+  letter-spacing: -0.1em;
+}
+
+.cf-fx-phone__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: calc(6 * var(--u));
+}
+
+.cf-fx-phone__bar b {
+  font-size: calc(6.4 * var(--u));
+  font-weight: 600;
+}
+
+.cf-fx-phone__back {
+  display: grid;
+  place-items: center;
+  width: calc(10 * var(--u));
+  height: calc(10 * var(--u));
+  border-radius: 50%;
+  background: #f1f1f3;
+  font-size: calc(7 * var(--u));
+  line-height: 1;
+}
+
+.cf-fx-phone__ava {
+  width: calc(10 * var(--u));
+  height: calc(11 * var(--u));
+}
+
+.cf-fx-phone__ava svg {
+  width: 100%;
+  height: 100%;
+}
+
+.cf-fx-phone__box {
+  margin-top: calc(9 * var(--u));
+  padding: calc(6 * var(--u));
+  border: 1px solid #eeeeee;
+  border-radius: calc(5 * var(--u));
+}
+
+.cf-fx-phone__box small {
+  display: block;
+  font-size: calc(4.2 * var(--u));
+  color: #8a8a8e;
+}
+
+.cf-fx-phone__box b {
+  display: block;
+  margin-top: calc(2 * var(--u));
+  font-size: calc(7.2 * var(--u));
+  font-weight: 700;
+}
+
+.cf-fx-phone__meter {
+  display: block;
+  height: calc(5 * var(--u));
+  margin-top: calc(4 * var(--u));
+  border-radius: 99px;
+  background: #e7e7e5;
+  overflow: hidden;
+}
+
+.cf-fx-phone__meter span {
+  display: block;
+  width: 55%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--fx-purple);
+}
+
+.cf-fx-phone__box .cf-fx-phone__tiny {
+  margin-top: calc(3 * var(--u));
+  font-size: calc(3.4 * var(--u));
+}
+
+.cf-fx-phone__row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: calc(9 * var(--u));
+}
+
+.cf-fx-phone__row b {
+  font-size: calc(5.2 * var(--u));
+  font-weight: 600;
+}
+
+.cf-fx-phone__row span {
+  font-size: calc(3.8 * var(--u));
+  color: var(--fx-purple);
+}
+
+.cf-fx-phone__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(4 * var(--u));
+  margin-top: calc(5 * var(--u));
+}
+
+.cf-fx-phone__tile {
+  height: calc(58 * var(--u));
+  padding: calc(5 * var(--u));
+  border: 1px solid #eeeeee;
+  border-radius: calc(4 * var(--u));
+}
+
+.cf-fx-phone__tile > b {
+  display: block;
+  font-size: calc(4.8 * var(--u));
+  font-weight: 600;
+}
+
+.cf-fx-phone__bars {
+  display: flex;
+  gap: calc(4 * var(--u));
+  height: calc(40 * var(--u));
+  margin-top: calc(3 * var(--u));
+  align-items: flex-end;
+}
+
+.cf-fx-phone__bars > span {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
+  height: 100%;
+}
+
+.cf-fx-phone__bars small {
+  font-size: calc(3 * var(--u));
+  line-height: 1.2;
+  color: #555555;
+}
+
+.cf-fx-phone__bars i {
+  display: block;
+  height: calc(22 * var(--u));
+  margin-top: calc(2 * var(--u));
+  border-radius: calc(1 * var(--u));
+  background: #111111;
+}
+
+.cf-fx-phone__bars span:last-child i {
+  height: calc(12 * var(--u));
+  background: #d6d6d3;
+}
+
+.cf-fx-phone__tile svg {
+  width: 100%;
+  height: calc(40 * var(--u));
+  margin-top: calc(2 * var(--u));
+}
+
+.cf-fx-phone__tile text {
+  font-size: 4px;
+  fill: #8a8a8e;
+}
+
+.cf-fx-phone__foot {
+  display: block;
+  margin-top: calc(7 * var(--u));
+  font-size: calc(4.8 * var(--u));
+  font-weight: 600;
+}
+
+/* ---------- 5. Commissioni barrate ---------- */
+
+.cf-fx-fee {
+  position: absolute;
+  top: calc(var(--y) * var(--u));
+  left: calc(var(--x) * var(--u));
+  transform: translate(-50%, -50%) rotate(var(--r));
+}
+
+.cf-fx-fee__pill {
+  display: flex;
+  align-items: center;
+  height: calc(30 * var(--u));
+  padding: 0 calc(15 * var(--u));
+  border-radius: 99px;
+  background: linear-gradient(180deg, #ffffff 0%, #f6f6f5 55%, #ececeb 100%);
+  box-shadow: 0 6px 14px rgb(0 0 0 / 0.08), inset 0 -2px 5px rgb(0 0 0 / 0.04), 0 0 0 1px rgb(0 0 0 / 0.05);
+  font-size: calc(13.5 * var(--u));
+  color: #5f5f5c;
+  white-space: nowrap;
+  transition: box-shadow 0.4s var(--fx-ease), color 0.4s var(--fx-ease);
+  cursor: default;
+}
+
+.cf-fx-fee s {
+  text-decoration-thickness: 1px;
+  text-decoration-color: #555555;
+}
+
+.cf-fx-fee__pill:hover {
+  color: #111111;
+  box-shadow: 0 10px 22px rgb(0 0 0 / 0.14), inset 0 -2px 5px rgb(0 0 0 / 0.05), 0 0 0 1px rgb(0 0 0 / 0.1);
+}
+
+/* ---------- Tablet e telefono ---------- */
+
+@media (max-width: 1099px) {
+  .cf-fx {
+    padding: 64px 16px;
+  }
+
+  .cf-fx__panel {
+    padding: 32px;
+  }
+
+  .cf-fx__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cf-fx__card--third,
+  .cf-fx__card--half {
+    grid-column: span 1;
+  }
+
+  .cf-fx__card--third:nth-child(3),
+  .cf-fx__card--half {
+    grid-column: 1 / -1;
+  }
+
+  .cf-fx__card--third:nth-child(3) {
+    --w: 600;
+  }
+}
+
+@media (max-width: 700px) {
+  .cf-fx {
+    padding: 48px 12px;
+  }
+
+  .cf-fx__head {
+    padding: 14px 8px 0;
+    margin-bottom: 28px;
+  }
+
+  .cf-fx__panel {
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .cf-fx__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .cf-fx__card--third:nth-child(3) {
+    --w: 357;
+  }
+
+  .cf-fx__text {
+    padding: 24px 22px 0;
+  }
+
+  .cf-fx__in {
+    min-height: calc(170px + 175 * var(--u));
+  }
+}
+
+/* ---------- Movimento ---------- */
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .cf-fx [data-cf-fx-in] {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-fx *,
+  .cf-fx *::before {
+    transition-duration: 0.01ms !important;
+  }
+}

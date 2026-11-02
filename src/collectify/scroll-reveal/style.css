@@ -1,0 +1,58 @@
+/* Evita il lampo degli elementi prima che lo script imposti lo stato iniziale */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-cf-reveal] {
+    visibility: hidden;
+  }
+
+  [data-cf-reveal="clip"] {
+    visibility: visible;
+    clip-path: inset(0% 0% 100% 0%);
+  }
+}
+
+.cf-reveal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: var(--cf-space-s);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.cf-reveal-card {
+  padding: var(--cf-space-m);
+  border-radius: var(--cf-radius-m);
+  background: var(--cf-surface);
+  border: 1px solid var(--cf-line);
+}
+
+.cf-reveal-card h3 {
+  margin: 0 0 var(--cf-space-2xs);
+  font-family: var(--cf-font-display);
+  font-size: var(--cf-step-2);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.cf-reveal-card p {
+  margin: 0;
+  color: var(--cf-muted);
+}
+
+.cf-reveal-title {
+  font-family: var(--cf-font-display);
+  font-size: var(--cf-step-5);
+  letter-spacing: -0.035em;
+  line-height: 1;
+  margin: 0 0 var(--cf-space-l);
+}
+
+.cf-reveal-figure {
+  margin: var(--cf-space-xl) 0 0;
+  aspect-ratio: 21 / 9;
+  border-radius: var(--cf-radius-l);
+  background:
+    radial-gradient(120% 140% at 15% 20%, color-mix(in oklab, var(--cf-accent) 45%, white) 0%, transparent 55%),
+    radial-gradient(90% 120% at 85% 80%, #c8d7cf 0%, transparent 60%),
+    var(--cf-accent);
+}

@@ -1,0 +1,146 @@
+/* Collectify · Token e scaling fluido
+   Scala tipografica e spaziature fluide (360px → 1440px) + colori e motion.
+   Valori di default = stile del portfolio di Riccardo Remec (verde #062d1f, linee sottili, Cabinet Grotesk + Vercetti).
+   Tutti gli altri componenti leggono questi token: sovrascrivili per cambiare tema. */
+
+:root {
+  /* Tipografia */
+  --cf-font-display: "Cabinet Grotesk", "Clash Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --cf-font-body: "Vercetti", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --cf-step-n2: 0.7rem;
+  --cf-step-n1: clamp(0.8331rem, 0.8223rem + 0.0481vw, 0.8656rem);
+  --cf-step-0: clamp(1rem, 0.9583rem + 0.1852vw, 1.125rem);
+  --cf-step-1: clamp(1.2rem, 1.1125rem + 0.3889vw, 1.4625rem);
+  --cf-step-2: clamp(1.44rem, 1.2862rem + 0.6833vw, 1.9013rem);
+  --cf-step-3: clamp(1.7281rem, 1.4802rem + 1.1019vw, 2.4719rem);
+  --cf-step-4: clamp(2.0737rem, 1.694rem + 1.688vw, 3.2131rem);
+  --cf-step-5: clamp(2.4881rem, 1.9252rem + 2.5019vw, 4.1769rem);
+  --cf-step-6: clamp(2.9863rem, 2.1717rem + 3.6204vw, 5.43rem);
+  --cf-step-7: clamp(3.5rem, 2.25rem + 5.5556vw, 7.25rem);
+
+  /* Spaziature */
+  --cf-space-3xs: clamp(0.25rem, 0.2396rem + 0.0463vw, 0.2812rem);
+  --cf-space-2xs: clamp(0.5rem, 0.4792rem + 0.0926vw, 0.5625rem);
+  --cf-space-xs: clamp(0.75rem, 0.7188rem + 0.1389vw, 0.8438rem);
+  --cf-space-s: clamp(1rem, 0.9583rem + 0.1852vw, 1.125rem);
+  --cf-space-m: clamp(1.5rem, 1.4375rem + 0.2778vw, 1.6875rem);
+  --cf-space-l: clamp(2rem, 1.9167rem + 0.3704vw, 2.25rem);
+  --cf-space-xl: clamp(3rem, 2.75rem + 1.1111vw, 3.75rem);
+  --cf-space-2xl: clamp(4rem, 3.3333rem + 2.963vw, 6rem);
+  --cf-space-section: clamp(5rem, 3.6667rem + 5.9259vw, 9rem);
+  --cf-gutter: 4vw;
+  --cf-inset: clamp(18px, 2.5vw, 32px);
+  --cf-max-width: 80rem;
+
+  /* Colori (tema chiaro) */
+  --cf-bg: #ffffff;
+  --cf-surface: #ffffff;
+  --cf-surface-soft: #edf5f1;
+  --cf-text: #111111;
+  --cf-muted: #555555;
+  --cf-line: #e6e6e6;
+  --cf-accent: #062d1f;
+  --cf-accent-hover: #0e4a33;
+  --cf-accent-contrast: #ffffff;
+  --cf-highlight: #cfe5d9;
+  --cf-signal: #d8ff00;
+  --cf-on-signal: #062d1f;
+  --cf-ghost: #b5b5b5;
+  --cf-danger: #b3261e;
+
+  /* Forme: card squadrate separate da linee sottili, bottoni a pillola */
+  --cf-radius-s: 0.75rem;
+  --cf-radius-m: 0px;
+  --cf-radius-l: 0px;
+  --cf-radius-pill: 9999px;
+  --cf-btn-height: 3.25rem;
+
+  /* Motion */
+  --cf-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --cf-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --cf-duration-s: 0.25s;
+  --cf-duration-m: 0.5s;
+  --cf-duration-l: 0.9s;
+}
+
+/* Tema scuro: applicalo a qualsiasi sezione con data-theme="dark" */
+[data-theme="dark"] {
+  --cf-bg: #062d1f;
+  --cf-surface: #0b3a29;
+  --cf-surface-soft: #0e4a33;
+  --cf-text: #ffffff;
+  --cf-muted: rgb(255 255 255 / 0.72);
+  --cf-line: rgb(255 255 255 / 0.16);
+  --cf-accent: #d8ff00;
+  --cf-accent-hover: #e6ff5c;
+  --cf-accent-contrast: #062d1f;
+  --cf-highlight: rgb(216 255 0 / 0.28);
+  --cf-ghost: rgb(255 255 255 / 0.42);
+  --cf-danger: #ffb4ab;
+}
+
+/* Tema chiaro esplicito: utile per una sezione chiara dentro una pagina scura */
+[data-theme="light"] {
+  --cf-bg: #ffffff;
+  --cf-surface: #ffffff;
+  --cf-surface-soft: #edf5f1;
+  --cf-text: #111111;
+  --cf-muted: #555555;
+  --cf-line: #e6e6e6;
+  --cf-accent: #062d1f;
+  --cf-accent-hover: #0e4a33;
+  --cf-accent-contrast: #ffffff;
+  --cf-highlight: #cfe5d9;
+  --cf-ghost: #b5b5b5;
+  --cf-danger: #b3261e;
+}
+
+[data-theme] {
+  background-color: var(--cf-bg);
+  color: var(--cf-text);
+}
+
+/* Base minima */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--cf-bg);
+  color: var(--cf-text);
+  font-family: var(--cf-font-body);
+  font-size: var(--cf-step-0);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cf-accent);
+  outline-offset: 3px;
+}
+
+/* Classe doppia: vince sui margin: 0 dei componenti, così il centraggio non si perde */
+.cf-container.cf-container {
+  width: min(100% - 2 * var(--cf-gutter), var(--cf-max-width));
+  margin-inline: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --cf-duration-s: 0.01s;
+    --cf-duration-m: 0.01s;
+    --cf-duration-l: 0.01s;
+  }
+}

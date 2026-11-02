@@ -1,0 +1,116 @@
+---
+// Hero: layout and motion of Collectify «ref-cryptoharbor-hero» (src/collectify/ref-cryptoharbor-hero),
+// redrawn with the Nimbo identity: black and white, Outfit headline, dashboard cards from Nimbo,
+// and Coin, the payments Nimbi, as the only colour (in place of the photo card).
+import { nimbiSvg } from "../lib/brand.js";
+
+const { t } = Astro.props;
+const h = t.hero;
+const listNimbi = ["token", "card", "block"];
+const spark = "M0 60 10 57 19 61 30 50 41 54 50 44 62 47 71 38 84 46 95 36 108 40 118 27 131 33 142 30 154 18 166 26 178 21 190 28 202 14 214 19 226 9 236 12";
+---
+
+<section class="cf-ch" data-cf-ch data-theme="dark" aria-labelledby="hero-title">
+  <div class="cf-ch__bg" aria-hidden="true">
+    <span class="cf-ch__beam" data-cf-ch-in="beam"></span>
+    <span class="cf-ch__haze"></span>
+    <span class="cf-ch__stars"></span>
+  </div>
+
+  <div class="cf-ch__frame">
+    <div class="cf-ch__copy">
+      <p class="cf-ch__eyebrow" data-cf-ch-in="badge">{h.eyebrow}</p>
+      <h1 class="cf-ch__title" id="hero-title">
+        {h.lines.map((line) => (
+          <>
+            <span class="cf-ch__line" data-cf-ch-in="line">{line}</span>{" "}
+          </>
+        ))}
+      </h1>
+      <p class="cf-ch__lede" data-cf-ch-in="lede">{h.lede}</p>
+      <a class="cf-ch__cta" href="#prezzi" data-cf-ch-in="cta">
+        {h.primary}
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4.5 12h15M13.5 6l6 6-6 6" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="cf-ch__deck" role="group" aria-label={h.deckLabel}>
+      <div class="cf-ch__slot cf-ch__slot--chart" data-cf-ch-card>
+        <div class="cf-ch__card cf-ch__card--chart">
+          <p class="cf-ch__card-title">{h.chartTitle}</p>
+          <span class="cf-ch__axis cf-ch__axis--top">{h.chartTop}</span>
+          <span class="cf-ch__axis cf-ch__axis--mid">{h.chartMid}</span>
+          <svg class="cf-ch__chart" viewBox="0 0 250 80" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="cf-ch-area" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffffff" stop-opacity="0.16" />
+                <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+              </linearGradient>
+            </defs>
+            <path class="cf-ch__area" d={`${spark}V80H0Z`} fill="url(#cf-ch-area)" />
+            <path class="cf-ch__spark" d={spark} fill="none" stroke="#f5f5f4" stroke-width="1.6" stroke-linejoin="round" vector-effect="non-scaling-stroke" pathLength="1" data-cf-ch-draw />
+          </svg>
+          <span class="cf-ch__dates" aria-hidden="true">{h.chartDates.map((d) => <span>{d}</span>)}</span>
+        </div>
+      </div>
+
+      <div class="cf-ch__slot cf-ch__slot--coin" data-cf-ch-card>
+        <div class="cf-ch__card cf-ch__card--coin">
+          <div class="cf-ch__coin-head">
+            <span class="cf-ch__coin-logo" aria-hidden="true"><i></i><i></i></span>
+            <div>
+              <p class="cf-ch__coin-name">{h.accountName}</p>
+              <p class="cf-ch__coin-sub">{h.accountSub}</p>
+            </div>
+          </div>
+          <p class="cf-ch__coin-qty">{h.accountLabel}</p>
+          <p class="cf-ch__coin-value">{h.accountValue}</p>
+        </div>
+      </div>
+
+      <div class="cf-ch__slot cf-ch__slot--trend" data-cf-ch-card>
+        <div class="cf-ch__card cf-ch__card--trend">
+          <div class="cf-ch__coin-head">
+            <span class="cf-ch__coin-logo" aria-hidden="true"><i></i><i></i></span>
+            <div>
+              <p class="cf-ch__coin-name">{h.trendName}</p>
+              <p class="cf-ch__coin-sub">{h.trendSub} · {h.trendDelta}</p>
+            </div>
+            <span class="cf-ch__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <div class="cf-ch__trend-row">
+            <p class="cf-ch__coin-value">{h.trendValue}</p>
+            <svg class="cf-ch__mini" viewBox="0 0 70 34" aria-hidden="true">
+              <path d="M1 30 10 26 17 28 25 20 33 22 41 15 47 17 55 9 62 10 66 5" fill="none" stroke="#a3a3a0" stroke-width="1.4" stroke-linejoin="round" />
+              <circle cx="66" cy="5" r="3.6" fill="#f5f5f4" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="cf-ch__slot cf-ch__slot--photo" data-cf-ch-card>
+        <div class="cf-ch__card cf-ch__card--photo">
+          <div class="cf-ch__nimbi" set:html={nimbiSvg("coin", { size: 220, label: h.nimbiAlt })} />
+          <span class="cf-ch__pair">{h.nimbiTag}</span>
+          <p class="cf-ch__price"><span>{h.nimbiValue}</span> {h.nimbiUnit}</p>
+        </div>
+      </div>
+
+      <div class="cf-ch__slot cf-ch__slot--list" data-cf-ch-card aria-hidden="true">
+        <div class="cf-ch__card cf-ch__card--list">
+          <ul>
+            {h.list.map((item, i) => (
+              <li>
+                <span class="cf-ch__token" set:html={nimbiSvg(listNimbi[i], { size: 34 })} />
+                <span class="cf-ch__pairname">{item}</span>
+                <span class="cf-ch__modify">{h.listAction}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

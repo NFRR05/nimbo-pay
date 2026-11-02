@@ -1,0 +1,113 @@
+.cf-btn {
+  --cf-btn-bg: var(--cf-accent);
+  --cf-btn-text: var(--cf-accent-contrast);
+  --cf-btn-fill: var(--cf-accent-hover, var(--cf-text));
+  --cf-btn-fill-text: var(--cf-accent-contrast);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  min-height: var(--cf-btn-height, 3.25rem);
+  padding: 0 1.85em;
+  border: 0;
+  border-radius: var(--cf-radius-pill);
+  background: var(--cf-btn-bg);
+  color: var(--cf-btn-text);
+  font: inherit;
+  font-size: var(--cf-step-0);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color calc(var(--cf-duration-s) * 1.4) var(--cf-ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cf-btn__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.cf-btn__label svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+/* Il cerchio di riempimento parte da --x/--y (impostati dallo script) */
+.cf-btn__fill {
+  position: absolute;
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.cf-btn__fill::before {
+  content: "";
+  position: absolute;
+  width: var(--d, 30rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--cf-btn-fill);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform calc(var(--cf-duration-m) * 1.2) var(--cf-ease-out);
+}
+
+@media (hover: hover) {
+  .cf-btn:hover {
+    color: var(--cf-btn-fill-text);
+  }
+
+  .cf-btn:hover .cf-btn__fill::before {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.cf-btn:focus-visible {
+  color: var(--cf-btn-fill-text);
+}
+
+.cf-btn:focus-visible .cf-btn__fill::before {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Varianti */
+.cf-btn--outline {
+  --cf-btn-bg: transparent;
+  --cf-btn-text: var(--cf-accent);
+  --cf-btn-fill: var(--cf-accent);
+  --cf-btn-fill-text: var(--cf-accent-contrast);
+  box-shadow: inset 0 0 0 1px var(--cf-line);
+}
+
+.cf-btn--outline:hover,
+.cf-btn--outline:focus-visible {
+  box-shadow: inset 0 0 0 1.5px var(--cf-btn-fill);
+}
+
+.cf-btn--round {
+  width: 4.5em;
+  height: 4.5em;
+  min-height: 0;
+  padding: 0;
+}
+
+/* Freccia che si sposta al passaggio del mouse */
+.cf-btn__arrow {
+  transition: transform calc(var(--cf-duration-s) * 1.2) var(--cf-ease-out);
+}
+
+.cf-btn:hover .cf-btn__arrow,
+.cf-btn:focus-visible .cf-btn__arrow {
+  transform: translateX(3px);
+}
+
+.cf-btn--round .cf-btn__label svg {
+  width: 1.4em;
+  height: 1.4em;
+}

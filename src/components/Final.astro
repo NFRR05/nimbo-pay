@@ -1,0 +1,60 @@
+---
+// Final call to action: layout and motion of Collectify «ref-dark-cta» (src/collectify/ref-dark-cta),
+// in black and white. The review card becomes an API call on glass, and the five Nimbi stand in the glow.
+import { nimbiSvg, NIMBI } from "../lib/brand.js";
+
+const { t } = Astro.props;
+const f = t.final;
+const arrow = `<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
+---
+
+<section class="cf-dk" id="finale" data-cf-dk data-theme="dark" aria-labelledby="final-title">
+  <div class="cf-dk__stack">
+    <span class="cf-dk__ghost cf-dk__ghost--back" aria-hidden="true" data-cf-dk-ghost></span>
+    <span class="cf-dk__ghost cf-dk__ghost--mid" aria-hidden="true" data-cf-dk-ghost></span>
+
+    <div class="cf-dk__card" data-cf-dk-card>
+      <div class="cf-dk__fx" aria-hidden="true">
+        <canvas class="cf-dk__dots" data-cf-dk-dots></canvas>
+        <span class="cf-dk__glow" data-cf-dk-glow></span>
+      </div>
+
+      <div class="cf-dk__copy">
+        <h2 class="cf-dk__title" id="final-title">
+          {f.lines.map((line) => (
+            <>
+              <span class="cf-dk__line" data-cf-dk-in="line">{line}</span>{" "}
+            </>
+          ))}
+        </h2>
+        <p class="cf-dk__lede" data-cf-dk-in="copy">{f.text}</p>
+        <div class="cf-dk__actions" data-cf-dk-in="copy">
+          <a class="cf-dk__btn cf-dk__btn--ghost" href="#prezzi">{f.secondary}</a>
+          <a class="cf-dk__btn cf-dk__btn--light" href="#main">{f.cta}<Fragment set:html={arrow} /></a>
+        </div>
+      </div>
+
+      <figure class="cf-dk__quote" data-cf-dk-in="quote">
+        <figcaption class="cf-dk__code-head">
+          <span>{f.codeTitle}</span>
+          <span class="cf-dk__code-tag">{f.codeTag}</span>
+        </figcaption>
+        <pre class="cf-dk__code"><code><span class="cf-dk__k">POST</span> /v1/payments
+{"{"}
+  <span class="cf-dk__dim">"amount":</span> 125000,
+  <span class="cf-dk__dim">"currency":</span> "EUR",
+  <span class="cf-dk__dim">"to":</span> "IT60 X054 2811 1010 0000 0123 456"
+{"}"}</code></pre>
+        <p class="cf-dk__result" data-cf-dk-star>
+          <span class="cf-dk__ok" aria-hidden="true"></span>{f.codeResult}
+        </p>
+        <pre class="cf-dk__code cf-dk__code--resp" data-cf-dk-star><code><span class="cf-dk__dim">"status":</span> "settled",
+<span class="cf-dk__dim">"co2_grams":</span> 0.4</code></pre>
+      </figure>
+
+      <div class="cf-dk__lineup" role="img" aria-label={f.lineupLabel} data-cf-dk-lineup>
+        {NIMBI.map((c) => <Fragment set:html={nimbiSvg(c, { size: 96 })} />)}
+      </div>
+    </div>
+  </div>
+</section>
