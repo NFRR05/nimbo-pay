@@ -1,0 +1,79 @@
+---
+// Pricing: layout and motion of Collectify «ref-nexwealth-pricing» (src/collectify/ref-nexwealth-pricing),
+// redrawn with the Nimbo identity. The Monthly/Annual switch becomes a volume switch: the Scale card counts
+// to the monthly estimate for the chosen volume. The dark Pro card becomes the black Scale card, with Token on it.
+import { nimbiSvg } from "../lib/brand.js";
+import copy from "../copy/pricing.js";
+
+const { t, lang = "it" } = Astro.props;
+const c = copy[lang] || copy.it;
+const locale = t?.locale || (lang === "en" ? "en-IE" : "it-IT");
+const euro = new Intl.NumberFormat(locale, { style: "currency", currency: "EUR", maximumFractionDigits: 0, useGrouping: "always" });
+const num = new Intl.NumberFormat(locale);
+const estimate = (n) => Math.max(0, n - 10000) * 0.05;
+const arrow = `<svg class="cf-nx__arrow" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
+const check = `<span class="cf-nx__check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m7.5 12.4 3 3 6-6.4" /></svg></span>`;
+const RECTS = `<rect x="20.5" y="-82.5" width="60" height="86" rx="10" /><rect x="1086.5" y="-82.5" width="60" height="86" rx="10" /><rect x="20.5" y="76.5" width="60" height="86" rx="10" /><rect x="1086.5" y="76.5" width="60" height="86" rx="10" /><rect x="20.5" y="234.5" width="60" height="86" rx="10" /><rect x="1086.5" y="234.5" width="60" height="86" rx="10" /><rect x="20.5" y="392.5" width="60" height="86" rx="10" /><rect x="1086.5" y="392.5" width="60" height="86" rx="10" /><rect x="113.5" y="-37.5" width="60" height="86" rx="10" /><rect x="993.5" y="-37.5" width="60" height="86" rx="10" /><rect x="113.5" y="121.5" width="60" height="86" rx="10" /><rect x="993.5" y="121.5" width="60" height="86" rx="10" /><rect x="113.5" y="279.5" width="60" height="86" rx="10" /><rect x="993.5" y="279.5" width="60" height="86" rx="10" /><rect x="113.5" y="437.5" width="60" height="86" rx="10" /><rect x="993.5" y="437.5" width="60" height="86" rx="10" /><rect x="207.5" y="-6.5" width="60" height="86" rx="10" /><rect x="899.5" y="-6.5" width="60" height="86" rx="10" /><rect x="207.5" y="151.5" width="60" height="86" rx="10" /><rect x="899.5" y="151.5" width="60" height="86" rx="10" /><rect x="207.5" y="309.5" width="60" height="86" rx="10" /><rect x="899.5" y="309.5" width="60" height="86" rx="10" /><rect x="207.5" y="467.5" width="60" height="86" rx="10" /><rect x="899.5" y="467.5" width="60" height="86" rx="10" /><rect x="300.5" y="23.5" width="60" height="86" rx="10" /><rect x="806.5" y="23.5" width="60" height="86" rx="10" /><rect x="300.5" y="181.5" width="60" height="86" rx="10" /><rect x="806.5" y="181.5" width="60" height="86" rx="10" /><rect x="300.5" y="339.5" width="60" height="86" rx="10" /><rect x="806.5" y="339.5" width="60" height="86" rx="10" /><rect x="393.5" y="58.5" width="60" height="86" rx="10" /><rect x="713.5" y="58.5" width="60" height="86" rx="10" /><rect x="393.5" y="216.5" width="60" height="86" rx="10" /><rect x="713.5" y="216.5" width="60" height="86" rx="10" /><rect x="393.5" y="374.5" width="60" height="86" rx="10" /><rect x="713.5" y="374.5" width="60" height="86" rx="10" /><rect x="487.5" y="88.5" width="60" height="86" rx="10" /><rect x="619.5" y="88.5" width="60" height="86" rx="10" /><rect x="487.5" y="246.5" width="60" height="86" rx="10" /><rect x="619.5" y="246.5" width="60" height="86" rx="10" /><rect x="487.5" y="404.5" width="60" height="86" rx="10" /><rect x="619.5" y="404.5" width="60" height="86" rx="10" />`;
+---
+
+<section class="cf-nx" id="prezzi" data-cf-nx data-cf-nx-locale={locale} aria-labelledby="cf-nx-title">
+  <div class="cf-nx__panel">
+    <svg class="cf-nx__pattern" viewBox="0 0 1166 520" preserveAspectRatio="xMidYMin slice" aria-hidden="true" focusable="false" data-cf-nx-pattern>
+      <defs><linearGradient id="cf-nx-fade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e7e7e5" stop-opacity="0" /><stop offset="0.55" stop-color="#e7e7e5" stop-opacity="0.6" /><stop offset="1" stop-color="#dededc" /></linearGradient></defs>
+      <Fragment set:html={RECTS} />
+    </svg>
+
+    <div class="cf-nx__head">
+      <p class="cf-nx__label" data-cf-nx-in="bar">{c.label}</p>
+      <h2 class="cf-nx__title" id="cf-nx-title">
+        {c.lines.map((line) => (
+          <>
+            <span class="cf-nx__line" data-cf-nx-in="line">{line}</span>{" "}
+          </>
+        ))}
+      </h2>
+
+      <div class="cf-nx__volume" data-cf-nx-in="period">
+        <span class="cf-nx__volume-label" id="cf-nx-volume-label">{c.volumeLabel}</span>
+        <div class="cf-nx__period" role="group" aria-labelledby="cf-nx-volume-label">
+          <span class="cf-nx__period-pill" aria-hidden="true"></span>
+          {c.volumes.map((v) => (
+            <button class="cf-nx__period-btn" type="button" aria-pressed={v === c.defaultVolume ? "true" : "false"} data-cf-nx-volume={v}>{num.format(v)}</button>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="cf-nx__plans">
+      {c.plans.map((p) => (
+        <article class={p.kind === "usage" ? "cf-nx__card cf-nx__card--pro" : "cf-nx__card"} aria-labelledby={`cf-nx-${p.id}`} data-cf-nx-in="card">
+          {p.kind === "usage" && <div class="cf-nx__nimbi" aria-hidden="true" set:html={nimbiSvg("token", { size: 120 })} />}
+          <div class="cf-nx__top">
+            <h3 class="cf-nx__name" id={`cf-nx-${p.id}`}>{p.name}</h3>
+            {p.flag && <p class="cf-nx__flag">{p.flag}</p>}
+          </div>
+          {p.kind === "fixed" && (
+            <p class="cf-nx__price"><span>{euro.format(p.price)}</span> <small>{p.per}</small></p>
+          )}
+          {p.kind === "usage" && (
+            <>
+              <p class="cf-nx__price"><span data-cf-nx-price>{euro.format(estimate(c.defaultVolume))}</span> <small>{p.per}</small></p>
+              <p class="cf-nx__est" aria-live="polite" data-cf-nx-est={p.estimate}>{p.estimate.replace("{n}", num.format(c.defaultVolume))}</p>
+            </>
+          )}
+          {p.kind === "custom" && <p class="cf-nx__price cf-nx__price--text">{p.priceText}</p>}
+          <p class="cf-nx__desc">{p.desc}</p>
+          <a class="cf-nx__cta" href="#finale">{p.cta}<Fragment set:html={arrow} /></a>
+          <h4 class="cf-nx__inc">{c.included}</h4>
+          <ul class="cf-nx__list">
+            {p.features.map((f) => (
+              <li><Fragment set:html={check} />{f}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+
+    <p class="cf-nx__note" data-cf-nx-in="period">{c.note}</p>
+  </div>
+</section>

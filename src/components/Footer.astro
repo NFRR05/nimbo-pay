@@ -1,0 +1,70 @@
+---
+// Footer: layout and motion of Collectify «ref-schmidt-footer» (src/collectify/ref-schmidt-footer),
+// in black and white: the orange glow becomes a white/grey one, the giant name is the nimbo wordmark
+// (sharp at the top, dissolving into blur at the baseline), and the five Nimbi peek out behind it.
+import copy from "../copy/footer.js";
+import { WORDMARK, nimbiSvg } from "../lib/brand.js";
+
+const { lang = "it" } = Astro.props;
+const f = copy[lang] || copy.it;
+// the wordmark box with room around it, so the blurred copies fade out before the edges
+const [x0, y0, w0, h0] = WORDMARK.vb.split(" ").map(Number);
+const VB = `${x0 - 60} ${y0 - 40} ${w0 + 120} ${h0 + 150}`;
+const [, , vw, vh] = VB.split(" ").map(Number);
+// each Nimbi stands behind a letter: n, i, the two humps of m, the bowl of b (x in % of the box)
+const SPOTS = [["coin", 10.2], ["capsule", 24.2, 55.5], ["token", 37.7], ["card", 51.7], ["block", 71.6]];
+const dots = WORDMARK.eyes.map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}"/>`).join("");
+// one wordmark drawing, reused by the three layers; the sharp one is opaque (it hides the Nimbi behind it),
+// the two blurred ones are darker and blend in «screen», so the baseline melts into the glow
+const SHARP = [["0", "#1f1f1f"], ["0.45", "#3a3a39"], ["0.8", "#7c7c7a"], ["1", "#9a9a98"]];
+const SOFT = [["0", "#000"], ["0.6", "#222221"], ["1", "#4e4e4c"]];
+const word = (id, stops) =>
+  `<svg viewBox="${VB}" width="${vw}" height="${vh}" aria-hidden="true" focusable="false"><defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">${stops.map(([o, c]) => `<stop offset="${o}" stop-color="${c}"/>`).join("")}</linearGradient></defs><g fill="url(#${id})"><path d="${WORDMARK.letters}"/><path fill-rule="evenodd" d="${WORDMARK.ring}"/>${dots}</g></svg>`;
+---
+
+<footer class="cf-sc" data-cf-sc data-theme="dark">
+  <div class="cf-sc__card">
+    <div class="cf-sc__glow" aria-hidden="true" data-cf-sc-in="glow">
+      <span class="cf-sc__blob cf-sc__blob--wash" data-cf-sc-blob></span>
+      <span class="cf-sc__blob cf-sc__blob--left" data-cf-sc-blob></span>
+      <span class="cf-sc__blob cf-sc__blob--floor" data-cf-sc-blob></span>
+      <span class="cf-sc__blob cf-sc__blob--core" data-cf-sc-blob></span>
+      <span class="cf-sc__blob cf-sc__blob--hot" data-cf-sc-blob></span>
+    </div>
+
+    <div class="cf-sc__inner">
+      <div class="cf-sc__top">
+        <nav class="cf-sc__nav" aria-label={f.navLabel}>
+          <ul>
+            {f.links.map(([label, href]) => (
+              <li data-cf-sc-in="item"><a href={href}>{label}</a></li>
+            ))}
+          </ul>
+        </nav>
+
+        <div class="cf-sc__contact">
+          <ul class="cf-sc__lang" aria-label={f.langLabel}>
+            <li data-cf-sc-in="icon"><a href="/" hreflang="it" lang="it" aria-current={lang === "it" ? "page" : undefined}>Italiano</a></li>
+            <li data-cf-sc-in="icon"><a href="/en/" hreflang="en" lang="en" aria-current={lang === "en" ? "page" : undefined}>English</a></li>
+          </ul>
+
+          <div class="cf-sc__info">
+            <p class="cf-sc__soft" data-cf-sc-in="line">{f.info[0]}</p>
+            <p data-cf-sc-in="line"><a class="cf-sc__strong" href="#main">{f.top} <span aria-hidden="true">↑</span></a></p>
+            <p class="cf-sc__soft" data-cf-sc-in="line">{f.info[1]}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="cf-sc__word" data-cf-sc-in="word">
+        <div class="cf-sc__nimbi" aria-hidden="true" data-cf-sc-nimbi>
+          {SPOTS.map(([c, x, b = 59]) => <span class="cf-sc__nimbo" style={`--x: ${x}%; --b: ${b}%`} set:html={nimbiSvg(c, { size: 120 })} />)}
+        </div>
+        <span class="cf-sc__word-layer cf-sc__word-layer--sharp" role="img" aria-label="Nimbo" set:html={word("cf-sc-wm-a", SHARP)} />
+        <span class="cf-sc__word-layer cf-sc__word-layer--soft" aria-hidden="true" set:html={word("cf-sc-wm-b", SOFT)} />
+        <span class="cf-sc__word-layer cf-sc__word-layer--deep" aria-hidden="true" set:html={word("cf-sc-wm-c", SOFT)} />
+      </div>
+    </div>
+  </div>
+  <p class="cf-sc__legal">{f.legal}</p>
+</footer>

@@ -1,0 +1,848 @@
+/* «How it works» from Collectify «ref-prime-steps», restyled for Nimbo.
+   Same board (1600 wide in --pd-u from 1100px up), monospace eyebrow that types itself, title, drawn rules,
+   three columns divided by vertical rules, each with a dark mini-interface (420×235 in --pd-m), label,
+   title and text, and the white strip with three benefits underneath.
+   What changes: Nimbo colours and type, the label is plain monospace text instead of the lime chip,
+   the interfaces are Nimbo's (API keys, connectors, first live payment) and the shared-cursor names
+   are three Nimbi, the only colour in the section. */
+.cf-pd {
+  --pd-bg: #f4f4f3;
+  --pd-ink: #111111;
+  --pd-text: #5f5f5c;
+  --pd-line: #e0e0de;
+  --pd-sans: "Inter Variable", "Inter", system-ui, sans-serif;
+  --pd-display: "Outfit Variable", "Outfit", "Inter Variable", system-ui, sans-serif;
+  --pd-mono: "Geist Mono Variable", "Geist Mono", ui-monospace, Menlo, monospace;
+  --pd-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  position: relative;
+  overflow: clip;
+  container-type: inline-size;
+  background: var(--pd-bg);
+  color: var(--pd-ink);
+  font-family: var(--pd-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.cf-pd *,
+.cf-pd *::before,
+.cf-pd *::after {
+  box-sizing: border-box;
+}
+
+.cf-pd :where(ul, ol, p, h2, h3) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cf-pd__frame {
+  --pd-u: calc(min(100cqi, 1760px) / 1600);
+  --pd-m: var(--pd-u);
+  position: relative;
+  width: calc(1600 * var(--pd-u));
+  margin-inline: auto;
+  padding: calc(160 * var(--pd-u)) calc(92 * var(--pd-u)) calc(160 * var(--pd-u));
+}
+
+/* ---------- Heading ---------- */
+
+.cf-pd__head {
+  text-align: center;
+}
+
+.cf-pd__eyebrow {
+  color: var(--pd-text);
+  font-family: var(--pd-mono);
+  font-size: max(12px, calc(16 * var(--pd-u)));
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.cf-pd__slashes {
+  color: #8a8a87;
+}
+
+.cf-pd__title {
+  margin-top: calc(18 * var(--pd-u));
+  font-family: var(--pd-display);
+  font-size: calc(56 * var(--pd-u));
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+}
+
+.cf-pd__rule {
+  display: block;
+  height: 1px;
+  margin-top: calc(72 * var(--pd-u));
+  background: var(--pd-line);
+  transform-origin: 50% 50%;
+}
+
+/* ---------- Columns ---------- */
+
+.cf-pd__steps {
+  display: grid;
+  grid-template-columns: 459fr 498fr 459fr;
+}
+
+.cf-pd__step {
+  position: relative;
+  min-height: calc(508 * var(--pd-u));
+  padding: calc(40 * var(--pd-u)) 0 calc(30 * var(--pd-u)) calc(39 * var(--pd-u));
+}
+
+.cf-pd__step:first-child {
+  padding-left: 0;
+}
+
+.cf-pd__step + .cf-pd__step::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--pd-line);
+  transform-origin: 50% 0;
+  transform: scaleY(var(--pd-draw, 1));
+}
+
+/* the lime «Step» chip becomes a plain monospace label */
+.cf-pd__chip {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: calc(10 * var(--pd-u));
+  margin-top: calc(36 * var(--pd-u));
+  color: var(--pd-text);
+  font-family: var(--pd-mono);
+  font-size: max(12px, calc(15 * var(--pd-u)));
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.cf-pd__chip::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--pd-ink);
+}
+
+.cf-pd__step-title {
+  margin-top: calc(16 * var(--pd-u));
+  font-family: var(--pd-display);
+  font-size: max(20px, calc(26 * var(--pd-u)));
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.cf-pd__text {
+  max-width: calc(420 * var(--pd-u));
+  margin-top: calc(14 * var(--pd-u));
+  color: var(--pd-text);
+  font-size: max(14px, calc(17 * var(--pd-u)));
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+}
+
+/* ---------- Benefits strip ---------- */
+
+.cf-pd__perks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(32 * var(--pd-u));
+  width: fit-content;
+  height: calc(64 * var(--pd-u));
+  margin: calc(72 * var(--pd-u)) auto 0;
+  padding: 0 calc(28 * var(--pd-u)) 0 calc(22 * var(--pd-u));
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: inset 0 0 0 1px var(--pd-line);
+}
+
+.cf-pd__perks li {
+  display: flex;
+  align-items: center;
+  gap: calc(10 * var(--pd-u));
+  font-size: max(13px, calc(17 * var(--pd-u)));
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.cf-pd__perks svg {
+  flex: none;
+  width: calc(24 * var(--pd-u));
+  height: calc(24 * var(--pd-u));
+  min-width: 18px;
+  min-height: 18px;
+  color: var(--pd-ink);
+}
+
+/* ---------- Mini-interfaces (unit --pd-m, card 420×235) ---------- */
+
+.cf-pd__shot {
+  position: relative;
+  width: calc(420 * var(--pd-m));
+  height: calc(235 * var(--pd-m));
+  overflow: hidden;
+  border-radius: calc(20 * var(--pd-m));
+  font-family: var(--pd-sans);
+  line-height: 1.2;
+  user-select: none;
+  transition:
+    transform 0.6s var(--pd-ease),
+    box-shadow 0.6s var(--pd-ease);
+}
+
+.cf-pd__step:hover .cf-pd__shot {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgb(0 0 0 / 0.14);
+}
+
+/* 1 — API keys */
+.cf-pd__keys {
+  background: linear-gradient(150deg, #3d3d3c 0%, #262626 55%, #1c1c1c 100%);
+}
+
+.cf-pd__keys-panel {
+  position: absolute;
+  left: calc(30 * var(--pd-m));
+  top: calc(29 * var(--pd-m));
+  width: calc(420 * var(--pd-m));
+  height: calc(230 * var(--pd-m));
+  border-radius: calc(14 * var(--pd-m));
+  background: #050505;
+}
+
+.cf-pd__keys-title {
+  position: absolute;
+  left: calc(22 * var(--pd-m));
+  top: calc(11 * var(--pd-m));
+  color: #fff;
+  font-size: calc(13 * var(--pd-m));
+  font-weight: 600;
+}
+
+.cf-pd__keys-env {
+  position: absolute;
+  left: calc(300 * var(--pd-m));
+  top: calc(13 * var(--pd-m));
+  display: flex;
+  align-items: center;
+  gap: calc(5 * var(--pd-m));
+  color: #a3a3a0;
+  font-size: calc(9 * var(--pd-m));
+}
+
+.cf-pd__keys-env i {
+  width: calc(5 * var(--pd-m));
+  height: calc(5 * var(--pd-m));
+  border-radius: 50%;
+  background: #fff;
+}
+
+.cf-pd__keys-list {
+  position: absolute;
+  left: calc(14 * var(--pd-m));
+  top: calc(38 * var(--pd-m));
+  width: calc(420 * var(--pd-m));
+  height: calc(200 * var(--pd-m));
+  border-radius: calc(12 * var(--pd-m));
+  background: #141414;
+}
+
+.cf-pd__key {
+  position: absolute;
+  left: calc(14 * var(--pd-m));
+  top: calc(var(--y) * var(--pd-m));
+  width: calc(330 * var(--pd-m));
+  height: calc(40 * var(--pd-m));
+  padding-bottom: calc(8 * var(--pd-m));
+  border-bottom: 1px solid #262626;
+}
+
+.cf-pd__key small {
+  display: block;
+  color: #8a8a87;
+  font-size: calc(7.6 * var(--pd-m));
+}
+
+.cf-pd__key code {
+  display: block;
+  margin-top: calc(6 * var(--pd-m));
+  color: #f5f5f4;
+  font-family: var(--pd-mono);
+  font-size: calc(10 * var(--pd-m));
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.cf-pd__key-copy {
+  position: absolute;
+  right: 0;
+  top: calc(10 * var(--pd-m));
+  display: grid;
+  place-items: center;
+  height: calc(18 * var(--pd-m));
+  padding: 0 calc(8 * var(--pd-m));
+  border: 1px solid #3a3a39;
+  border-radius: calc(5 * var(--pd-m));
+  color: #e7e7e5;
+  font-size: calc(8 * var(--pd-m));
+}
+
+.cf-pd__pop {
+  position: absolute;
+  left: calc(196 * var(--pd-m));
+  top: calc(132 * var(--pd-m));
+  width: calc(170 * var(--pd-m));
+  padding: calc(10 * var(--pd-m)) calc(11 * var(--pd-m));
+  border-radius: calc(8 * var(--pd-m));
+  background: #f4f4f3;
+  box-shadow: 0 calc(6 * var(--pd-m)) calc(18 * var(--pd-m)) rgb(0 0 0 / 0.4);
+  color: #111;
+  transform-origin: 20% 0;
+}
+
+.cf-pd__pop-title {
+  display: flex;
+  align-items: center;
+  gap: calc(6 * var(--pd-m));
+  font-size: calc(10 * var(--pd-m));
+  font-weight: 600;
+}
+
+.cf-pd__pop-title svg {
+  width: calc(11 * var(--pd-m));
+  height: calc(11 * var(--pd-m));
+  flex: none;
+}
+
+.cf-pd__pop-time {
+  margin-top: calc(4 * var(--pd-m));
+  color: #5f5f5c;
+  font-size: calc(7.6 * var(--pd-m));
+}
+
+.cf-pd__pop-row {
+  margin-top: calc(8 * var(--pd-m));
+  padding-top: calc(7 * var(--pd-m));
+  border-top: 1px solid #e0e0de;
+  font-family: var(--pd-mono);
+  font-size: calc(7.4 * var(--pd-m));
+}
+
+/* 2 — connectors */
+.cf-pd__chat {
+  display: flex;
+  padding: calc(7.5 * var(--pd-m));
+  background: #111111;
+}
+
+.cf-pd__chat-side {
+  flex: none;
+  width: calc(104 * var(--pd-m));
+  padding: calc(11 * var(--pd-m)) calc(7.5 * var(--pd-m)) 0;
+  border-radius: calc(10 * var(--pd-m)) 0 0 calc(10 * var(--pd-m));
+  background: #222222;
+  color: #c9c9c6;
+}
+
+.cf-pd__chat-team,
+.cf-pd__chat-channel {
+  display: flex;
+  align-items: center;
+  gap: calc(4 * var(--pd-m));
+  color: #ffffff;
+  font-size: calc(9.4 * var(--pd-m));
+  font-weight: 600;
+}
+
+.cf-pd__chat-team {
+  padding-left: calc(5 * var(--pd-m));
+}
+
+.cf-pd__chat-team i,
+.cf-pd__chat-channel i {
+  font-style: normal;
+  font-size: calc(8 * var(--pd-m));
+  line-height: 0.6;
+}
+
+.cf-pd__chat-menu {
+  margin-top: calc(12 * var(--pd-m));
+  padding: 0 0 calc(10 * var(--pd-m)) calc(5 * var(--pd-m));
+  border-bottom: 1px solid #363636;
+}
+
+.cf-pd__chat-menu li {
+  display: flex;
+  align-items: center;
+  gap: calc(6 * var(--pd-m));
+  height: calc(15 * var(--pd-m));
+  font-size: calc(7.6 * var(--pd-m));
+}
+
+.cf-pd__chat-menu li b {
+  width: calc(6 * var(--pd-m));
+  height: calc(6 * var(--pd-m));
+  border: 1px solid currentColor;
+  border-radius: calc(1.5 * var(--pd-m));
+  opacity: 0.7;
+}
+
+.cf-pd__chat-menu .is-active {
+  color: #fff;
+  font-weight: 600;
+}
+
+.cf-pd__chat-menu .is-active b {
+  background: #fff;
+  border-color: #fff;
+  opacity: 1;
+}
+
+.cf-pd__chat-channels {
+  margin-top: calc(10 * var(--pd-m));
+  padding-left: calc(5 * var(--pd-m));
+}
+
+.cf-pd__chat-channels li {
+  display: flex;
+  align-items: center;
+  height: calc(15 * var(--pd-m));
+  padding-left: calc(4 * var(--pd-m));
+  border-radius: calc(4 * var(--pd-m));
+  font-size: calc(7.6 * var(--pd-m));
+}
+
+.cf-pd__chat-channels .cf-pd__chat-label {
+  padding-left: 0;
+  color: #8a8a87;
+}
+
+.cf-pd__chat-channels .is-active {
+  background: #3a3a39;
+  color: #fff;
+}
+
+.cf-pd__chat-main {
+  position: relative;
+  flex: 1;
+  padding: calc(11 * var(--pd-m)) calc(14 * var(--pd-m));
+  border-radius: 0 calc(10 * var(--pd-m)) calc(10 * var(--pd-m)) 0;
+  background: #181818;
+  color: #c9c9c6;
+}
+
+.cf-pd__chat-apps {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--pd-m));
+  margin-top: calc(12 * var(--pd-m));
+}
+
+.cf-pd__chat-apps > span {
+  display: grid;
+  place-items: center;
+  width: calc(30 * var(--pd-m));
+  height: calc(30 * var(--pd-m));
+  border-radius: calc(8 * var(--pd-m));
+  background: #2a2a2a;
+  color: #fff;
+}
+
+.cf-pd__chat-apps > span svg {
+  width: calc(14 * var(--pd-m));
+  height: calc(14 * var(--pd-m));
+}
+
+.cf-pd__chat-apps > .cf-pd__chat-nimbi {
+  background: #f4f4f3;
+}
+
+.cf-pd__chat-nimbi svg {
+  width: calc(24 * var(--pd-m));
+  height: calc(26 * var(--pd-m));
+  overflow: visible;
+}
+
+.cf-pd__chat-apps b {
+  color: #8a8a87;
+  font-size: calc(12 * var(--pd-m));
+  font-weight: 400;
+}
+
+.cf-pd__msg {
+  display: flex;
+  align-items: center;
+  gap: calc(8 * var(--pd-m));
+  margin-top: calc(12 * var(--pd-m));
+  font-size: calc(8 * var(--pd-m));
+  line-height: 1.35;
+}
+
+.cf-pd__msg p {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.cf-pd__msg b {
+  display: block;
+  color: #fff;
+  font-weight: 600;
+}
+
+.cf-pd__msg small {
+  color: #8a8a87;
+  font-size: calc(7 * var(--pd-m));
+}
+
+.cf-pd__avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: calc(22 * var(--pd-m));
+  height: calc(22 * var(--pd-m));
+  border-radius: calc(6 * var(--pd-m));
+  background: #f4f4f3;
+  color: #111;
+}
+
+.cf-pd__avatar svg {
+  width: calc(12 * var(--pd-m));
+  height: calc(12 * var(--pd-m));
+}
+
+.cf-pd__msg-status {
+  display: flex;
+  align-items: center;
+  gap: calc(4 * var(--pd-m));
+  color: #e7e7e5;
+  font-size: calc(7.2 * var(--pd-m));
+}
+
+.cf-pd__msg-status::before {
+  content: "";
+  width: calc(4.5 * var(--pd-m));
+  height: calc(4.5 * var(--pd-m));
+  border-radius: 50%;
+  background: #fff;
+}
+
+.cf-pd__chat-input {
+  position: absolute;
+  left: calc(14 * var(--pd-m));
+  right: calc(14 * var(--pd-m));
+  bottom: calc(12 * var(--pd-m));
+  display: flex;
+  align-items: center;
+  gap: calc(7 * var(--pd-m));
+  height: calc(26 * var(--pd-m));
+  padding: 0 calc(8 * var(--pd-m));
+  border: 1px solid #333;
+  border-radius: calc(7 * var(--pd-m));
+  color: #8a8a87;
+  font-size: calc(7.6 * var(--pd-m));
+}
+
+.cf-pd__chat-plus {
+  display: grid;
+  place-items: center;
+  width: calc(13 * var(--pd-m));
+  height: calc(13 * var(--pd-m));
+  border-radius: 50%;
+  background: #2a2a2a;
+  color: #e7e7e5;
+  font-size: calc(10 * var(--pd-m));
+  line-height: 1;
+}
+
+/* 3 — first live payment */
+.cf-pd__live {
+  background:
+    radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.1) 1px, transparent 1.5px) 0 0 / calc(14 * var(--pd-m)) calc(14 * var(--pd-m)),
+    linear-gradient(150deg, #2a2a29 0%, #181818 60%, #111 100%);
+}
+
+.cf-pd__live-card {
+  position: absolute;
+  left: calc(46 * var(--pd-m));
+  top: calc(34 * var(--pd-m));
+  width: calc(300 * var(--pd-m));
+  padding: calc(14 * var(--pd-m)) calc(16 * var(--pd-m)) calc(16 * var(--pd-m));
+  border-radius: calc(12 * var(--pd-m));
+  background: #f4f4f3;
+  color: #111;
+  box-shadow: 0 calc(10 * var(--pd-m)) calc(26 * var(--pd-m)) rgb(0 0 0 / 0.45);
+}
+
+.cf-pd__live-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #5f5f5c;
+  font-size: calc(8.4 * var(--pd-m));
+  font-weight: 500;
+}
+
+.cf-pd__live-title span {
+  display: flex;
+  align-items: center;
+  gap: calc(4 * var(--pd-m));
+  color: #111;
+  font-weight: 600;
+}
+
+.cf-pd__live-title i {
+  width: calc(5 * var(--pd-m));
+  height: calc(5 * var(--pd-m));
+  border-radius: 50%;
+  background: #111;
+  box-shadow: 0 0 0 calc(2.5 * var(--pd-m)) rgb(17 17 17 / 0.12);
+}
+
+.cf-pd__live-amount {
+  margin-top: calc(8 * var(--pd-m));
+  font-family: var(--pd-display);
+  font-size: calc(30 * var(--pd-m));
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.cf-pd__live-meta {
+  margin-top: calc(5 * var(--pd-m));
+  color: #5f5f5c;
+  font-size: calc(8 * var(--pd-m));
+  white-space: nowrap;
+}
+
+.cf-pd__live-track {
+  position: relative;
+  height: calc(3 * var(--pd-m));
+  margin-top: calc(16 * var(--pd-m));
+  border-radius: 99px;
+  background: #e0e0de;
+}
+
+.cf-pd__live-track span {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #111;
+  transform-origin: 0 50%;
+}
+
+.cf-pd__live-stages {
+  display: flex;
+  justify-content: space-between;
+  margin-top: calc(7 * var(--pd-m));
+}
+
+.cf-pd__live-stages li {
+  display: grid;
+  gap: calc(2 * var(--pd-m));
+  font-size: calc(7.4 * var(--pd-m));
+}
+
+.cf-pd__live-stages li:nth-child(2) {
+  text-align: center;
+}
+
+.cf-pd__live-stages li:last-child {
+  text-align: right;
+}
+
+.cf-pd__live-stages b {
+  font-weight: 600;
+}
+
+.cf-pd__live-stages small {
+  color: #8a8a87;
+  font-family: var(--pd-mono);
+  font-size: calc(6.8 * var(--pd-m));
+}
+
+/* the three shared cursors: a Nimbi on a black name tag */
+.cf-pd__cursor {
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.cf-pd__cursor > svg {
+  width: calc(12 * var(--pd-m));
+  height: calc(12 * var(--pd-m));
+  fill: #fff;
+  stroke: #111;
+  stroke-width: 0.8;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.4));
+}
+
+.cf-pd__cursor-tag {
+  display: flex;
+  align-items: center;
+  gap: calc(4 * var(--pd-m));
+  margin-top: calc(9 * var(--pd-m));
+  padding: calc(2.5 * var(--pd-m)) calc(7 * var(--pd-m)) calc(2.5 * var(--pd-m)) calc(3 * var(--pd-m));
+  border-radius: calc(6 * var(--pd-m));
+  background: #111;
+  color: #fff;
+  font-size: calc(7.6 * var(--pd-m));
+  font-weight: 600;
+  box-shadow: 0 calc(3 * var(--pd-m)) calc(8 * var(--pd-m)) rgb(0 0 0 / 0.35);
+}
+
+.cf-pd__cursor-tag svg {
+  display: block;
+  width: calc(15 * var(--pd-m));
+  height: calc(16 * var(--pd-m));
+  overflow: visible;
+}
+
+.cf-pd__cursor--a {
+  left: calc(18 * var(--pd-m));
+  top: calc(170 * var(--pd-m));
+}
+
+.cf-pd__cursor--b {
+  left: calc(330 * var(--pd-m));
+  top: calc(2 * var(--pd-m));
+  flex-direction: row-reverse;
+}
+
+.cf-pd__cursor--c {
+  left: calc(298 * var(--pd-m));
+  top: calc(168 * var(--pd-m));
+  flex-direction: row-reverse;
+}
+
+/* ---------- Below 1100px: steps stacked, card on the left and text on the right ---------- */
+
+@media (max-width: 1099px) {
+  .cf-pd__frame {
+    --pd-u: 1px;
+    --pd-m: calc(min(380px, 100cqi - 32px) / 420);
+    width: auto;
+    max-width: 920px;
+    padding: 96px 32px;
+  }
+
+  .cf-pd__eyebrow {
+    font-size: 14px;
+    white-space: normal;
+  }
+
+  .cf-pd__title {
+    font-size: clamp(34px, 6cqi, 52px);
+  }
+
+  .cf-pd__rule {
+    margin-top: 56px;
+  }
+
+  .cf-pd__steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cf-pd__step,
+  .cf-pd__step:first-child {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr;
+    column-gap: 36px;
+    min-height: 0;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--pd-line);
+  }
+
+  .cf-pd__step + .cf-pd__step::before {
+    display: none;
+  }
+
+  .cf-pd__shot {
+    grid-row: 1 / span 3;
+  }
+
+  .cf-pd__chip {
+    justify-self: start;
+    margin-top: 6px;
+    font-size: 13px;
+  }
+
+  .cf-pd__step-title {
+    font-size: 22px;
+  }
+
+  .cf-pd__text {
+    font-size: 16px;
+  }
+
+  .cf-pd__perks {
+    flex-wrap: wrap;
+    gap: 14px 28px;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    margin-top: 48px;
+    padding: 18px 24px;
+  }
+
+  .cf-pd__perks li {
+    gap: 10px;
+    font-size: 16px;
+    white-space: normal;
+  }
+}
+
+/* ---------- Phone: card on top, text below ---------- */
+
+@media (max-width: 699px) {
+  .cf-pd__frame {
+    --pd-m: calc((100cqi - 32px) / 420);
+    padding: 72px 16px;
+  }
+
+  .cf-pd__step,
+  .cf-pd__step:first-child {
+    display: block;
+    padding: 28px 0 32px;
+  }
+
+  .cf-pd__chip {
+    margin-top: 24px;
+  }
+
+  .cf-pd__perks {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .cf-pd [data-cf-pd-in] {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-pd *,
+  .cf-pd *::before,
+  .cf-pd *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

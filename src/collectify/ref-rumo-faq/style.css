@@ -1,0 +1,325 @@
+/* FAQ from Collectify «ref-rumo-faq», restyled for Nimbo.
+   Same two columns (title and subtitle on the left with a picture that fades into the section, accordion on
+   the right, one answer open at a time); from 860px up sizes are shot px times --rm-s. What changes: white
+   page, Outfit and Inter, Nimbo questions, and the coastline photo becomes the five Nimbi on a soft grey floor. */
+.cf-rm {
+  --rm-bg: #ffffff;
+  --rm-ink: #111111;
+  --rm-text: #5f5f5c;
+  --rm-line: #d6d6d3;
+  --rm-font: "Inter Variable", "Inter", system-ui, sans-serif;
+  --rm-display: "Outfit Variable", "Outfit", "Inter Variable", system-ui, sans-serif;
+  --rm-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --rm-s: min(1px, calc(100vw / 1440));
+
+  display: grid;
+  grid-template-columns: calc(646 * var(--rm-s)) calc(593 * var(--rm-s));
+  justify-content: space-between;
+  min-height: calc(718 * var(--rm-s));
+  padding: calc(110 * var(--rm-s)) calc(100 * var(--rm-s)) calc(110 * var(--rm-s)) 0;
+  overflow: hidden;
+  border-top: 1px solid #e7e7e5;
+  background: var(--rm-bg);
+  color: var(--rm-ink);
+  font-family: var(--rm-font);
+  -webkit-font-smoothing: antialiased;
+}
+
+.cf-rm *,
+.cf-rm *::before,
+.cf-rm *::after {
+  box-sizing: border-box;
+}
+
+.cf-rm :where(h2, h3, p, figure) {
+  margin: 0;
+}
+
+.cf-rm :focus-visible {
+  outline: 2px solid var(--rm-ink);
+  outline-offset: 4px;
+}
+
+/* ---------- Colonna sinistra ---------- */
+
+.cf-rm__intro {
+  position: relative;
+  padding-left: calc(101 * var(--rm-s));
+}
+
+.cf-rm__title {
+  margin-top: calc(3 * var(--rm-s));
+  font-family: var(--rm-display);
+  font-size: calc(54 * var(--rm-s));
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+}
+
+.cf-rm__line {
+  display: block;
+  overflow: clip;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.cf-rm__line-in {
+  display: block;
+}
+
+.cf-rm__sub {
+  margin-top: calc(13 * var(--rm-s));
+  color: var(--rm-text);
+  font-size: max(14px, calc(17.6 * var(--rm-s)));
+  line-height: 1.5;
+  letter-spacing: -0.003em;
+}
+
+/* in place of the coastline photo: a soft grey floor that fades right, up and down into the section
+   (same intersected masks as the original), with the five Nimbi standing on it */
+.cf-rm__photo {
+  position: absolute;
+  top: calc(181 * var(--rm-s));
+  left: 0;
+  width: calc(660 * var(--rm-s));
+  aspect-ratio: 660 / 405;
+}
+
+.cf-rm__floor {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 34% at 46% 78%, #e2e2e0 0%, rgb(226 226 224 / 0) 100%),
+    linear-gradient(100deg, #ececeb 0%, #f2f2f1 45%, rgb(255 255 255 / 0) 90%);
+  -webkit-mask-image:
+    linear-gradient(to right, #000 38%, rgb(0 0 0 / 0.6) 62%, transparent 92%),
+    linear-gradient(to bottom, transparent 0%, #000 26%, #000 72%, transparent 98%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, #000 38%, rgb(0 0 0 / 0.6) 62%, transparent 92%),
+    linear-gradient(to bottom, transparent 0%, #000 26%, #000 72%, transparent 98%);
+  mask-composite: intersect;
+}
+
+.cf-rm__nimbi {
+  position: absolute;
+  left: calc(101 * var(--rm-s));
+  bottom: 18%;
+  display: flex;
+  align-items: flex-end;
+  gap: calc(6 * var(--rm-s));
+}
+
+.cf-rm__nimbi-one {
+  display: block;
+  width: calc(88 * var(--rm-s));
+  height: calc(94 * var(--rm-s));
+}
+
+.cf-rm__nimbi-one:nth-child(5) {
+  width: calc(98 * var(--rm-s));
+  height: calc(104 * var(--rm-s));
+}
+
+.cf-rm__nimbi-one svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* ---------- Fisarmonica ---------- */
+
+.cf-rm__item {
+  border-bottom: 1px solid var(--rm-line);
+}
+
+.cf-rm__q {
+  font: inherit;
+}
+
+.cf-rm__btn {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+  margin: 0;
+  padding: calc(35 * var(--rm-s)) 0 calc(30 * var(--rm-s));
+  border: 0;
+  background: none;
+  color: var(--rm-ink);
+  font: inherit;
+  font-family: var(--rm-display);
+  font-size: calc(27 * var(--rm-s));
+  font-weight: 500;
+  line-height: calc(32.5 * var(--rm-s));
+  letter-spacing: -0.025em;
+  text-align: left;
+  cursor: pointer;
+  transition: padding 0.5s var(--rm-ease);
+}
+
+.cf-rm__item:first-child .cf-rm__btn {
+  padding-top: calc(1 * var(--rm-s));
+}
+
+/* la domanda aperta ha un po' più d'aria sopra la linea */
+.cf-rm__btn[aria-expanded="true"] {
+  padding-bottom: calc(36 * var(--rm-s));
+}
+
+.cf-rm__btn > span {
+  max-width: calc(532 * var(--rm-s));
+  transition: transform 0.5s var(--rm-ease);
+}
+
+.cf-rm__btn:hover > span {
+  transform: translateX(calc(6 * var(--rm-s)));
+}
+
+.cf-rm__chev {
+  flex: none;
+  width: calc(14 * var(--rm-s));
+  height: calc(8 * var(--rm-s));
+  margin: calc(12 * var(--rm-s)) 0 0;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.5s var(--rm-ease);
+}
+
+/* le domande su una riga hanno la freccia un po' più in basso, come nella shot */
+.cf-rm__btn[aria-expanded="true"] .cf-rm__chev {
+  transform: rotate(180deg);
+}
+
+.cf-rm__panel {
+  overflow: hidden;
+}
+
+.cf-rm__panel p {
+  padding: calc(17 * var(--rm-s)) calc(26 * var(--rm-s)) calc(14 * var(--rm-s)) 0;
+  border-top: 1px solid var(--rm-line);
+  color: var(--rm-text);
+  font-size: max(14px, calc(16 * var(--rm-s)));
+  line-height: 1.5;
+  letter-spacing: -0.003em;
+}
+
+/* senza script le risposte chiuse restano nascoste comunque */
+.cf-rm__q:has(> [aria-expanded="false"]) + .cf-rm__panel {
+  height: 0;
+  visibility: hidden;
+}
+
+/* ---------- Tablet e telefono ---------- */
+
+@media (max-width: 859.98px) {
+  .cf-rm {
+    --rm-s: 1px;
+
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    min-height: 0;
+    padding: clamp(48px, 8vw, 72px) clamp(20px, 5vw, 56px);
+  }
+
+  .cf-rm__intro {
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+  }
+
+  .cf-rm__title {
+    font-size: clamp(2.4rem, 9vw, 3.2rem);
+    line-height: 1.04;
+  }
+
+  .cf-rm__sub {
+    font-size: 1.0625rem;
+    line-height: 1.5;
+  }
+
+  .cf-rm__photo {
+    position: relative;
+    top: 0;
+    width: calc(100% + clamp(20px, 5vw, 56px));
+    margin: 8px 0 0 calc(-1 * clamp(20px, 5vw, 56px));
+    aspect-ratio: 16 / 7;
+  }
+
+  .cf-rm__nimbi {
+    left: clamp(20px, 5vw, 56px);
+    bottom: 14%;
+    gap: 4px;
+  }
+
+  .cf-rm__nimbi-one {
+    width: clamp(48px, 11vw, 80px);
+    height: auto;
+    aspect-ratio: 120 / 128;
+  }
+
+  .cf-rm__nimbi-one:nth-child(5) {
+    width: clamp(54px, 12.4vw, 90px);
+    height: auto;
+  }
+
+  .cf-rm__btn {
+    padding: 24px 0 22px;
+    font-size: clamp(1.2rem, 3.4vw, 1.5rem);
+    line-height: 1.2;
+  }
+
+  .cf-rm__item:first-child .cf-rm__btn {
+    padding-top: 0;
+  }
+
+  .cf-rm__btn > span {
+    max-width: none;
+  }
+
+  .cf-rm__chev {
+    width: 14px;
+    height: 8px;
+    margin-top: 10px;
+  }
+
+  .cf-rm__panel p {
+    padding: 18px 0 20px;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+}
+
+@media (max-width: 559.98px) {
+  .cf-rm__br {
+    display: none;
+  }
+
+  .cf-rm__photo {
+    aspect-ratio: 2 / 1;
+  }
+
+  .cf-rm__nimbi {
+    bottom: 12%;
+  }
+}
+
+/* Stato iniziale dell'ingresso: nascosto solo se lo script può animarlo */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .cf-rm [data-cf-rm-in] {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-rm *,
+  .cf-rm *::before,
+  .cf-rm *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

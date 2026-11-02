@@ -1,0 +1,594 @@
+/* Pricing from Collectify «ref-nexwealth-pricing», restyled for Nimbo.
+   Same white panel with the column pattern, two-line title, sliding switch and three plans where the
+   middle one is larger (content in 4:3 scale) and dark; from 1100px up sizes are shot px times --nx-s.
+   What changes: neutral page instead of lime, black instead of dark green, Outfit and Inter, the site
+   navbar instead of the panel bar, a volume switch (transactions a month) instead of Monthly/Annual,
+   a plain label instead of the «Most Popular» badge, and Token sitting on the black card. */
+.cf-nx {
+  --nx-bg: #f4f4f3;
+  --nx-panel: #ffffff;
+  --nx-ink: #111111;
+  --nx-dark: #111111;
+  --nx-lime: #111111;
+  --nx-lime-hover: #333333;
+  --nx-lime-soft: #ffffff;
+  --nx-gray: #5f5f5c;
+  --nx-muted: #5f5f5c;
+  --nx-check: #111111;
+  --nx-btn-text: #ffffff;
+  --nx-line: #e7e7e5;
+  --nx-font: "Inter Variable", "Inter", system-ui, sans-serif;
+  --nx-display: "Outfit Variable", "Outfit", "Inter Variable", system-ui, sans-serif;
+  --nx-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --nx-s: clamp(0.76px, calc(100vw / 1440), 1px);
+
+  overflow: clip;
+  padding: calc(84 * var(--nx-s)) 0;
+  background: var(--nx-bg);
+  color: var(--nx-ink);
+  font-family: var(--nx-font);
+  line-height: 1.3;
+  -webkit-font-smoothing: antialiased;
+}
+
+.cf-nx *,
+.cf-nx *::before,
+.cf-nx *::after {
+  box-sizing: border-box;
+}
+
+.cf-nx :where(h2, h3, h4, p, ul) {
+  margin: 0;
+  padding: 0;
+}
+
+.cf-nx :where(ul) {
+  list-style: none;
+}
+
+.cf-nx :where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cf-nx :where(button) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.cf-nx :focus-visible {
+  outline: 2px solid var(--nx-ink);
+  outline-offset: 3px;
+}
+
+/* ---------- Pannello ---------- */
+
+.cf-nx__panel {
+  position: relative;
+  width: calc(1166 * var(--nx-s));
+  margin-inline: auto;
+  padding-bottom: calc(72 * var(--nx-s));
+  border-radius: 28px;
+  background: var(--nx-panel);
+  box-shadow:
+    inset 0 0 0 1px var(--nx-line),
+    0 calc(30 * var(--nx-s)) calc(90 * var(--nx-s)) rgb(0 0 0 / 0.06);
+}
+
+/* Colonne di rettangoli arrotondati alti, appena visibili, a scalare verso il centro:
+   il bordo sfuma verso l'alto come nella shot (resta netto solo in basso) */
+.cf-nx__pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(520 * var(--nx-s));
+  overflow: visible;
+  fill: #ffffff;
+  stroke: url(#cf-nx-fade);
+  stroke-width: 1.2;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 62%, transparent 100%);
+}
+
+.cf-nx__pattern rect {
+  filter: drop-shadow(0 2px 2px rgb(0 0 0 / 0.03));
+}
+
+/* ---------- Titolo e periodo ---------- */
+
+.cf-nx__head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: calc(72 * var(--nx-s));
+  text-align: center;
+}
+
+.cf-nx__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: calc(18 * var(--nx-s));
+  font-size: max(12px, calc(13 * var(--nx-s)));
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--nx-gray);
+}
+
+.cf-nx__label::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--nx-ink);
+}
+
+.cf-nx__title {
+  font-family: var(--nx-display);
+  font-size: calc(56 * var(--nx-s));
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+}
+
+.cf-nx__line {
+  display: block;
+}
+
+.cf-nx__volume {
+  display: flex;
+  align-items: center;
+  gap: calc(14 * var(--nx-s));
+  margin-top: calc(28 * var(--nx-s));
+}
+
+.cf-nx__volume-label {
+  font-size: max(13px, calc(14 * var(--nx-s)));
+  color: var(--nx-gray);
+}
+
+.cf-nx__period {
+  position: relative;
+  display: flex;
+  padding: calc(6 * var(--nx-s));
+  border: 1px solid var(--nx-line);
+  border-radius: 12px;
+  background: #f4f4f3;
+  box-shadow: 0 calc(4 * var(--nx-s)) calc(14 * var(--nx-s)) rgb(0 0 0 / 0.04);
+}
+
+.cf-nx__period-pill {
+  position: absolute;
+  top: calc(6 * var(--nx-s));
+  bottom: calc(6 * var(--nx-s));
+  left: 0;
+  display: none;
+  border-radius: 8px;
+  background: var(--nx-ink);
+}
+
+.cf-nx[data-cf-nx-ready] .cf-nx__period-pill {
+  display: block;
+}
+
+.cf-nx__period-btn {
+  position: relative;
+  min-height: 36px;
+  height: calc(38 * var(--nx-s));
+  padding: 0 calc(16 * var(--nx-s));
+  border-radius: 8px;
+  font-size: max(13px, calc(14 * var(--nx-s)));
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--nx-gray);
+  transition: color 0.35s var(--nx-ease);
+}
+
+.cf-nx__period-btn[aria-pressed="true"] {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* without script the chosen volume gets the black fill directly */
+.cf-nx:not([data-cf-nx-ready]) .cf-nx__period-btn[aria-pressed="true"] {
+  background: var(--nx-ink);
+}
+
+.cf-nx__period-btn:focus-visible {
+  outline-offset: 1px;
+}
+
+/* ---------- Piani ---------- */
+
+.cf-nx__plans {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(41 * var(--nx-s));
+  width: calc(1324 * var(--nx-s));
+  margin: calc(41 * var(--nx-s)) 0 0 calc(-79 * var(--nx-s));
+}
+
+/* Ogni misura della card è in --nx-u: la card Pro ha --nx-k 4/3 */
+.cf-nx__card {
+  --nx-k: 1;
+  --nx-u: calc(var(--nx-s) * var(--nx-k));
+
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  width: calc(384 * var(--nx-s));
+  padding: calc(34 * var(--nx-u)) calc(35 * var(--nx-u)) calc(31 * var(--nx-u));
+  position: relative;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #ffffff 70%, #fafafa);
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.05),
+    0 calc(24 * var(--nx-s)) calc(70 * var(--nx-s)) rgb(0 0 0 / 0.08);
+  color: var(--nx-ink);
+}
+
+.cf-nx__card:last-child {
+  background: linear-gradient(270deg, #ffffff 70%, #fafafa);
+}
+
+.cf-nx__card--pro {
+  --nx-k: 1.3333;
+
+  width: calc(474 * var(--nx-s));
+  border-radius: 28px;
+  background: linear-gradient(165deg, #262626 0%, #111111 45%, #050505 100%);
+  box-shadow:
+    0 calc(40 * var(--nx-s)) calc(120 * var(--nx-s)) rgb(0 0 0 / 0.3),
+    0 calc(10 * var(--nx-s)) calc(30 * var(--nx-s)) rgb(0 0 0 / 0.16);
+  color: #f5f5f4;
+}
+
+.cf-nx__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(12 * var(--nx-u));
+}
+
+.cf-nx__name {
+  font-family: var(--nx-display);
+  color: var(--nx-ink);
+  font-size: calc(26 * var(--nx-u));
+  font-weight: 600;
+  line-height: calc(34 * var(--nx-u));
+  letter-spacing: -0.02em;
+}
+
+.cf-nx__card--pro .cf-nx__name {
+  color: #ffffff;
+}
+
+/* plain label, no badge */
+.cf-nx__flag {
+  margin-right: calc(96 * var(--nx-s));
+  color: #a3a3a0;
+  font-size: calc(14 * var(--nx-u));
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Token sits on the top edge of the black card */
+.cf-nx__nimbi {
+  position: absolute;
+  top: calc(-58 * var(--nx-s));
+  right: calc(26 * var(--nx-s));
+  width: calc(84 * var(--nx-s));
+  height: calc(90 * var(--nx-s));
+  filter: drop-shadow(0 calc(10 * var(--nx-s)) calc(14 * var(--nx-s)) rgb(0 0 0 / 0.18));
+}
+
+.cf-nx__nimbi svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.cf-nx__price {
+  display: flex;
+  align-items: baseline;
+  gap: calc(8 * var(--nx-u));
+  margin-top: calc(10 * var(--nx-u));
+  font-family: var(--nx-display);
+  font-size: calc(38 * var(--nx-u));
+  font-weight: 600;
+  line-height: calc(46 * var(--nx-u));
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.cf-nx__price small {
+  font-family: var(--nx-font);
+  font-size: calc(15 * var(--nx-u));
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--nx-gray);
+}
+
+.cf-nx__card--pro .cf-nx__price small,
+.cf-nx__card--pro .cf-nx__est {
+  color: #a3a3a0;
+}
+
+.cf-nx__est {
+  margin-top: calc(2 * var(--nx-u));
+  font-size: calc(13 * var(--nx-u));
+  color: var(--nx-gray);
+  font-variant-numeric: tabular-nums;
+}
+
+.cf-nx__card--pro .cf-nx__price {
+  color: #ffffff;
+}
+
+.cf-nx__desc {
+  margin-top: calc(7 * var(--nx-u));
+  color: var(--nx-muted);
+  font-size: calc(18.2 * var(--nx-u));
+  line-height: calc(26 * var(--nx-u));
+}
+
+.cf-nx__card--pro .cf-nx__desc {
+  color: #c9c9c6;
+}
+
+.cf-nx__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(10 * var(--nx-u));
+  height: calc(52 * var(--nx-u));
+  margin-top: calc(26 * var(--nx-u));
+  border-radius: 12px;
+  background: var(--nx-lime);
+  color: var(--nx-btn-text);
+  font-size: calc(16.5 * var(--nx-u));
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.4s var(--nx-ease);
+}
+
+.cf-nx__arrow {
+  width: calc(16 * var(--nx-u));
+  height: calc(16 * var(--nx-u));
+  transition: transform 0.45s var(--nx-ease);
+}
+
+.cf-nx__cta:hover .cf-nx__arrow {
+  transform: translateX(4px);
+}
+
+.cf-nx__card--pro .cf-nx__cta {
+  background: #f5f5f4;
+  color: #111111;
+}
+
+.cf-nx__card--pro .cf-nx__cta:hover {
+  background: #ffffff;
+}
+
+.cf-nx__cta:hover {
+  background: var(--nx-lime-hover);
+}
+
+.cf-nx__cta:active {
+  transform: scale(0.98);
+}
+
+.cf-nx__inc {
+  margin-top: calc(25 * var(--nx-u));
+  padding-top: calc(31 * var(--nx-u));
+  border-top: 1px solid var(--nx-line);
+  color: var(--nx-ink);
+  font-size: calc(17 * var(--nx-u));
+  font-weight: 600;
+  line-height: calc(24 * var(--nx-u));
+}
+
+.cf-nx__card--pro .cf-nx__inc {
+  border-top-color: #2a2a2a;
+  color: #f5f5f4;
+}
+
+.cf-nx__list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(17 * var(--nx-u));
+  margin-top: calc(19 * var(--nx-u));
+}
+
+.cf-nx__list li {
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--nx-u));
+  color: var(--nx-muted);
+  font-size: calc(16 * var(--nx-u));
+  line-height: calc(24 * var(--nx-u));
+}
+
+.cf-nx__card--pro .cf-nx__list li {
+  color: #e7e7e5;
+}
+
+.cf-nx__check {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: calc(22 * var(--nx-u));
+  height: calc(22 * var(--nx-u));
+  border-radius: 50%;
+  background: var(--nx-check);
+  color: #ffffff;
+}
+
+.cf-nx__card--pro .cf-nx__check {
+  background: #f5f5f4;
+  color: #111111;
+}
+
+.cf-nx__check svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.cf-nx__note {
+  position: relative;
+  z-index: 2;
+  margin-top: calc(44 * var(--nx-s));
+  font-size: max(13px, calc(14 * var(--nx-s)));
+  color: var(--nx-gray);
+  text-align: center;
+}
+
+/* ---------- Tablet: equal cards inside the panel (900–1099px) ---------- */
+
+@media (max-width: 1099.98px) {
+  .cf-nx {
+    --nx-s: 0.82px;
+
+    padding: 48px 24px;
+  }
+
+  .cf-nx__panel {
+    width: 100%;
+    padding: 0 28px 40px;
+    border-radius: 24px;
+  }
+
+  .cf-nx__pattern {
+    height: 420px;
+  }
+
+  .cf-nx__head {
+    padding-top: 56px;
+  }
+
+  .cf-nx__title {
+    font-size: clamp(36px, 4.8vw, 48px);
+  }
+
+  .cf-nx__volume {
+    margin-top: 26px;
+  }
+
+  .cf-nx__plans {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: 16px;
+    width: auto;
+    margin: 64px 0 0;
+  }
+
+  .cf-nx__card,
+  .cf-nx__card--pro {
+    --nx-k: 1;
+
+    width: auto;
+    height: 100%;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow:
+      0 0 0 1px var(--nx-line),
+      0 16px 40px rgb(0 0 0 / 0.05);
+  }
+
+  .cf-nx__card--pro {
+    background: linear-gradient(165deg, #262626 0%, #111111 45%, #050505 100%);
+    box-shadow: 0 20px 50px rgb(0 0 0 / 0.22);
+  }
+
+  .cf-nx__nimbi {
+    top: -50px;
+    right: 18px;
+    width: 64px;
+    height: 68px;
+  }
+
+  .cf-nx__flag {
+    margin-right: 66px;
+  }
+}
+
+/* ---------- Phone and narrow tablet: one column ---------- */
+
+@media (max-width: 899.98px) {
+  .cf-nx {
+    --nx-s: 0.92px;
+
+    padding: 32px 12px;
+  }
+
+  .cf-nx__panel {
+    padding: 0 16px 28px;
+    border-radius: 20px;
+  }
+
+  .cf-nx__head {
+    padding-top: 44px;
+  }
+
+  .cf-nx__title {
+    font-size: clamp(32px, 9vw, 44px);
+  }
+
+  .cf-nx__line {
+    display: inline;
+  }
+
+  .cf-nx__volume {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cf-nx__plans {
+    grid-template-columns: minmax(0, 460px);
+    justify-content: center;
+    row-gap: 56px;
+    margin-top: 64px;
+  }
+
+  .cf-nx__card,
+  .cf-nx__card--pro {
+    height: auto;
+  }
+}
+
+/* Stato iniziale dell'ingresso: nascosto solo se lo script può animarlo */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .cf-nx [data-cf-nx-in] {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-nx *,
+  .cf-nx *::before,
+  .cf-nx *::after {
+    transition-duration: 0.01ms !important;
+  }
+}

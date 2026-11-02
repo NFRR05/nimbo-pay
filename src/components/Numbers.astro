@@ -1,0 +1,77 @@
+---
+// Numbers: layout and motion of Collectify «ref-stepout-stats» (src/collectify/ref-stepout-stats),
+// redrawn for Nimbo: the green card is black, the sage cards neutral, Outfit numbers whose characters
+// get heavier near the pointer, and Coin sitting on the big card as the only colour.
+import { nimbiSvg, wordmarkSvg } from "../lib/brand.js";
+import copy from "../copy/numbers.js";
+
+const { t, lang = "it" } = Astro.props;
+const c = copy[lang] || copy.it;
+const locale = t?.locale || (lang === "en" ? "en-IE" : "it-IT");
+const icons = ["pinwheel", "bolt", "leaf"];
+const kinds = ["cf-so__card cf-so__card--main", "cf-so__card cf-so__card--tint", "cf-so__card"];
+const digits = (n) => String(n).split("");
+---
+
+<section class="cf-so" data-cf-so data-cf-so-locale={locale} aria-labelledby="numbers-title">
+  <header class="cf-so__bar" data-cf-so-in="bar">
+    <div class="cf-so__pill">
+      <span class="cf-so__brand">
+        <span class="cf-so__mark" aria-hidden="true"><i></i><i></i></span>
+        <Fragment set:html={wordmarkSvg({ height: 20, className: "cf-so__word", label: "Nimbo" })} />
+      </span>
+      <a class="cf-so__explore" href="#prezzi">
+        {c.cta}
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </a>
+    </div>
+  </header>
+
+  <h2 class="cf-so__title" id="numbers-title">
+    {c.lines.map((line) => (
+      <>
+        <span class="cf-so__line"><span class="cf-so__line-in" data-cf-so-in="line">{line}</span></span>{" "}
+      </>
+    ))}
+  </h2>
+
+  <ul class="cf-so__cards" role="list" data-cf-so-cards>
+    {c.cards.map((card, i) => (
+      <li class={kinds[i]} data-cf-so-in="card" data-cf-so-card>
+        {i === 0 && <span class="cf-so__nimbi" aria-hidden="true" set:html={nimbiSvg("coin", { size: 160, mood: "happy" })} />}
+        {icons[i] === "pinwheel" && (
+          <svg class="cf-so__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" data-cf-so-icon="pinwheel">
+            <g data-cf-so-spin>
+              <g><path d="M12 12V2.4" /><path data-cf-so-petal d="M12 2.4a5.9 4.8 0 0 1 0 9.6" /></g>
+              <g transform="rotate(90 12 12)"><path d="M12 12V2.4" /><path data-cf-so-petal d="M12 2.4a5.9 4.8 0 0 1 0 9.6" /></g>
+              <g transform="rotate(180 12 12)"><path d="M12 12V2.4" /><path data-cf-so-petal d="M12 2.4a5.9 4.8 0 0 1 0 9.6" /></g>
+              <g transform="rotate(270 12 12)"><path d="M12 12V2.4" /><path data-cf-so-petal d="M12 2.4a5.9 4.8 0 0 1 0 9.6" /></g>
+            </g>
+          </svg>
+        )}
+        {icons[i] === "bolt" && (
+          <svg class="cf-so__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" data-cf-so-icon="bolt">
+            <path pathLength="1" d="M17.2 1.6 6 13 12.6 15.2 11 23.2" />
+          </svg>
+        )}
+        {icons[i] === "leaf" && (
+          <svg class="cf-so__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" data-cf-so-icon="leaf">
+            <path pathLength="1" d="M20.4 3.6h-7a8.2 8.2 0 0 0-8.2 8.2 7 7 0 0 0 7 7 8.2 8.2 0 0 0 8.2-8.2Z" />
+            <path pathLength="1" d="M3.6 20.4 15.2 8.8" />
+          </svg>
+        )}
+        <p class="cf-so__num" data-cf-so-num data-cf-so-count={card.value} data-cf-so-from={card.from}>
+          <span class="cf-so__sr">{(card.prefix || "") + card.value + (card.suffix || "")}</span>
+          <span class="cf-so__chars" aria-hidden="true">
+            {card.prefix && <span class="cf-so__ch cf-so__ch--unit">{card.prefix}</span>}
+            {digits(Math.max(card.value, card.from || 0)).map((_, j, arr) => (
+              <span class="cf-so__ch" data-cf-so-digit>{String(card.value).padStart(arr.length, " ")[j].trim()}</span>
+            ))}
+            {card.suffix && <span class="cf-so__ch cf-so__ch--unit">{card.suffix}</span>}
+          </span>
+        </p>
+        <p class="cf-so__caption">{card.caption}</p>
+      </li>
+    ))}
+  </ul>
+</section>

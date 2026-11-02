@@ -1,37 +1,38 @@
 ---
-// Nimbo landing. Layout and motion come from Collectify components (src/collectify/<slug>),
+// Nimbo landing. Layout and motion come from Collectify reference components (src/collectify/<slug>),
 // colours, type and shapes come from the Nimbo design system (src/styles/nimbo.css).
+// Sections: hero Pelmatech · products Travelora · numbers Stepout · steps Prime · pricing Nexwealth ·
+// FAQ Rumo · CTA Widgets · footer Schmidt.
 import "@fontsource-variable/outfit/wght.css";
 import "@fontsource-variable/inter/wght.css";
 import "@fontsource-variable/geist-mono/wght.css";
 import "../collectify/fluid-tokens/style.css";
 import "../collectify/smooth-scroll/style.css";
 import "../collectify/smart-navbar/style.css";
-import "../collectify/ref-cryptoharbor-hero/style.css";
-import "../collectify/ref-finax-bento/style.css";
-import "../collectify/button-fill/style.css";
-import "../collectify/css-marquee/style.css";
-import "../collectify/scroll-reveal/style.css";
-import "../collectify/feature-tabs/style.css";
-import "../collectify/ref-webyansh-stats/style.css";
-import "../collectify/ref-dark-cta/style.css";
-import "../collectify/step-timeline/style.css";
-import "../collectify/scroll-word-fill/style.css";
-import "../collectify/faq-accordion/style.css";
-import "../collectify/footer-reveal/style.css";
+import "../collectify/ref-pelmatech-hero/style.css";
+import "../collectify/ref-travelora-features/style.css";
+import "../collectify/ref-stepout-stats/style.css";
+import "../collectify/ref-prime-steps/style.css";
+import "../collectify/ref-nexwealth-pricing/style.css";
+import "../collectify/ref-rumo-faq/style.css";
+import "../collectify/ref-widgets-cta/style.css";
+import "../collectify/ref-schmidt-footer/style.css";
 import "../styles/nimbo.css";
 import { copy } from "../i18n.js";
-import { nimbiSvg, wordmarkSvg, NIMBI } from "../lib/brand.js";
+import { wordmarkSvg } from "../lib/brand.js";
 import Hero from "./Hero.astro";
-import Bento from "./Bento.astro";
-import Stats from "./Stats.astro";
-import Final from "./Final.astro";
+import Products from "./Products.astro";
+import Numbers from "./Numbers.astro";
+import Steps from "./Steps.astro";
+import Pricing from "./Pricing.astro";
+import Faq from "./Faq.astro";
+import Cta from "./Cta.astro";
+import Footer from "./Footer.astro";
 
 const { lang = "it" } = Astro.props;
 const t = copy[lang];
 const other = lang === "it" ? copy.en : copy.it;
 const site = "https://nimbo-pay.vercel.app";
-const arrow = `<svg class="cf-btn__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
 ---
 
 <!doctype html>
@@ -49,13 +50,13 @@ const arrow = `<svg class="cf-btn__arrow" viewBox="0 0 16 16" aria-hidden="true"
     <meta property="og:title" content={t.meta.title} />
     <meta property="og:description" content={t.meta.description} />
     <meta property="og:locale" content={t.locale.replace("-", "_")} />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#0a0a0a" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body data-theme="light">
     <a class="nb-skip" href="#main">{lang === "it" ? "Vai al contenuto" : "Skip to content"}</a>
 
-    <header class="cf-nav" data-cf-smart-nav>
+    <header class="cf-nav nb-nav" data-cf-smart-nav>
       <div class="cf-nav__inner">
         <a class="cf-nav__brand" href={t.path} set:html={wordmarkSvg({ height: 26, label: "Nimbo" })} />
         <nav class="cf-nav__links" id="cf-nav-links" aria-label={t.nav.label}>
@@ -64,218 +65,50 @@ const arrow = `<svg class="cf-btn__arrow" viewBox="0 0 16 16" aria-hidden="true"
           <a href="#prezzi">{t.nav.pricing}</a>
           <a href="#domande">{t.nav.faq}</a>
         </nav>
-        <a class="nb-lang" href={other.path} hreflang={lang === "it" ? "en" : "it"} lang={lang === "it" ? "en" : "it"} aria-label={t.nav.langLabel}>{t.nav.langShort}</a>
-        <a class="cf-nav__cta" href="#prezzi">{t.nav.cta}</a>
-        <button class="cf-nav__toggle" type="button" data-cf-nav-toggle aria-expanded="false" aria-controls="cf-nav-links">{t.nav.menu}</button>
+        <div class="nb-nav__end">
+          <a class="nb-lang" href={other.path} hreflang={lang === "it" ? "en" : "it"} lang={lang === "it" ? "en" : "it"} aria-label={t.nav.langLabel}>{t.nav.langShort}</a>
+          <a class="cf-nav__cta" href="#prezzi">{t.nav.cta}</a>
+          <button class="cf-nav__toggle" type="button" data-cf-nav-toggle aria-expanded="false" aria-controls="cf-nav-links">{t.nav.menu}</button>
+        </div>
       </div>
     </header>
 
     <main id="main">
-      <Hero t={t} />
-
-      <!-- css-marquee -->
-      <section class="cf-ticker nb-ticker" aria-labelledby="ticker-label">
-        <div class="cf-ticker__head cf-container">
-          <p class="cf-ticker__label" id="ticker-label">{t.ticker.label}</p>
-          <label class="cf-ticker__pause">
-            <input class="cf-ticker__toggle" type="checkbox" id="ticker-pause" />
-            <span>{t.ticker.pause}</span>
-          </label>
-        </div>
-        <div class="cf-cssmq" style="--cf-cssmq-duration: 48s">
-          <div class="cf-cssmq__track">
-            <ul class="cf-cssmq__group" aria-label={t.ticker.listLabel}>
-              {t.ticker.items.map((item) => <li>{item}</li>)}
-            </ul>
-            <ul class="cf-cssmq__group" aria-hidden="true" inert>
-              {t.ticker.items.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <Bento t={t} />
-
-      <!-- feature-tabs -->
-      <section class="nb-section nb-section--panel" id="prodotti" aria-labelledby="products-title">
-        <div class="cf-container">
-          <p class="nb-eyebrow">{t.products.label}</p>
-          <h2 class="nb-h2" id="products-title">{t.products.title}</h2>
-        </div>
-        <div class="cf-tabs cf-container nb-tabs" data-cf-tabs data-cf-autoplay="6">
-          <div class="cf-tabs__list" role="tablist" aria-label={t.products.tablistLabel} aria-orientation="vertical">
-            {t.products.items.map((p, i) => (
-              <button class="cf-tabs__tab" role="tab" type="button" id={`tab-${p.id}`} aria-controls={`panel-${p.id}`} aria-selected={i === 0 ? "true" : "false"} tabindex={i === 0 ? undefined : "-1"}>
-                <span class="cf-tabs__title">{p.title}</span>
-                <span class="cf-tabs__desc"><span>{p.text}</span></span>
-                <span class="cf-tabs__progress" aria-hidden="true"></span>
-              </button>
-            ))}
-          </div>
-          <div class="cf-tabs__panels">
-            {t.products.items.map((p, i) => (
-              <div class="cf-tabs__panel" role="tabpanel" id={`panel-${p.id}`} aria-labelledby={`tab-${p.id}`} tabindex="0" hidden={i !== 0}>
-                <div class="cf-tabs__media nb-product">
-                  <div class="nb-product__art" set:html={nimbiSvg(p.nimbi, { size: 190, label: p.name })} />
-                  <div class="nb-product__row">
-                    <span class={p.id === "api" ? "nb-product__what nb-mono" : "nb-product__what"}>{p.row[0]}</span>
-                    <span class="nb-product__value">{p.row[1]}</span>
-                    <span class="nb-product__meta">{p.row[2]}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-          <button class="cf-tabs__pause" type="button" data-cf-tabs-pause aria-pressed="false">{t.products.pause}</button>
-        </div>
-      </section>
-
-      <Stats t={t} />
-
-      <!-- step-timeline -->
-      <section class="cf-timeline cf-container nb-section" id="come" data-cf-timeline aria-labelledby="how-title">
-        <header class="cf-timeline__head">
-          <p class="cf-timeline__label">{t.how.label}</p>
-          <h2 class="cf-timeline__heading" id="how-title">{t.how.title}</h2>
-        </header>
-        <div class="cf-timeline__track">
-          <span class="cf-timeline__line" aria-hidden="true"><span class="cf-timeline__fill"></span></span>
-          <ol class="cf-timeline__list">
-            {t.how.steps.map((s) => (
-              <li class="cf-timeline__item">
-                <p class="cf-timeline__when">{s.when}</p>
-                <span class="cf-timeline__dot" aria-hidden="true"></span>
-                <div class="cf-timeline__content">
-                  <h3 class="cf-timeline__title">{s.title}</h3>
-                  <p class="cf-timeline__text">{s.text}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <!-- scroll-word-fill -->
-      <section class="nb-sustain" aria-labelledby="sustain-label">
-        <div class="cf-container nb-sustain__inner">
-          <div class="nb-sustain__art" set:html={nimbiSvg("card", { size: 150, mood: "happy" })} />
-          <div>
-            <p class="nb-eyebrow" id="sustain-label">{t.sustain.label}</p>
-            <p class="cf-fill nb-sustain__text" data-cf-word-fill>
-              {t.sustain.before}<mark>{t.sustain.mark}</mark>{t.sustain.after}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Pricing: scroll-reveal + button-fill -->
-      <section class="nb-section cf-container" id="prezzi" aria-labelledby="pricing-title">
-        <p class="nb-eyebrow" data-cf-reveal>{t.pricing.label}</p>
-        <h2 class="nb-h2" id="pricing-title" data-cf-reveal>{t.pricing.title}</h2>
-        <ul class="nb-plans">
-          {t.pricing.plans.map((p) => (
-            <li class={p.primary ? "nb-plan nb-plan--primary" : "nb-plan"} data-cf-reveal>
-              <h3 class="nb-plan__name">{p.name}</h3>
-              <p class="nb-plan__price"><span>{p.price}</span>{p.per && <small>{p.per}</small>}</p>
-              <p class="nb-plan__desc">{p.desc}</p>
-              <ul class="nb-plan__features">
-                {p.features.map((f) => <li>{f}</li>)}
-              </ul>
-              <a class={p.primary ? "cf-btn" : "cf-btn cf-btn--outline"} href="#finale" data-cf-btn-fill>
-                <span class="cf-btn__fill" aria-hidden="true"></span>
-                <span class="cf-btn__label">{p.cta}<Fragment set:html={arrow} /></span>
-              </a>
-            </li>
-          ))}
-        </ul>
-        <p class="nb-plans__note">{t.pricing.note}</p>
-      </section>
-
-      <!-- faq-accordion -->
-      <div class="nb-section nb-section--panel" id="domande">
-        <section class="cf-faq cf-container" aria-labelledby="faq-title">
-          <h2 class="cf-faq__heading" id="faq-title">{t.faq.title}</h2>
-          <div class="cf-faq__list">
-            {t.faq.items.map((f, i) => (
-              <details class="cf-faq__item" name="faq" open={i === 0}>
-                <summary>{f.q}<span class="cf-faq__icon" aria-hidden="true"></span></summary>
-                <div class="cf-faq__content"><div><p>{f.a}</p></div></div>
-              </details>
-            ))}
-          </div>
-        </section>
-      </div>
-
-      <Final t={t} />
+      <Hero t={t} lang={lang} />
+      <Products t={t} lang={lang} />
+      <Numbers t={t} lang={lang} />
+      <Steps t={t} lang={lang} />
+      <Pricing t={t} lang={lang} />
+      <Faq t={t} lang={lang} />
+      <Cta t={t} lang={lang} />
     </main>
 
-    <!-- footer-reveal -->
-    <footer class="cf-footer" data-cf-footer-reveal data-theme="dark">
-      <div class="cf-footer__inner">
-        <div class="cf-footer__top">
-          <div>
-            <p class="cf-footer__cta">{t.footer.cta}</p>
-            <a class="cf-footer__mail" href="#main">{t.footer.top}</a>
-          </div>
-          <nav class="cf-footer__cols" aria-label={t.footer.navLabel}>
-            <div>
-              <h3>{t.footer.colProduct}</h3>
-              <ul>
-                {t.products.items.map((p) => <li><a href="#prodotti">{p.title}</a></li>)}
-              </ul>
-            </div>
-            <div>
-              <h3>{t.footer.colCompany}</h3>
-              <ul>
-                {t.footer.company.map(([label, href]) => <li><a href={href}>{label}</a></li>)}
-              </ul>
-            </div>
-            <div>
-              <h3>{t.footer.colLang}</h3>
-              <ul>
-                <li><a href="/" hreflang="it" lang="it" aria-current={lang === "it" ? "page" : undefined}>Italiano</a></li>
-                <li><a href="/en/" hreflang="en" lang="en" aria-current={lang === "en" ? "page" : undefined}>English</a></li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-        <div class="cf-footer__wordmark nb-footer__wordmark" aria-hidden="true" set:html={wordmarkSvg({ height: 200, label: "" })} />
-        <div class="cf-footer__legal">
-          <span>{t.footer.legal}</span>
-        </div>
-      </div>
-    </footer>
+    <Footer t={t} lang={lang} />
 
     <script>
       import initSmoothScroll from "../collectify/smooth-scroll/script.js";
       import initSmartNav from "../collectify/smart-navbar/script.js";
-      import initHero from "../collectify/ref-cryptoharbor-hero/script.js";
-      import initBento from "../collectify/ref-finax-bento/script.js";
-      import initButtonFill from "../collectify/button-fill/script.js";
+      import initHero from "../collectify/ref-pelmatech-hero/script.js";
+      import initProducts from "../collectify/ref-travelora-features/script.js";
+      import initNumbers from "../collectify/ref-stepout-stats/script.js";
+      import initSteps from "../collectify/ref-prime-steps/script.js";
+      import initPricing from "../collectify/ref-nexwealth-pricing/script.js";
+      import initFaq from "../collectify/ref-rumo-faq/script.js";
+      import initCta from "../collectify/ref-widgets-cta/script.js";
+      import initFooter from "../collectify/ref-schmidt-footer/script.js";
       import initNimbiLife from "../lib/nimbi-life.js";
-      import initScrollReveal from "../collectify/scroll-reveal/script.js";
-      import initFeatureTabs from "../collectify/feature-tabs/script.js";
-      import initStats from "../collectify/ref-webyansh-stats/script.js";
-      import initFinal from "../collectify/ref-dark-cta/script.js";
-      import initTimeline from "../collectify/step-timeline/script.js";
-      import initWordFill from "../collectify/scroll-word-fill/script.js";
-      import initFaq from "../collectify/faq-accordion/script.js";
-      import initFooterReveal from "../collectify/footer-reveal/script.js";
 
       initSmoothScroll();
       initSmartNav();
       initHero();
-      initBento();
-      initButtonFill();
-      initNimbiLife();
-      initScrollReveal();
-      initFeatureTabs();
-      initStats();
-      initFinal();
-      initTimeline();
-      initWordFill();
+      initProducts();
+      initNumbers();
+      initSteps();
+      initPricing();
       initFaq();
-      initFooterReveal();
+      initCta();
+      initFooter();
+      initNimbiLife();
     </script>
   </body>
 </html>
