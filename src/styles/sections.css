@@ -1,4 +1,4 @@
-/* Nimbo's own sections: security facts and the final call to action.
+/* Nimbo's own sections: the numbers band and the security facts.
    Same width, header and buttons as the rest of the page (nimbo.css); thin borders, no shadows. */
 
 /* ---------- Security ---------- */
@@ -38,33 +38,6 @@
   color: var(--cf-muted);
   font-size: 15px;
   line-height: 1.55;
-}
-
-/* ---------- Final call to action ---------- */
-
-.nb-cta {
-  padding-top: 0;
-}
-
-.nb-cta__panel {
-  display: grid;
-  gap: 32px;
-  align-items: end;
-  padding: clamp(32px, 1.5rem + 3vw, 72px);
-  border: 1px solid #2a2a2a;
-  border-radius: var(--cf-radius-l);
-  background: var(--cf-bg);
-  color: var(--cf-text);
-}
-
-@media (min-width: 56rem) {
-  .nb-cta__panel {
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
-}
-
-.nb-cta__panel .nb-lede {
-  margin-top: 16px;
 }
 
 /* ---------- Numbers band (Collectify «stat-odometer» grid) ---------- */
