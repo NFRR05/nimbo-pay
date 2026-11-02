@@ -2,8 +2,8 @@
 // Products: layout and motion of Collectify «ref-travelora-features» (src/collectify/ref-travelora-features):
 // cards that stack on scroll over a dark field with a lit sphere, text on the left, a live mini interface
 // on the right. Redrawn with the Nimbo identity: black and white UI, Outfit titles, one card per product,
-// and each product's Nimbi as the only colour.
-import { nimbiSvg } from "../lib/brand.js";
+// and each product's mark as the only colour.
+import { markSvg } from "../lib/brand.js";
 import copy from "../copy/products.js";
 
 const { lang = "it" } = Astro.props;
@@ -11,7 +11,7 @@ const c = copy[lang] || copy.it;
 const [pay, treasury, compliance, analytics, api] = c.cards;
 const fmtMin = (m) => `${Math.floor(m / 60)}H ${m % 60}M`;
 const check = `<svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6.6 10.2 2.3 2.3 4.5-4.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" /></svg>`;
-const sticker = (card) => nimbiSvg(card.nimbi, { size: 92 });
+const sticker = (card) => markSvg(card.mark, { size: 92 });
 ---
 
 <section class="cf-tv" id="prodotti" data-cf-tv data-theme="dark" aria-labelledby="products-title">

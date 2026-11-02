@@ -2,7 +2,7 @@
    Same stack: white cards that stick 40px below each other and shrink as the next one arrives, over a dark
    field with a lit sphere (here in greys, not red). Text on the left, a live mini interface on the right.
    What changes: five cards (one per product), Outfit titles, black and white UI, a heading above the stack,
-   and each product's Nimbi as a sticker on its panel, the only colour in the section. */
+   and each product's colour mark as a sticker on its panel, the only colour in the section. */
 .cf-tv {
   --tv-ink: #111111;
   --tv-ink-strong: #111111;
@@ -289,7 +289,7 @@
   background: radial-gradient(ellipse 60% 46% at 50% 54%, rgb(231 231 229 / 0.7), rgb(231 231 229 / 0)), var(--tv-panel);
 }
 
-/* the product's Nimbi, stuck on the corner of its panel */
+/* the product's mark, stuck on the corner of its panel */
 .cf-tv__nimbi {
   position: absolute;
   top: 18px;
@@ -1348,7 +1348,7 @@
     left: 0;
   }
 
-  /* room above the centred interfaces for the Nimbi sticker */
+  /* room above the centred interfaces for the colour marks sticker */
   .cf-tv__panel {
     padding-top: 92px;
   }

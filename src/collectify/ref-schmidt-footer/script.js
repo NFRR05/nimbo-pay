@@ -5,7 +5,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Footer from Collectify «ref-schmidt-footer», restyled for Nimbo: same intro and drifting glow,
- * plus the Nimbi popping up from behind the wordmark one after the other.
+ * plus the colour marks popping up from behind the wordmark one after the other.
  * Original notes — Footer «Schmidt».
  * - Ingresso quando il footer entra nella pagina: l'alone si accende, menu e contatti salgono con blur,
  *   il nome emerge dal basso mettendosi a fuoco.

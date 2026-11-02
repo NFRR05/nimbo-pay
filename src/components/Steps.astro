@@ -1,15 +1,15 @@
 ---
 // How it works: layout and motion of Collectify «ref-prime-steps» (src/collectify/ref-prime-steps),
 // redrawn for Nimbo: three dark mini-interfaces (API keys, connectors, first live payment),
-// black and white, with the Nimbi as the only colour (Capsule on the bridge, three Nimbi as live cursors).
-import { nimbiSvg } from "../lib/brand.js";
+// black and white, with the colour marks as the only colour (Capsule on the bridge, three colour marks as live cursors).
+import { markSvg } from "../lib/brand.js";
 import { iconSvg } from "../lib/icons.js";
 import copy from "../copy/steps.js";
 
 const { lang = "it" } = Astro.props;
 const c = copy[lang] || copy.it;
 const u = c.ui;
-const cursorNimbi = ["coin", "token", "card"];
+const cursorMarks = ["coin", "token", "card"];
 const check = `<svg viewBox="0 0 12 12" aria-hidden="true"><circle cx="6" cy="6" r="6" fill="#111"/><path d="M3.4 6.2 5.2 8l3.4-3.6" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const arrow = (dir) =>
   dir === "left"
@@ -74,7 +74,7 @@ const arrow = (dir) =>
           <div class="cf-pd__chat-main">
             <p class="cf-pd__chat-channel">{u.connTitle} <i>⌄</i></p>
             <div class="cf-pd__chat-apps">
-              <span class="cf-pd__chat-nimbi" set:html={nimbiSvg("capsule", { size: 40 })} />
+              <span class="cf-pd__chat-nimbi" set:html={markSvg("capsule", { size: 40 })} />
               <b>+</b>
               <span set:html={iconSvg("bank", { size: 14 })} />
             </div>
@@ -96,7 +96,7 @@ const arrow = (dir) =>
         <p class="cf-pd__text" data-cf-pd-in="text">{c.steps[1].text}</p>
       </li>
 
-      <!-- 3 — first live payment, with three Nimbi as live cursors -->
+      <!-- 3 — first live payment, with three mark as live cursors -->
       <li class="cf-pd__step" data-cf-pd-step>
         <div class="cf-pd__shot cf-pd__live" aria-hidden="true" data-cf-pd-in="shot">
           <div class="cf-pd__live-card">
@@ -113,7 +113,7 @@ const arrow = (dir) =>
           {u.cursors.map((name, i) => (
             <span class={`cf-pd__cursor cf-pd__cursor--${["a", "b", "c"][i]}`} data-cf-pd-cursor>
               <Fragment set:html={arrow(i === 0 ? "right" : "left")} />
-              <span class="cf-pd__cursor-tag"><span set:html={nimbiSvg(cursorNimbi[i], { size: 18 })} />{name}</span>
+              <span class="cf-pd__cursor-tag"><span set:html={markSvg(cursorMarks[i], { size: 18 })} />{name}</span>
             </span>
           ))}
         </div>

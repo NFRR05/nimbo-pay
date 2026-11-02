@@ -1,7 +1,7 @@
 /* Hero from Collectify «ref-pelmatech-hero», restyled for Nimbo.
    Same board (1440×933 in px multiplied by --pm-u from 1080px up), ribbed glass, frosted panel on the right,
    big title, five points along the bottom with the line that moves from one to the next. What changes:
-   the blurred photo becomes the five Nimbi on a near-black field (the only colour), the Nimbi that matches
+   the blurred photo becomes the five colour marks on a near-black field (the only colour), the mark that matches
    the active point comes into focus, white instead of lime, Outfit title, Nimbo copy. The bar is the site
    navbar (restyled as the same glass pill in nimbo.css), so the hero has no bar of its own. */
 .cf-pm {
@@ -81,7 +81,7 @@
   background: radial-gradient(70% 60% at 55% 35%, #1c1c1c, var(--pm-blue) 70%);
 }
 
-/* the five Nimbi behind the glass: blurred, the active one in focus */
+/* the five colour marks behind the glass: blurred, the active one in focus */
 .cf-pm__nimbi {
   position: absolute;
   left: var(--x);

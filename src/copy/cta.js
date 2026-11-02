@@ -10,7 +10,7 @@ export default {
     pay: { head: "SEPA Instant", aside: "Adesso", amountLabel: "Importo", amount: 12480, fromLabel: "Da", from: "Rossi Group", start: "Inviato", end: "Accreditato in 4 s" },
     feed: {
       head: "Ricevuta di CO₂",
-      name: "Coin",
+      name: "Pagamenti",
       sub: "Bonifico a Verdi S.p.A.",
       action: "Vedi la ricevuta",
       label: "Pagamento",
@@ -34,7 +34,7 @@ export default {
     pay: { head: "SEPA Instant", aside: "Just now", amountLabel: "Amount", amount: 12480, fromLabel: "From", from: "Rossi Group", start: "Sent", end: "Credited in 4 s" },
     feed: {
       head: "CO₂ receipt",
-      name: "Coin",
+      name: "Payments",
       sub: "Transfer to Verdi S.p.A.",
       action: "View receipt",
       label: "Payment",

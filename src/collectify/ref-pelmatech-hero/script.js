@@ -2,7 +2,7 @@ import gsap from "gsap";
 
 /**
  * Hero from Collectify «ref-pelmatech-hero», restyled for Nimbo: no bar or panel toggle (the site navbar
- * takes their place), and each point brings its Nimbi into focus behind the ribbed glass.
+ * takes their place), and each point brings its mark into focus behind the ribbed glass.
  * Original notes — Hero «Pelmatech».
  * - Ingresso: fondo che si mette a fuoco, barra, titolo riga per riga, testo e bottoni con blur,
  *   scheda degli orari da destra con le card una dopo l'altra, punti in basso.

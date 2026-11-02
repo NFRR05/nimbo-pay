@@ -1,8 +1,8 @@
 ---
 // Hero: layout and motion of Collectify «ref-pelmatech-hero» (src/collectify/ref-pelmatech-hero),
-// redrawn with the Nimbo identity. The blurred figure behind the ribbed glass becomes the five Nimbi:
+// redrawn with the Nimbo identity. The blurred figure behind the ribbed glass becomes the five colour marks:
 // they are the only colour on the page, and the one that matches the active point comes into focus.
-import { nimbiSvg, NIMBI } from "../lib/brand.js";
+import { markSvg, MARKS } from "../lib/brand.js";
 import { iconSvg } from "../lib/icons.js";
 import copy from "../copy/hero.js";
 
@@ -15,8 +15,8 @@ const upRight = `<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="tr
 <section class="cf-pm" data-cf-pm data-theme="dark" aria-labelledby="hero-title">
   <div class="cf-pm__bg" aria-hidden="true">
     <div class="cf-pm__bg-img" data-cf-pm-bg>
-      {NIMBI.map((c, i) => (
-        <div class={`cf-pm__nimbi cf-pm__nimbi--${i + 1}`} data-cf-pm-nimbi set:html={nimbiSvg(c, { size: 400 })} />
+      {MARKS.map((c, i) => (
+        <div class={`cf-pm__nimbi cf-pm__nimbi--${i + 1}`} data-cf-pm-nimbi set:html={markSvg(c, { size: 400 })} />
       ))}
     </div>
   </div>

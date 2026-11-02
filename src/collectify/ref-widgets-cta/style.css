@@ -1,7 +1,7 @@
 /* Final CTA from Collectify «ref-widgets-cta», restyled for Nimbo.
    Same two panels (478/614, 592 tall) and the widget stage in --u units; what changes: Nimbo copy and colours
    (black and white, the silver panel stays neutral), Outfit title, 12px buttons with the arrow, a plain label
-   with the black dot instead of the rocket pill, Nimbo dashboard widgets, and the Nimbi as avatar and icons. */
+   with the black dot instead of the rocket pill, Nimbo dashboard widgets, and the colour marks as avatar and icons. */
 .cf-wg {
   --wg-bg: #f4f4f3;
   --wg-panel: #ffffff;

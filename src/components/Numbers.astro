@@ -2,7 +2,7 @@
 // Numbers: layout and motion of Collectify «ref-stepout-stats» (src/collectify/ref-stepout-stats),
 // redrawn for Nimbo: the green card is black, the sage cards neutral, Outfit numbers whose characters
 // get heavier near the pointer, and Coin sitting on the big card as the only colour.
-import { nimbiSvg, wordmarkSvg } from "../lib/brand.js";
+import { markSvg, wordmarkSvg } from "../lib/brand.js";
 import copy from "../copy/numbers.js";
 
 const { t, lang = "it" } = Astro.props;
@@ -38,7 +38,7 @@ const digits = (n) => String(n).split("");
   <ul class="cf-so__cards" role="list" data-cf-so-cards>
     {c.cards.map((card, i) => (
       <li class={kinds[i]} data-cf-so-in="card" data-cf-so-card>
-        {i === 0 && <span class="cf-so__nimbi" aria-hidden="true" set:html={nimbiSvg("coin", { size: 160, mood: "happy" })} />}
+        {i === 0 && <span class="cf-so__nimbi" aria-hidden="true" set:html={markSvg("coin", { size: 160, mood: "happy" })} />}
         {icons[i] === "pinwheel" && (
           <svg class="cf-so__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" data-cf-so-icon="pinwheel">
             <g data-cf-so-spin>

@@ -4,7 +4,7 @@
    title and text, and the white strip with three benefits underneath.
    What changes: Nimbo colours and type, the label is plain monospace text instead of the lime chip,
    the interfaces are Nimbo's (API keys, connectors, first live payment) and the shared-cursor names
-   are three Nimbi, the only colour in the section. */
+   are three colour marks, the only colour in the section. */
 .cf-pd {
   --pd-bg: #f4f4f3;
   --pd-ink: #111111;
@@ -675,7 +675,7 @@
   font-size: calc(6.8 * var(--pd-m));
 }
 
-/* the three shared cursors: a Nimbi on a black name tag */
+/* the three shared cursors: a mark on a black name tag */
 .cf-pd__cursor {
   position: absolute;
   display: flex;

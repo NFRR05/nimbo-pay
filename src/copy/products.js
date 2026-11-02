@@ -2,14 +2,14 @@
 export default {
   it: {
     label: "Prodotti",
-    title: "Cinque prodotti, un'API. E un Nimbi per ognuno.",
+    title: "Cinque prodotti, un'API. Ognuno col suo colore.",
     lede: "Attivi solo quello che ti serve: tutto passa dalla stessa integrazione.",
     listLabel: "I prodotti di Nimbo",
     cards: [
       {
         id: "pay",
-        nimbi: "coin",
-        name: "Coin",
+        mark: "coral",
+        name: "Pagamenti",
         tag: "PAGAMENTI — SEPA Instant, bonifici, addebiti",
         title: ["Pagamenti che arrivano", "in pochi secondi."],
         lede: "SEPA Instant, bonifici, addebiti diretti e link di pagamento con una sola integrazione. Ogni accredito arriva in meno di dieci secondi, anche la domenica.",
@@ -25,8 +25,8 @@ export default {
       },
       {
         id: "treasury",
-        nimbi: "token",
-        name: "Token",
+        mark: "amber",
+        name: "Tesoreria",
         tag: "TESORERIA — saldi e previsioni in tempo reale",
         title: ["Tutta la tua cassa,", "ora per ora."],
         lede: "Saldi in tempo reale su tutti i conti, sweep automatici e previsioni di cassa a 30 giorni, aggiornate a ogni movimento.",
@@ -55,8 +55,8 @@ export default {
       },
       {
         id: "compliance",
-        nimbi: "card",
-        name: "Card",
+        mark: "mint",
+        name: "Compliance",
         tag: "COMPLIANCE — KYC, KYB e AML integrati",
         title: ["Controlli fatti prima", "che tu li chieda."],
         lede: "KYC, KYB e monitoraggio AML sono già dentro Nimbo: ogni nuovo cliente viene verificato e ogni decisione finisce in un registro pronto per l'audit.",
@@ -74,8 +74,8 @@ export default {
       },
       {
         id: "analytics",
-        nimbi: "block",
-        name: "Block",
+        mark: "lavender",
+        name: "Analytics",
         tag: "ANALYTICS — riconciliazione ogni notte",
         title: ["I conti tornano.", "Ogni mattina."],
         lede: "Mentre dormi abbiniamo ogni movimento alla sua fattura e prepariamo i report per la contabilità. Al mattino resta solo da guardarli.",
@@ -95,8 +95,8 @@ export default {
       },
       {
         id: "api",
-        nimbi: "capsule",
-        name: "Capsule",
+        mark: "blue",
+        name: "API",
         tag: "API — REST, webhook e sandbox",
         title: ["Un'API pulita.", "Webhook firmati."],
         lede: "REST con chiavi di test e di produzione, webhook firmati e SDK per Node, Python e Java. La sandbox è gratuita e pronta in un minuto.",
@@ -113,14 +113,14 @@ export default {
 
   en: {
     label: "Products",
-    title: "Five products, one API. And a Nimbi for each.",
+    title: "Five products, one API. Each with its own colour.",
     lede: "Switch on only what you need: everything runs through the same integration.",
     listLabel: "Nimbo's products",
     cards: [
       {
         id: "pay",
-        nimbi: "coin",
-        name: "Coin",
+        mark: "coral",
+        name: "Payments",
         tag: "PAYMENTS — SEPA Instant, transfers, debits",
         title: ["Payments that land", "in seconds."],
         lede: "SEPA Instant, credit transfers, direct debits and payment links through a single integration. Every payment lands in under ten seconds, even on Sundays.",
@@ -136,8 +136,8 @@ export default {
       },
       {
         id: "treasury",
-        nimbi: "token",
-        name: "Token",
+        mark: "amber",
+        name: "Treasury",
         tag: "TREASURY — live balances and forecasts",
         title: ["All your cash,", "hour by hour."],
         lede: "Real-time balances across every account, automatic sweeps and 30-day cash forecasts, updated with every transaction.",
@@ -166,8 +166,8 @@ export default {
       },
       {
         id: "compliance",
-        nimbi: "card",
-        name: "Card",
+        mark: "mint",
+        name: "Compliance",
         tag: "COMPLIANCE — KYC, KYB and AML built in",
         title: ["Checks done before", "you ask for them."],
         lede: "KYC, KYB and AML monitoring are already inside Nimbo: every new customer is verified and every decision goes into an audit-ready log.",
@@ -185,8 +185,8 @@ export default {
       },
       {
         id: "analytics",
-        nimbi: "block",
-        name: "Block",
+        mark: "lavender",
+        name: "Analytics",
         tag: "ANALYTICS — reconciled every night",
         title: ["The books balance.", "Every morning."],
         lede: "While you sleep we match every transaction to its invoice and prepare the reports for accounting. In the morning, all that's left is to read them.",
@@ -206,8 +206,8 @@ export default {
       },
       {
         id: "api",
-        nimbi: "capsule",
-        name: "Capsule",
+        mark: "blue",
+        name: "API",
         tag: "API — REST, webhooks and sandbox",
         title: ["A clean API.", "Signed webhooks."],
         lede: "REST with test and live keys, signed webhooks and SDKs for Node, Python and Java. The sandbox is free and ready in a minute.",

@@ -5,7 +5,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Products from Collectify «ref-travelora-features», restyled for Nimbo: same stack and shrink, the heading
- * comes in with blur, each panel's Nimbi pops onto its corner, and the five mini interfaces are Nimbo's
+ * comes in with blur, each panel's mark pops onto its corner, and the five mini interfaces are Nimbo's
  * (payment in progress, treasury day, compliance chat, nightly reconciliation, API terminal).
  * Original notes — Funzioni di Travelora: pila di card allo scroll.
  * - Da 900px in su le card sono sticky (CSS); qui ogni card che arriva rimpicciolisce quelle sotto

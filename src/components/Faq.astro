@@ -1,8 +1,8 @@
 ---
 // FAQ: layout and motion of Collectify «ref-rumo-faq» (src/collectify/ref-rumo-faq),
-// redrawn with the Nimbo identity. The coastline photo becomes the five Nimbi standing on a soft floor
+// redrawn with the Nimbo identity. The coastline photo becomes the five colour marks standing on a soft floor
 // that fades into the section; opening a question makes one of them hop.
-import { nimbiSvg, NIMBI } from "../lib/brand.js";
+import { markSvg, MARKS } from "../lib/brand.js";
 import copy from "../copy/faq.js";
 
 const { lang = "it" } = Astro.props; // also receives t, unused here
@@ -22,7 +22,7 @@ const c = copy[lang] || copy.it;
     <figure class="cf-rm__photo" role="img" aria-label={c.nimbiLabel} data-cf-rm-in="photo">
       <span class="cf-rm__floor" aria-hidden="true"></span>
       <span class="cf-rm__nimbi" aria-hidden="true">
-        {NIMBI.map((n) => <span class="cf-rm__nimbi-one" data-cf-rm-nimbi set:html={nimbiSvg(n, { size: 120 })} />)}
+        {MARKS.map((n) => <span class="cf-rm__nimbi-one" data-cf-rm-nimbi set:html={markSvg(n, { size: 120 })} />)}
       </span>
     </figure>
   </div>

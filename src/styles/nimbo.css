@@ -1,5 +1,5 @@
 /* Nimbo theme on top of Collectify tokens.
-   Monochrome UI from the Nimbo design system; the only colour on the page comes from the Nimbi. */
+   Monochrome UI from the Nimbo design system; the only colour on the page comes from the colour marks. */
 
 :root {
   --cf-font-display: "Outfit Variable", "Outfit", "Inter Variable", system-ui, sans-serif;

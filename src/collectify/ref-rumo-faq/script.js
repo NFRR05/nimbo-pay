@@ -5,7 +5,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * FAQ from Collectify «ref-rumo-faq», restyled for Nimbo: no photo (so no broken-image handling), the five
- * Nimbi hop up as the picture is revealed, and opening a question makes one Nimbi hop (none with reduced motion).
+ * mark hop up as the picture is revealed, and opening a question makes one mark hop (none with reduced motion).
  * Original notes — FAQ «Rumo».
  * - Fisarmonica: data-cf-rm-acc="single" (una risposta aperta alla volta, come nella shot) o "multi".
  *   Altezza animata con GSAP, freccia che ruota in CSS; i pannelli chiusi diventano inert.

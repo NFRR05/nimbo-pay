@@ -1,7 +1,7 @@
 /* FAQ from Collectify «ref-rumo-faq», restyled for Nimbo.
    Same two columns (title and subtitle on the left with a picture that fades into the section, accordion on
    the right, one answer open at a time); from 860px up sizes are shot px times --rm-s. What changes: white
-   page, Outfit and Inter, Nimbo questions, and the coastline photo becomes the five Nimbi on a soft grey floor. */
+   page, Outfit and Inter, Nimbo questions, and the coastline photo becomes the five colour marks on a soft grey floor. */
 .cf-rm {
   --rm-bg: #ffffff;
   --rm-ink: #111111;
@@ -76,7 +76,7 @@
 }
 
 /* in place of the coastline photo: a soft grey floor that fades right, up and down into the section
-   (same intersected masks as the original), with the five Nimbi standing on it */
+   (same intersected masks as the original), with the five colour marks standing on it */
 .cf-rm__photo {
   position: absolute;
   top: calc(181 * var(--rm-s));
@@ -107,18 +107,14 @@
   bottom: 18%;
   display: flex;
   align-items: flex-end;
-  gap: calc(6 * var(--rm-s));
+  gap: calc(14 * var(--rm-s));
 }
 
+/* five colour marks in a row, all the same size */
 .cf-rm__nimbi-one {
   display: block;
-  width: calc(88 * var(--rm-s));
-  height: calc(94 * var(--rm-s));
-}
-
-.cf-rm__nimbi-one:nth-child(5) {
-  width: calc(98 * var(--rm-s));
-  height: calc(104 * var(--rm-s));
+  width: calc(72 * var(--rm-s));
+  height: calc(72 * var(--rm-s));
 }
 
 .cf-rm__nimbi-one svg {
@@ -254,18 +250,13 @@
   .cf-rm__nimbi {
     left: clamp(20px, 5vw, 56px);
     bottom: 14%;
-    gap: 4px;
+    gap: clamp(8px, 2.4vw, 14px);
   }
 
   .cf-rm__nimbi-one {
-    width: clamp(48px, 11vw, 80px);
+    width: clamp(40px, 10vw, 64px);
     height: auto;
-    aspect-ratio: 120 / 128;
-  }
-
-  .cf-rm__nimbi-one:nth-child(5) {
-    width: clamp(54px, 12.4vw, 90px);
-    height: auto;
+    aspect-ratio: 1;
   }
 
   .cf-rm__btn {

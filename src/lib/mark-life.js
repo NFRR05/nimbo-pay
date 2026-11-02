@@ -1,10 +1,10 @@
 import gsap from "gsap";
 
 /**
- * Small signs of life for every Nimbi on the page: they blink now and then and, with a mouse,
- * their pupils follow the pointer. Only Nimbi on screen are touched. With reduced motion nothing moves.
+ * Small signs of life for the coloured marks: they blink now and then and, with a mouse, their eyes
+ * glance a couple of units toward the pointer. Only marks on screen are touched. With reduced motion nothing moves.
  */
-export default function initNimbiLife(root = document) {
+export default function initMarkLife(root = document) {
   const eyes = [...root.querySelectorAll(".nb-eye")];
   if (!eyes.length) return () => {};
 
@@ -18,11 +18,11 @@ export default function initNimbiLife(root = document) {
     });
     svgs.forEach((svg) => io.observe(svg));
 
-    // blink: both eyes of one Nimbi close together, at a random moment
+    // blink: both eyes of one mark close together, at a random moment
     const blinkers = svgs.map((svg) => {
       const pair = svg.querySelectorAll(".nb-eye");
       const tl = gsap.timeline({ repeat: -1, repeatDelay: gsap.utils.random(2.5, 6), delay: gsap.utils.random(0.5, 5) });
-      tl.to(pair, { scaleY: 0.08, transformOrigin: "50% 55%", duration: 0.07, ease: "power1.in" })
+      tl.to(pair, { scaleY: 0.1, transformOrigin: "50% 50%", duration: 0.07, ease: "power1.in" })
         .to(pair, { scaleY: 1, duration: 0.12, ease: "power1.out" });
       return tl;
     });
@@ -33,7 +33,7 @@ export default function initNimbiLife(root = document) {
       ? [...root.querySelectorAll(".nb-pupil")].map((pupil) => ({
           pupil,
           svg: pupil.ownerSVGElement,
-          eye: pupil.previousElementSibling,
+          eye: pupil.closest(".nb-eye"),
           x: gsap.quickTo(pupil, "x", { duration: 0.5, ease: "power3.out" }),
           y: gsap.quickTo(pupil, "y", { duration: 0.5, ease: "power3.out" }),
         }))
@@ -51,8 +51,8 @@ export default function initNimbiLife(root = document) {
         const dy = py - (r.top + r.height / 2);
         const d = Math.hypot(dx, dy) || 1;
         const reach = Math.min(1, d / 260);
-        p.x((dx / d) * 2.6 * reach);
-        p.y((dy / d) * 3 * reach);
+        p.x((dx / d) * 5 * reach);
+        p.y((dy / d) * 4 * reach);
       });
     };
     const onMove = (event) => {

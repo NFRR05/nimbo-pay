@@ -2,7 +2,7 @@
    Same dark card, glow rising from the bottom, menu on the left, column on the right and the giant name that
    dissolves into blur at the baseline. What changes: a white/grey glow instead of orange, Inter and Outfit,
    a language switch instead of social icons (no real logos), and the name is the nimbo wordmark, with the
-   five Nimbi peeking out from behind it — the only colour in the footer. */
+   five marks peeking out from behind it — the only colour in the footer. */
 .cf-sc {
   --sc-page: #0a0a0a;
   --sc-card: #141414;
@@ -265,7 +265,7 @@
   mask-image: linear-gradient(to bottom, rgb(0 0 0 / 0) 75%, #000 83%, #000 90%, rgb(0 0 0 / 0) 100%);
 }
 
-/* the five Nimbi stand behind the word: only their heads come out above the letters */
+/* the five colour marks stand behind the word: only their heads come out above the letters */
 .cf-sc__nimbi {
   position: absolute;
   inset: 0 2.4cqi;

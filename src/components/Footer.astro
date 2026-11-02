@@ -1,9 +1,9 @@
 ---
 // Footer: layout and motion of Collectify «ref-schmidt-footer» (src/collectify/ref-schmidt-footer),
 // in black and white: the orange glow becomes a white/grey one, the giant name is the nimbo wordmark
-// (sharp at the top, dissolving into blur at the baseline), and the five Nimbi peek out behind it.
+// (sharp at the top, dissolving into blur at the baseline), and the five colour marks peek out behind it.
 import copy from "../copy/footer.js";
-import { WORDMARK, nimbiSvg } from "../lib/brand.js";
+import { WORDMARK, markSvg } from "../lib/brand.js";
 
 const { lang = "it" } = Astro.props;
 const f = copy[lang] || copy.it;
@@ -11,10 +11,10 @@ const f = copy[lang] || copy.it;
 const [x0, y0, w0, h0] = WORDMARK.vb.split(" ").map(Number);
 const VB = `${x0 - 60} ${y0 - 40} ${w0 + 120} ${h0 + 150}`;
 const [, , vw, vh] = VB.split(" ").map(Number);
-// each Nimbi stands behind a letter: n, i, the two humps of m, the bowl of b (x in % of the box)
+// each mark stands behind a letter: n, i, the two humps of m, the bowl of b (x in % of the box)
 const SPOTS = [["coin", 10.2], ["capsule", 24.2, 55.5], ["token", 37.7], ["card", 51.7], ["block", 71.6]];
 const dots = WORDMARK.eyes.map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}"/>`).join("");
-// one wordmark drawing, reused by the three layers; the sharp one is opaque (it hides the Nimbi behind it),
+// one wordmark drawing, reused by the three layers; the sharp one is opaque (it hides the colour marks behind it),
 // the two blurred ones are darker and blend in «screen», so the baseline melts into the glow
 const SHARP = [["0", "#1f1f1f"], ["0.45", "#3a3a39"], ["0.8", "#7c7c7a"], ["1", "#9a9a98"]];
 const SOFT = [["0", "#000"], ["0.6", "#222221"], ["1", "#4e4e4c"]];
@@ -58,7 +58,7 @@ const word = (id, stops) =>
 
       <div class="cf-sc__word" data-cf-sc-in="word">
         <div class="cf-sc__nimbi" aria-hidden="true" data-cf-sc-nimbi>
-          {SPOTS.map(([c, x, b = 59]) => <span class="cf-sc__nimbo" style={`--x: ${x}%; --b: ${b}%`} set:html={nimbiSvg(c, { size: 120 })} />)}
+          {SPOTS.map(([c, x, b = 59]) => <span class="cf-sc__nimbo" style={`--x: ${x}%; --b: ${b}%`} set:html={markSvg(c, { size: 120 })} />)}
         </div>
         <span class="cf-sc__word-layer cf-sc__word-layer--sharp" role="img" aria-label="Nimbo" set:html={word("cf-sc-wm-a", SHARP)} />
         <span class="cf-sc__word-layer cf-sc__word-layer--soft" aria-hidden="true" set:html={word("cf-sc-wm-b", SOFT)} />

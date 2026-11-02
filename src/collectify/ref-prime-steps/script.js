@@ -5,7 +5,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * «How it works» from Collectify «ref-prime-steps», restyled for Nimbo: same intro and motion; the popup is the
- * «sandbox ready» toast, the two chat messages are the connectors, the three cursors are the Nimbi, and the
+ * «sandbox ready» toast, the two chat messages are the connectors, the three cursors are the colour marks, and the
  * live-payment track fills up once the third card is in. No avatar images, so no broken-image handling.
  * Original notes — «Here's how it works» di Prime Design.
  * Quando la sezione entra nello schermo: l'occhiello si scrive, il titolo sale, il filo orizzontale

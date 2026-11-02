@@ -1,9 +1,9 @@
 ---
 // Final call to action: layout and motion of Collectify «ref-widgets-cta» (src/collectify/ref-widgets-cta),
 // with the Nimbo identity: white panel with title and buttons, silver panel with dark Nimbo dashboard widgets.
-// The avatar and the coin icons are Nimbi (Coin, Block, Capsule), the only colour in the section.
+// The avatar and the coin icons are mark (Coin, Block, Capsule), the only colour in the section.
 import copy from "../copy/cta.js";
-import { nimbiSvg } from "../lib/brand.js";
+import { markSvg } from "../lib/brand.js";
 
 const { t, lang = "it" } = Astro.props;
 const c = copy[lang] || copy.it;
@@ -73,7 +73,7 @@ const arrow = `<svg class="cf-wg__arrow" viewBox="0 0 16 16" aria-hidden="true" 
             </span>
           </div>
           <div class="cf-wg__author">
-            <span class="cf-wg__avatar" set:html={nimbiSvg("coin", { size: 40 })} />
+            <span class="cf-wg__avatar" set:html={markSvg("coin", { size: 40 })} />
             <span class="cf-wg__who">
               <span class="cf-wg__name">{c.feed.name}</span>
               <span class="cf-wg__sub">{c.feed.sub}</span>
@@ -114,7 +114,7 @@ const arrow = `<svg class="cf-wg__arrow" viewBox="0 0 16 16" aria-hidden="true" 
         <!-- Uptime -->
         <div class="cf-wg__w cf-wg__w--coin cf-wg__w--zec" data-cf-wg-in="widget">
           <div class="cf-wg__row cf-wg__row--coin">
-            <span class="cf-wg__coin" set:html={nimbiSvg("block", { size: 30 })} />
+            <span class="cf-wg__coin" set:html={markSvg("block", { size: 30 })} />
             <span class="cf-wg__delta">{c.uptime.delta}</span>
           </div>
           <span class="cf-wg__coin-name">{c.uptime.name} <span>{c.uptime.span}</span></span>
@@ -125,7 +125,7 @@ const arrow = `<svg class="cf-wg__arrow" viewBox="0 0 16 16" aria-hidden="true" 
         <!-- Settlement time -->
         <div class="cf-wg__w cf-wg__w--coin cf-wg__w--rpl" data-cf-wg-in="widget">
           <div class="cf-wg__row cf-wg__row--coin">
-            <span class="cf-wg__coin" set:html={nimbiSvg("capsule", { size: 30 })} />
+            <span class="cf-wg__coin" set:html={markSvg("capsule", { size: 30 })} />
             <span class="cf-wg__delta">{c.speed.delta}</span>
           </div>
           <span class="cf-wg__coin-name">{c.speed.name} <span>{c.speed.span}</span></span>
