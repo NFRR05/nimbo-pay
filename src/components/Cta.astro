@@ -1,6 +1,6 @@
 ---
 // Final call to action: layout and motion of Collectify «ref-dark-cta» (src/collectify/ref-dark-cta),
-// in black and white. The review card becomes the first sandbox payment, and the five coloured marks
+// in black and white. Without the review card the text sits in the middle, and the five coloured marks
 // (one per product) stand in the glow at the bottom of the card.
 import copy from "../copy/cta.js";
 import { markSvg, MARKS } from "../lib/brand.js";
@@ -36,24 +36,6 @@ const arrow = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><pa
         </div>
         <p class="cf-dk__status" role="status" data-cf-dk-status={c.status}></p>
       </div>
-
-      <figure class="cf-dk__quote" data-cf-dk-in="quote">
-        <figcaption class="cf-dk__code-head">
-          <span>{c.codeTitle}</span>
-          <span class="cf-dk__code-tag">{c.codeTag}</span>
-        </figcaption>
-        <pre class="cf-dk__code"><code><span class="cf-dk__k">POST</span> /v1/payments
-{"{"}
-  <span class="cf-dk__dim">"amount":</span> 125000,
-  <span class="cf-dk__dim">"currency":</span> "EUR",
-  <span class="cf-dk__dim">"to":</span> "IT60 X054 2811 1010 0000 0123 456"
-{"}"}</code></pre>
-        <p class="cf-dk__result" data-cf-dk-star>
-          <span class="cf-dk__ok" aria-hidden="true"></span>{c.codeResult}
-        </p>
-        <pre class="cf-dk__code cf-dk__code--resp" data-cf-dk-star><code><span class="cf-dk__dim">"status":</span> "settled",
-<span class="cf-dk__dim">"co2_grams":</span> 0.4</code></pre>
-      </figure>
 
       <div class="cf-dk__lineup" role="img" aria-label={c.lineupLabel} data-cf-dk-lineup>
         {MARKS.map((m) => <Fragment set:html={markSvg(m, { size: 84 })} />)}

@@ -1,7 +1,7 @@
 /* Final CTA from Collectify «ref-dark-cta», restyled for Nimbo: same black card with ghost cards behind,
-   falling dot matrix and glow rising from the bottom edge, in black and white; the review card is an API
-   call on glass (no invented testimonial), and the five coloured marks stand in the glow, the only colour
-   in the section. */
+   falling dot matrix and glow rising from the bottom edge, in black and white. No review card (no invented
+   testimonial): title, text and buttons sit in the middle, and the five coloured marks stand in the glow,
+   the only colour in the section. */
 .cf-dk {
   --dk-bg: #070707;
   --dk-card: #141414;
@@ -31,7 +31,7 @@
   box-sizing: border-box;
 }
 
-.cf-dk :where(h2, p, blockquote, figure) {
+.cf-dk :where(h2, p) {
   margin: 0;
   padding: 0;
 }
@@ -127,7 +127,9 @@
 /* ---------- Testo e bottoni ---------- */
 
 .cf-dk__copy {
-  max-width: calc(480 * var(--dk-s));
+  max-width: calc(620 * var(--dk-s));
+  margin-inline: auto;
+  text-align: center;
 }
 
 .cf-dk__title {
@@ -152,6 +154,7 @@
 .cf-dk__actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: calc(22 * var(--dk-s));
   margin-top: calc(18 * var(--dk-s));
 }
@@ -229,79 +232,6 @@
   color: var(--dk-white);
 }
 
-/* ---------- Recensione su vetro ---------- */
-
-.cf-dk__quote {
-  flex: none;
-  width: calc(540 * var(--dk-s));
-  padding: calc(24 * var(--dk-s)) calc(28 * var(--dk-s)) calc(24 * var(--dk-s));
-  border: 1px solid rgb(255 255 255 / 0.1);
-  border-radius: 20px;
-  background: linear-gradient(180deg, rgb(255 255 255 / 0.045), rgb(255 255 255 / 0.03));
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-}
-
-.cf-dk__code-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: max(13px, calc(14 * var(--dk-s)));
-  font-weight: 600;
-  color: var(--dk-white);
-}
-
-.cf-dk__code-tag {
-  font-weight: 500;
-  color: var(--dk-dim);
-}
-
-.cf-dk__code {
-  margin: calc(18 * var(--dk-s)) 0 0;
-  padding: calc(16 * var(--dk-s)) calc(18 * var(--dk-s));
-  overflow-x: auto;
-  border-radius: 12px;
-  background: rgb(0 0 0 / 0.35);
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
-  font-family: var(--dk-mono);
-  font-size: max(12px, calc(13.5 * var(--dk-s)));
-  line-height: 1.65;
-  color: #f0f0ee;
-  white-space: pre;
-}
-
-.cf-dk__code--resp {
-  margin-top: calc(10 * var(--dk-s));
-}
-
-.cf-dk__k {
-  font-weight: 600;
-  color: #fff;
-}
-
-.cf-dk__dim {
-  color: var(--dk-dim);
-}
-
-.cf-dk__result {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: calc(16 * var(--dk-s));
-  font-family: var(--dk-mono);
-  font-size: max(12px, calc(13.5 * var(--dk-s)));
-  color: var(--dk-white);
-}
-
-.cf-dk__ok {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--dk-white);
-  box-shadow: 0 0 10px rgb(255 255 255 / 0.6);
-}
-
 /* the five coloured marks stand in the glow, cut by the bottom edge of the card */
 .cf-dk__lineup {
   position: absolute;
@@ -352,7 +282,7 @@
   }
 
   .cf-dk__copy {
-    max-width: 520px;
+    max-width: 560px;
   }
 
   .cf-dk__title {
@@ -369,11 +299,6 @@
   .cf-dk__actions {
     gap: 14px;
     margin-top: 24px;
-  }
-
-  .cf-dk__quote {
-    width: auto;
-    padding: 24px;
   }
 
 
@@ -426,17 +351,9 @@
     display: inline;
   }
 
-  .cf-dk__quote {
-    padding: 20px;
-  }
-
   .cf-dk__btn {
     flex: 1 0 auto;
     min-height: 48px;
-  }
-
-  .cf-dk__code {
-    font-size: 11.5px;
   }
 }
 
