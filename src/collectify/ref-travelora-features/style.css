@@ -1,16 +1,18 @@
 /* Products from Collectify «ref-travelora-features», reduced for Nimbo.
    Kept: white cards that stick a band below each other and shrink as the next one arrives (script.js).
-   Each card: the product's colour mark standing in 3D beside its name (src/lib/brand.js markPerch) in the band
-   that stays visible, title and sentence on the left, three specs on the right. Thin borders, no shadows.
-   Under 900px the cards become a row you swipe. */
+   Each card: the product's colour mark standing in 3D on its top edge, on the left (src/lib/brand.js
+   markPerch), each one further right, so the stacked cards make a staircase of marks that never covers a
+   name; the name in the band that stays visible, title and sentence on the left, three specs on the right.
+   Thin borders, no shadows. Under 900px the cards become a row you swipe, each mark on its card's left. */
 .cf-tv {
   --tv-ink: #111111;
   --tv-muted: #5f5f5c;
   --tv-line: #e7e7e5;
   --tv-dark: #0a0a0a;
   --tv-display: "Outfit Variable", "Outfit", "Inter Variable", system-ui, sans-serif;
-  /* first card at --tv-top, each next one a band lower */
-  --tv-top: max(96px, calc((100svh - 720px) / 2));
+  /* first card at --tv-top (below the navigation, with room for its mark), each next one a band lower */
+  --tv-perch: 80px;
+  --tv-top: max(164px, calc((100svh - 600px) / 2 + 48px));
   --tv-step: 48px;
   --tv-h: min(400px, calc(100svh - var(--tv-top) - 4 * var(--tv-step) - 24px));
 
@@ -39,9 +41,10 @@
 .cf-tv__stack {
   position: relative;
   display: grid;
-  gap: 24px;
+  gap: calc(var(--tv-perch) + 32px);
   width: min(var(--cf-max-width), 100% - 2 * var(--cf-gutter));
   margin-inline: auto;
+  padding-top: calc(var(--tv-perch) - 16px);
 }
 
 /* a short pause with the whole stack in place before it scrolls away */
@@ -77,12 +80,13 @@
   transition: color 0.4s linear;
 }
 
-/* the mark beside the name, standing on the card: its base a little below the text's middle */
-.cf-tv__area .nb-perch {
-  --s: 38px;
+/* the mark on the top edge: first card on the left, each next one 124px further right (clear of the names) */
+.cf-tv__card > .cf-tv__perch {
+  --s: var(--tv-perch);
 
-  margin: 0 2px 0 -4px;
-  translate: 0 -3px;
+  position: absolute;
+  bottom: calc(100% - 2px);
+  left: calc(clamp(28px, 3.5vw, 48px) - 6px + var(--i) * 124px);
 }
 
 /* cards covered by the next one: the name goes grey, the mark stays */
@@ -152,6 +156,8 @@
 
 @media (max-width: 899px) {
   .cf-tv {
+    --tv-perch: 60px;
+
     padding-bottom: clamp(56px, 10vw, 96px);
   }
 
@@ -160,7 +166,7 @@
     align-items: stretch;
     gap: 12px;
     width: 100%;
-    padding: 0 var(--cf-gutter) 4px;
+    padding: calc(var(--tv-perch) + 4px) var(--cf-gutter) 4px;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
@@ -192,6 +198,10 @@
     padding: 20px 20px 24px;
     border-radius: var(--cf-radius-m);
     scroll-snap-align: start;
+  }
+
+  .cf-tv__card > .cf-tv__perch {
+    left: 14px;
   }
 
   .cf-tv__specs {

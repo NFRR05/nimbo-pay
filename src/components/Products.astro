@@ -1,8 +1,8 @@
 ---
 // Products: the stacking cards of Collectify «ref-travelora-features» (src/collectify/ref-travelora-features).
-// One white card per product over the dark section; in the band that stays visible, the product's colour
-// mark stands in 3D on the card beside the name (it hops when the card is hovered), then a title, one
-// sentence and three specs. The marks are the only colour on the page.
+// One white card per product over the dark section; the product's colour mark stands in 3D on the top edge
+// of its card, on the left (each one a little further right, so in the stack they make a staircase), then the
+// name, a title, one sentence and three specs. The marks are the only colour on the page.
 import { markPerch } from "../lib/brand.js";
 import copy from "../copy/products.js";
 
@@ -21,7 +21,8 @@ const c = copy[lang] || copy.it;
   <ol class="cf-tv__stack" role="list" aria-label={c.listLabel} tabindex="0">
     {c.cards.map((card, i) => (
       <li class="cf-tv__card" style={`--i: ${i}`} data-cf-tv-card={card.id} data-nb-perch-host>
-        <p class="cf-tv__area"><Fragment set:html={markPerch(card.mark, { delay: i * 1.7 })} />{card.area}</p>
+        <Fragment set:html={markPerch(card.mark, { delay: i * 1.7, className: "cf-tv__perch" })} />
+        <p class="cf-tv__area">{card.area}</p>
         <div class="cf-tv__copy">
           <h3 class="cf-tv__title">{card.title}</h3>
           <p class="cf-tv__text">{card.text}</p>

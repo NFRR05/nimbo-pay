@@ -304,8 +304,12 @@ body {
   transition: opacity 0.4s linear;
 }
 
-/* the canvas never takes clicks (it can lie over text and buttons): marks3d.js hit-tests the page's clicks */
+/* the canvas never takes clicks (it can lie over text and buttons): marks3d.js hit-tests the page's clicks.
+   It can reach above the box (--nb-head, a fraction of the box height) so jumps aren't cut at the top. */
 .nb-marks3d__canvas {
+  top: auto;
+  bottom: 0;
+  height: calc(100% * (1 + var(--nb-head, 0)));
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s linear;
@@ -321,6 +325,8 @@ body {
 
 /* hero: on the right, beside the title */
 .nb-marks3d--hero {
+  --nb-head: 0.28;
+
   z-index: 0;
   top: 8%;
   right: 2%;
@@ -390,19 +396,19 @@ body {
   display: block;
   flex: none;
   width: var(--s, 40px);
-  aspect-ratio: 160 / 157;
+  aspect-ratio: 160 / 156;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* contact shadow on the card */
+/* contact shadow: half on the card's face, half lost in the dark above it */
 .nb-perch::after {
   content: "";
   position: absolute;
-  left: 10%;
-  right: 10%;
-  bottom: -4px;
-  height: 9px;
+  left: 8%;
+  right: 8%;
+  bottom: -7px;
+  height: 14px;
   border-radius: 50%;
   background: radial-gradient(closest-side, rgb(0 0 0 / 0.3), rgb(0 0 0 / 0));
   transform-origin: 50% 50%;
@@ -434,34 +440,38 @@ body {
   }
 
   .nb-perch.is-hop .nb-perch__body {
-    animation: nb-perch-hop 0.95s both;
+    animation: nb-perch-hop 0.62s both;
   }
 
   .nb-perch.is-hop::after {
-    animation: nb-perch-shadow 0.95s both;
+    animation: nb-perch-shadow 0.62s both;
   }
 }
 
-/* crouch, a soft arc with a little tilt, a gentle landing */
+/* the same jump as the live marks: a quick crouch, up, a squash on landing and a little bounce */
 @keyframes nb-perch-hop {
   0% {
     transform: none;
-    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
-  }
-
-  16% {
-    transform: scale(1.07, 0.9);
     animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
   }
 
-  50% {
-    transform: translateY(-48%) scale(0.97, 1.04) rotate(-5deg);
+  14% {
+    transform: scale(1.14, 0.8);
+    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  }
+
+  48% {
+    transform: translateY(-55%) scale(0.95, 1.06);
     animation-timing-function: cubic-bezier(0.32, 0, 0.67, 0);
   }
 
-  80% {
-    transform: scale(1.05, 0.93);
-    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  76% {
+    transform: scale(1.14, 0.82);
+    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  }
+
+  88% {
+    transform: scale(0.96, 1.05);
   }
 
   100% {
@@ -471,14 +481,14 @@ body {
 
 @keyframes nb-perch-shadow {
   0%,
-  16%,
-  80%,
+  14%,
+  76%,
   100% {
     opacity: 1;
     transform: none;
   }
 
-  50% {
+  48% {
     opacity: 0.35;
     transform: scale(0.6);
   }
