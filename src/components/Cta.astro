@@ -1,10 +1,9 @@
 ---
 // Final call to action: layout and motion of Collectify «ref-dark-cta» (src/collectify/ref-dark-cta),
 // in black and white. Without the review card the text sits in the middle, and the five coloured marks
-// (one per product) stand in the glow at the bottom of the card.
+// (one per product) stand in the glow at the bottom of the card, in live 3D (src/lib/marks3d.js).
 import { iconSvg } from "../lib/icons.js";
 import copy from "../copy/cta.js";
-import { markSvg, MARKS } from "../lib/brand.js";
 
 const { lang = "it" } = Astro.props;
 const c = copy[lang] || copy.it;
@@ -38,8 +37,8 @@ const arrow = iconSvg("arrow-right", { size: 16 });
         <p class="cf-dk__status" role="status" data-cf-dk-status={c.status}></p>
       </div>
 
-      <div class="cf-dk__lineup" role="img" aria-label={c.lineupLabel} data-cf-dk-lineup>
-        {MARKS.map((m) => <Fragment set:html={markSvg(m, { size: 84 })} />)}
+      <div class="cf-dk__lineup nb-marks3d" role="img" aria-label={c.lineupLabel} data-nb-marks3d="lineup">
+        <img class="nb-marks3d__poster" data-nb-marks3d-poster src="/media/marks/lineup.webp" width="1120" height="300" alt="" decoding="async" loading="lazy" />
       </div>
     </div>
   </div>

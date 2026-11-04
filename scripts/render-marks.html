@@ -1,0 +1,15 @@
+<!doctype html><meta charset="utf-8"><title>Nimbo marks: still renders</title>
+<!-- Still renders of the 3D marks, from the same module as the live scenes (src/lib/marks3d.js).
+     Serve the repository root (python3 -m http.server 4400) and open /scripts/render-marks.html, then in the console:
+     await __render({ mode: "play", width: 1440, height: 1250 })            hero poster (public/media/marks/hero.webp)
+     await __render({ mode: "lineup", width: 1120, height: 317 })           call to action poster (lineup.webp)
+     await __render({ color: "coral", width: 384, height: 384, blink: true }) one mark, eyes closed (mark-coral-blink.webp)
+     Each returns a PNG data URL; small marks are then cropped to the cube and saved at 128px as WebP. -->
+<script type="importmap">{"imports":{"three":"/node_modules/three/build/three.module.js","three/addons/":"/node_modules/three/examples/jsm/","gsap":"/node_modules/gsap/index.js"}}</script>
+<body style="margin:0;background:#888">
+<script type="module">
+import { renderStill, MARK_ORDER } from "/src/lib/marks3d.js";
+window.__render = async (opts) => renderStill(opts).toDataURL("image/png");
+window.__order = MARK_ORDER;
+window.__ready = true;
+</script>

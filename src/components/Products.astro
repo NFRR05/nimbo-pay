@@ -1,8 +1,8 @@
 ---
 // Products: the stacking cards of Collectify «ref-travelora-features» (src/collectify/ref-travelora-features).
 // One white card per product over the dark section; each card shows the product's colour mark beside its
-// name, a title, one sentence and three specs. The marks are the only colour on the page.
-import { markSvg } from "../lib/brand.js";
+// name (in 3D), a title, one sentence and three specs. The marks are the only colour on the page.
+import { mark3d } from "../lib/brand.js";
 import copy from "../copy/products.js";
 
 const { lang = "it" } = Astro.props;
@@ -20,7 +20,7 @@ const c = copy[lang] || copy.it;
   <ol class="cf-tv__stack" role="list" aria-label={c.listLabel} tabindex="0">
     {c.cards.map((card, i) => (
       <li class="cf-tv__card" style={`--i: ${i}`} data-cf-tv-card={card.id}>
-        <p class="cf-tv__area"><Fragment set:html={markSvg(card.mark, { size: 24 })} />{card.area}</p>
+        <p class="cf-tv__area"><Fragment set:html={mark3d(card.mark, { size: 26, delay: i * 1.7 })} />{card.area}</p>
         <div class="cf-tv__copy">
           <h3 class="cf-tv__title">{card.title}</h3>
           <p class="cf-tv__text">{card.text}</p>

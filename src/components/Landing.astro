@@ -102,7 +102,6 @@ const site = "https://nimbo-pay.vercel.app";
       import initPricing from "../collectify/ref-nexwealth-pricing/script.js";
       import initFaq from "../collectify/ref-rumo-faq/script.js";
       import initCta from "../collectify/ref-dark-cta/script.js";
-      import initMarkLife from "../lib/mark-life.js";
 
       initSmartNav();
       initHero();
@@ -114,7 +113,13 @@ const site = "https://nimbo-pay.vercel.app";
       initPricing();
       initFaq();
       initCta();
-      initMarkLife();
+      // The 3D marks (Three.js) load on their own, after the page: with reduced motion the posters are the still
+      // frame, so the library isn't loaded at all.
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && document.querySelector("[data-nb-marks3d]")) {
+        const load3d = () => import("../lib/marks3d.js").then((m) => m.default());
+        if (document.readyState === "complete") load3d();
+        else window.addEventListener("load", load3d, { once: true });
+      }
     </script>
   </body>
 </html>

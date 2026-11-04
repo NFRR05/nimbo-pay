@@ -134,12 +134,8 @@
 .cf-fx-ava {
   display: block;
   flex: none;
-  width: 24px;
-  height: 24px;
-}
-
-.cf-fx-ava svg {
-  display: block;
+  width: 26px;
+  height: 26px;
 }
 
 /* 1. transfer over the dotted map */

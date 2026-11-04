@@ -281,3 +281,104 @@ body {
 .nb-btn--block {
   width: 100%;
 }
+
+/* ---------- The coloured marks in 3D ---------- */
+
+/* live scenes (src/lib/marks3d.js): the poster shows until the canvas draws */
+.nb-marks3d {
+  position: absolute;
+  pointer-events: none;
+}
+
+.nb-marks3d__poster,
+.nb-marks3d__canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.nb-marks3d__poster {
+  object-fit: contain;
+  transition: opacity 0.4s linear;
+}
+
+.nb-marks3d__canvas {
+  opacity: 0;
+  pointer-events: auto;
+  touch-action: pan-y;
+  transition: opacity 0.4s linear;
+}
+
+.nb-marks3d.is-live .nb-marks3d__canvas {
+  opacity: 1;
+}
+
+.nb-marks3d.is-live .nb-marks3d__poster {
+  opacity: 0;
+}
+
+/* hero: on the right, beside the title */
+.nb-marks3d--hero {
+  z-index: 0;
+  top: 8%;
+  right: 2%;
+  width: 46%;
+  height: 64%;
+}
+
+@media (max-width: 1079.98px) {
+  .nb-marks3d--hero {
+    top: 64px;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: 44svh;
+  }
+}
+
+/* small marks: a still with the eyes open, the same with the eyes closed on top for the blink */
+.nb-mark3d {
+  position: relative;
+  display: block;
+  flex: none;
+  width: var(--s, 24px);
+  height: var(--s, 24px);
+}
+
+.nb-mark3d img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.nb-mark3d__blink {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nb-mark3d__blink {
+    animation: nb-blink 5.6s linear infinite;
+    animation-delay: var(--d, 0s);
+  }
+}
+
+@keyframes nb-blink {
+  0%,
+  95.9% {
+    opacity: 0;
+  }
+
+  96%,
+  98% {
+    opacity: 1;
+  }
+
+  98.1%,
+  100% {
+    opacity: 0;
+  }
+}

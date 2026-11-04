@@ -7,8 +7,12 @@ Online su https://nimbo-pay.vercel.app.
 - Colori, font (Outfit, Inter, Geist Mono) e forme vengono dal design system Nimbo (`src/styles/nimbo.css`):
   interfaccia in bianco e nero, bordi sottili invece delle ombre, raggi 12/20/28, una sola testata di sezione
   (`.nb-head`) e un solo bottone (`.nb-btn`).
-- Il colore è solo sui cinque marchi colorati (`src/lib/brand.js`), uno per prodotto, accanto al nome del prodotto.
-  Ogni tanto sbattono le palpebre (`src/lib/mark-life.js`); con movimento ridotto non si muove niente.
+- Il colore è solo sui cinque marchi colorati, uno per prodotto, in 3D: cubi morbidi con gli angoli dell'icona dell'app
+  e gli occhi bianchi (`src/lib/marks3d.js`, Three.js). Nella hero giocano dal vivo (saltelli, la moneta passata di testa
+  in testa, la torre, la cavallina), guardano il puntatore, sbattono le palpebre e saltano se li tocchi; nella CTA sono in
+  fila nel bagliore. Three.js si carica a parte, dopo la pagina, e solo con il movimento attivo: senza, restano i poster
+  in `public/media/marks/`. Nelle etichette piccole (card prodotto, avatar del bento) sono render statici con le
+  palpebre che si chiudono in CSS (`mark3d` in `src/lib/brand.js`). I render si rigenerano con `scripts/render-marks.html`.
 - Sezioni:
   - numeri e sicurezza: componenti Nimbo (`src/styles/sections.css`);
   - hero, bento, prodotti, domande, prezzi, invito finale e footer: layout dei componenti "da reference" di Collectify (`src/collectify/<slug>`):

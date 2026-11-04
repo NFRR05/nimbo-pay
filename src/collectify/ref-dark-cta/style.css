@@ -233,22 +233,13 @@
 }
 
 /* the five coloured marks stand in the glow, cut by the bottom edge of the card */
+/* the 3D scene box: the floor line sits a little below the card edge, so the marks are cut by it */
 .cf-dk__lineup {
-  position: absolute;
   left: 50%;
-  bottom: calc(-14 * var(--dk-s));
-  display: flex;
-  align-items: flex-end;
-  gap: calc(10 * var(--dk-s));
-  width: max-content;
+  bottom: calc(-44 * var(--dk-s));
+  width: calc(600 * var(--dk-s));
+  height: calc(170 * var(--dk-s));
   translate: -50% 0;
-  pointer-events: none;
-}
-
-.cf-dk__lineup svg {
-  display: block;
-  width: calc(84 * var(--dk-s));
-  height: calc(84 * var(--dk-s));
 }
 
 /* ---------- Tablet e telefono: testo sopra, recensione sotto ---------- */
@@ -272,9 +263,10 @@
     border-radius: 28px;
   }
 
-  .cf-dk__lineup svg {
-    width: 68px;
-    height: 68px;
+  .cf-dk__lineup {
+    bottom: -38px;
+    width: min(520px, 100%);
+    height: 150px;
   }
 
   .cf-dk__ghost {
@@ -325,12 +317,9 @@
   }
 
   .cf-dk__lineup {
-    gap: 4px;
-  }
-
-  .cf-dk__lineup svg {
-    width: 52px;
-    height: 52px;
+    bottom: -28px;
+    width: 100%;
+    height: 112px;
   }
 
   .cf-dk__ghost {

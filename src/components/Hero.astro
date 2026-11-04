@@ -3,6 +3,7 @@
 // redrawn with the Nimbo identity: black ribbed glass with a soft light behind it, Outfit title,
 // white button. No panel, no figure behind the glass and no row of points along the bottom.
 // Behind the ribs two soft white shades drift from side to side, so the curtain of glass seems to move.
+// On the right the five coloured marks play in 3D (src/lib/marks3d.js); the poster shows without WebGL.
 import { iconSvg } from "../lib/icons.js";
 import copy from "../copy/hero.js";
 
@@ -16,6 +17,10 @@ const arrow = iconSvg("arrow-right", { size: 14 });
     <div class="cf-pm__bg-img" data-cf-pm-bg></div>
     <span class="cf-pm__shade" data-cf-pm-shade></span>
     <span class="cf-pm__shade cf-pm__shade--soft" data-cf-pm-shade></span>
+  </div>
+
+  <div class="nb-marks3d nb-marks3d--hero" data-nb-marks3d="play" aria-hidden="true">
+    <img class="nb-marks3d__poster" data-nb-marks3d-poster src="/media/marks/hero.webp" width="1440" height="1200" alt="" decoding="async" />
   </div>
 
   <div class="cf-pm__inner">

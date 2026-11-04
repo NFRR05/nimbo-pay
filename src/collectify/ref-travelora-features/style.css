@@ -76,7 +76,7 @@
   transition: color 0.4s linear;
 }
 
-.cf-tv__area svg {
+.cf-tv__area .nb-mark3d {
   flex: none;
   display: block;
 }

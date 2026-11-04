@@ -15,7 +15,7 @@ const ALIAS = {
 /**
  * SVG for one coloured mark: the app icon (radius 28 at 128) in a brand colour, with two white eyes.
  * size = side in px; label = accessible name (empty = decorative). Each eye is a .nb-eye group with a
- * .nb-pupil dot, so the page can make the marks blink (src/lib/mark-life.js).
+ * .nb-pupil dot. The page itself shows the marks in 3D (mark3d below and src/lib/marks3d.js).
  */
 export function markSvg(color = "black", { size = 64, label = "", className = "" } = {}) {
   const fill = MARK_COLORS[ALIAS[color] || color] || color;
@@ -31,4 +31,15 @@ export function wordmarkSvg({ height = 28, className = "", label = "Nimbo" } = {
   const [, , w, h] = WORDMARK.vb.split(" ").map(Number);
   const dots = WORDMARK.eyes.map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}"/>`).join("");
   return `<svg class="${className}" viewBox="${WORDMARK.vb}" height="${height}" width="${Math.round((height * w) / h)}" role="img" aria-label="${label}"><g fill="currentColor"><path d="${WORDMARK.letters}"/><path fill-rule="evenodd" d="${WORDMARK.ring}"/>${dots}</g></svg>`;
+}
+
+/**
+ * A coloured mark in 3D, for small places (labels, avatars): a still render of the soft cube with its eyes open,
+ * and the same render with the eyes closed on top, shown for a moment now and then (the blink, in CSS).
+ * The stills come from src/lib/marks3d.js (public/media/marks/). delay staggers the blinks.
+ */
+export function mark3d(color, { size = 24, className = "", label = "", delay = 0 } = {}) {
+  const c = ALIAS[color] || color;
+  const a11y = label ? ` role="img" aria-label="${label}"` : ` aria-hidden="true"`;
+  return `<span class="nb-mark3d${className ? ` ${className}` : ""}" style="--s: ${size}px; --d: ${delay}s"${a11y}><img src="/media/marks/mark-${c}.webp" width="${size}" height="${size}" alt="" decoding="async" /><img class="nb-mark3d__blink" src="/media/marks/mark-${c}-blink.webp" width="${size}" height="${size}" alt="" decoding="async" loading="lazy" /></span>`;
 }

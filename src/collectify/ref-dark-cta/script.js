@@ -5,7 +5,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Final CTA from Collectify «ref-dark-cta», restyled for Nimbo: white dots instead of violet, no review card,
- * and the five coloured marks rise into the glow (no bounce: the marks only blink). The two buttons say that
+ * and the five coloured marks (live 3D, src/lib/marks3d.js, which brings them in) stand in the glow. The two buttons say that
  * sign-up and contact are not live, since Nimbo is a demo.
  * Original notes — CTA scura.
  * - Matrice di puntini su canvas: colonne di trattini che scendono lentissime, più chiare vicino al bagliore
@@ -42,7 +42,6 @@ function setup(section) {
     const ghosts = [...section.querySelectorAll("[data-cf-dk-ghost]")];
     const card = section.querySelector("[data-cf-dk-card]");
     const glow = section.querySelector("[data-cf-dk-glow]");
-    const marks = [...section.querySelectorAll("[data-cf-dk-lineup] svg")];
 
     const tl = gsap.timeline({
       defaults: { ease: "expo.out" },
@@ -54,7 +53,7 @@ function setup(section) {
     if (glow) tl.from(glow, { scaleY: 0.2, opacity: 0, duration: 2, ease: "power3.out" }, 0.3);
     tl.from(pick("line"), { autoAlpha: 0, y: 26, filter: "blur(10px)", duration: 1.2, stagger: 0.1, clearProps: "filter" }, 0.45)
       .from(pick("copy"), { autoAlpha: 0, y: 18, duration: 1, stagger: 0.1 }, 0.7)
-      .from(marks, { yPercent: 110, duration: 1.2, stagger: 0.08, ease: "expo.out" }, 0.9);
+;
 
     // respiro lento del bagliore, dopo l'ingresso
     let breathe;

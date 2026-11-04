@@ -4,7 +4,7 @@
 // icon, a title, one sentence and one small black-and-white interface. Thin borders, no shadows; the only
 // colour is a mark used as the avatar of an event (coral on the transfer, amber on the new account).
 // The two wide cards stay plain: two figures for the treasury, a short bill for the costs.
-import { markSvg } from "../lib/brand.js";
+import { mark3d } from "../lib/brand.js";
 import { iconSvg } from "../lib/icons.js";
 import copy from "../copy/bento.js";
 
@@ -33,7 +33,7 @@ const check = iconSvg("check", { size: 14 });
           </div>
           <div class="cf-fx__stage cf-fx-map" aria-hidden="true">
             <div class="cf-fx-tile cf-fx-transfer" data-cf-fx-part>
-              <p class="cf-fx-tile__row"><span class="cf-fx-ava" set:html={markSvg("coral", { size: 24 })} /><b>{b.sepa.name}</b></p>
+              <p class="cf-fx-tile__row"><span class="cf-fx-ava" set:html={mark3d("coral", { size: 26, delay: 0.8 })} /><b>{b.sepa.name}</b></p>
               <p class="cf-fx-transfer__amount">{euro(b.sepa.amount)}</p>
               <p class="cf-fx-transfer__eta"><Fragment set:html={check} />{b.sepa.eta}<span class="cf-fx-route">IT → DE</span></p>
             </div>
@@ -70,7 +70,7 @@ const check = iconSvg("check", { size: 14 });
               <p class="cf-fx-tile cf-fx-tile__row" data-cf-fx-part><b>{name}</b><span>{iban}</span></p>
             ))}
             <p class="cf-fx-tile cf-fx-tile__row cf-fx-new" data-cf-fx-new>
-              <span class="cf-fx-ava" set:html={markSvg("amber", { size: 24 })} />
+              <span class="cf-fx-ava" set:html={mark3d("amber", { size: 26, delay: 3.1 })} />
               <b>{b.accounts.chip[0]}</b>
               <span>{b.accounts.chip[1]}</span>
             </p>

@@ -35,11 +35,8 @@ function setupMotion(section) {
 
     const tl = gsap.timeline({ defaults: { ease } });
     if (bg) tl.from(bg, { scale: 1.12, filter: "blur(24px)", opacity: 0.4, duration: 2, ease: "power3.out", clearProps: "filter,opacity" }, 0);
-    tl.from(pick("bar"), { autoAlpha: 0, y: -14, duration: 0.9, stagger: 0.09 }, 0.15)
-      .from(pick("line"), { yPercent: 105, duration: 1.25, stagger: 0.1 }, 0.3)
-      .from(pick("copy"), { autoAlpha: 0, y: 16, filter: "blur(8px)", duration: 1.1, stagger: 0.12, clearProps: "filter" }, 0.65)
-      .from(pick("panel"), { autoAlpha: 0, x: 40, filter: "blur(10px)", duration: 1.2, clearProps: "transform,filter" }, 0.45)
-      .from(pick("slot"), { autoAlpha: 0, y: 18, duration: 0.9, stagger: 0.12, clearProps: "transform" }, 0.75);
+    tl.from(pick("line"), { yPercent: 105, duration: 1.25, stagger: 0.1 }, 0.3)
+      .from(pick("copy"), { autoAlpha: 0, y: 16, filter: "blur(8px)", duration: 1.1, stagger: 0.12, clearProps: "filter" }, 0.65);
 
     // Respiro del fondo
     let drift;
