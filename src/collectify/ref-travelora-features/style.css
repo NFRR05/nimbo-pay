@@ -1,7 +1,8 @@
 /* Products from Collectify «ref-travelora-features», reduced for Nimbo.
    Kept: white cards that stick a band below each other and shrink as the next one arrives (script.js).
-   Each card: the product's colour mark and name in the band that stays visible, title and sentence on the
-   left, three specs on the right. Thin borders, no shadows. Under 900px the cards become a row you swipe. */
+   Each card: the product's colour mark standing in 3D beside its name (src/lib/brand.js markPerch) in the band
+   that stays visible, title and sentence on the left, three specs on the right. Thin borders, no shadows.
+   Under 900px the cards become a row you swipe. */
 .cf-tv {
   --tv-ink: #111111;
   --tv-muted: #5f5f5c;
@@ -76,9 +77,12 @@
   transition: color 0.4s linear;
 }
 
-.cf-tv__area .nb-mark3d {
-  flex: none;
-  display: block;
+/* the mark beside the name, standing on the card: its base a little below the text's middle */
+.cf-tv__area .nb-perch {
+  --s: 38px;
+
+  margin: 0 2px 0 -4px;
+  translate: 0 -3px;
 }
 
 /* cards covered by the next one: the name goes grey, the mark stays */

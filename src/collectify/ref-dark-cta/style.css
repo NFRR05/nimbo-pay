@@ -232,13 +232,15 @@
   color: var(--dk-white);
 }
 
-/* the five coloured marks stand in the glow, cut by the bottom edge of the card */
-/* the 3D scene box: the floor line sits a little below the card edge, so the marks are cut by it */
+/* the 3D scene box, beside the card in the stack and not inside it (the card clips): its floor line (44%
+   from the box bottom, see marks3d.js) sits 32 units above the card's bottom edge, so the five stand inside
+   the card, in the glow, and the box reaches below the card for the jumps that come out of it */
 .cf-dk__lineup {
+  z-index: 1;
   left: 50%;
-  bottom: calc(-44 * var(--dk-s));
-  width: calc(600 * var(--dk-s));
-  height: calc(170 * var(--dk-s));
+  bottom: calc(-100 * var(--dk-s));
+  width: calc(640 * var(--dk-s));
+  height: calc(300 * var(--dk-s));
   translate: -50% 0;
 }
 
@@ -264,9 +266,9 @@
   }
 
   .cf-dk__lineup {
-    bottom: -38px;
-    width: min(520px, 100%);
-    height: 150px;
+    bottom: -84px;
+    width: min(540px, 100%);
+    height: 254px;
   }
 
   .cf-dk__ghost {
@@ -317,9 +319,9 @@
   }
 
   .cf-dk__lineup {
-    bottom: -28px;
+    bottom: -58px;
     width: 100%;
-    height: 112px;
+    height: 176px;
   }
 
   .cf-dk__ghost {

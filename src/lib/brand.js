@@ -43,3 +43,14 @@ export function mark3d(color, { size = 24, className = "", label = "", delay = 0
   const a11y = label ? ` role="img" aria-label="${label}"` : ` aria-hidden="true"`;
   return `<span class="nb-mark3d${className ? ` ${className}` : ""}" style="--s: ${size}px; --d: ${delay}s"${a11y}><img src="/media/marks/mark-${c}.webp" width="${size}" height="${size}" alt="" decoding="async" /><img class="nb-mark3d__blink" src="/media/marks/mark-${c}-blink.webp" width="${size}" height="${size}" alt="" decoding="async" loading="lazy" /></span>`;
 }
+
+/**
+ * A coloured mark standing on a card (the product cards, beside the name): a still seen a little from above,
+ * in its character's face and pose, its base on the bottom of the image, with a soft contact shadow (CSS).
+ * It hops when the card is hovered or when it is clicked (src/lib/perch.js), and blinks now and then like the
+ * small marks. Decorative.
+ */
+export function markPerch(color, { delay = 0, className = "" } = {}) {
+  const c = ALIAS[color] || color;
+  return `<span class="nb-perch${className ? ` ${className}` : ""}" style="--d: ${delay}s" aria-hidden="true" data-nb-perch><span class="nb-perch__body"><img src="/media/marks/perch-${c}.webp" width="160" height="157" alt="" decoding="async" loading="lazy" /><img class="nb-perch__blink" src="/media/marks/perch-${c}-blink.webp" width="160" height="157" alt="" decoding="async" loading="lazy" /></span></span>`;
+}

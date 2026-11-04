@@ -1,7 +1,8 @@
 ---
 // Final call to action: layout and motion of Collectify «ref-dark-cta» (src/collectify/ref-dark-cta),
 // in black and white. Without the review card the text sits in the middle, and the five coloured marks
-// (one per product) stand in the glow at the bottom of the card, in live 3D (src/lib/marks3d.js).
+// (one per product) stand in the glow at the bottom of the card, in live 3D (src/lib/marks3d.js): when one
+// jumps it comes forward, out of the card, and lands back in its place.
 import { iconSvg } from "../lib/icons.js";
 import copy from "../copy/cta.js";
 
@@ -36,10 +37,11 @@ const arrow = iconSvg("arrow-right", { size: 16 });
         </div>
         <p class="cf-dk__status" role="status" data-cf-dk-status={c.status}></p>
       </div>
+    </div>
 
-      <div class="cf-dk__lineup nb-marks3d" role="img" aria-label={c.lineupLabel} data-nb-marks3d="lineup">
-        <img class="nb-marks3d__poster" data-nb-marks3d-poster src="/media/marks/lineup.webp" width="1120" height="300" alt="" decoding="async" loading="lazy" />
-      </div>
+    <!-- outside the card (which clips): the row stands inside it, and a jump comes out over its edge -->
+    <div class="cf-dk__lineup nb-marks3d" role="img" aria-label={c.lineupLabel} data-nb-marks3d="lineup">
+      <img class="nb-marks3d__poster" data-nb-marks3d-poster src="/media/marks/lineup.webp" width="1280" height="600" alt="" decoding="async" loading="lazy" />
     </div>
   </div>
 </section>
