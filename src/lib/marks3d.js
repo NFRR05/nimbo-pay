@@ -135,7 +135,7 @@ const LAYOUTS = {
   play: {
     homes: [[-2.15, 0.55], [-1.05, -0.75], [0.1, 0.75], [1.2, -0.65], [2.25, 0.5]],
     yaws: [0.3, 0.14, -0.03, -0.16, -0.32],
-    need: [6.5, 4.4], // world width and height the camera must show (room for a spin at the edges)
+    need: [5.9, 4.2], // world width and height the camera must show (room for a spin at the edges)
     fov: 30,
     lookAtY: 1.05,
     tilt: 0.4,

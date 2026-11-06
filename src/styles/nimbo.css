@@ -333,8 +333,8 @@ body {
   z-index: 0;
   right: calc((100% - 1440 * var(--pm-u)) / 2 + 30 * var(--pm-u));
   bottom: calc(96 * var(--pm-u));
-  width: calc(580 * var(--pm-u));
-  height: calc(460 * var(--pm-u));
+  width: calc(640 * var(--pm-u));
+  height: calc(500 * var(--pm-u));
 }
 
 @media (max-width: 1079.98px) {
