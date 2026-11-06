@@ -153,13 +153,14 @@
   margin-top: auto;
 }
 
+/* the payoff, bigger than the board's 96: it leads the hero */
 .cf-pm__title {
   font-family: var(--pm-display);
-  font-size: calc(96 * var(--pm-u));
+  font-size: calc(114 * var(--pm-u));
   font-weight: 600;
   letter-spacing: -0.045em;
-  line-height: calc(92 * var(--pm-u));
-  margin-left: calc(-3 * var(--pm-u));
+  line-height: calc(109 * var(--pm-u));
+  margin-left: calc(-4 * var(--pm-u));
 }
 
 .cf-pm__line {
@@ -173,12 +174,13 @@
   display: block;
 }
 
+/* the text, then the two buttons under it, all in the left column (the marks stand on the right) */
 .cf-pm__row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  margin-top: calc(29 * var(--pm-u));
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(30 * var(--pm-u));
+  margin-top: calc(30 * var(--pm-u));
 }
 
 .cf-pm__lede {
@@ -190,20 +192,19 @@
   color: var(--pm-muted);
 }
 
+/* the buttons never get smaller than the navigation's «Open a sandbox» (44px, 14px): a step bigger */
 .cf-pm__actions {
   display: flex;
   align-items: center;
-  gap: calc(17 * var(--pm-u));
-  margin-top: calc(14 * var(--pm-u));
-  margin-right: calc(14 * var(--pm-u));
+  gap: max(26px, calc(28 * var(--pm-u)));
 }
 
 .cf-pm__btn,
 .cf-pm__link {
   display: inline-flex;
   align-items: center;
-  gap: calc(7 * var(--pm-u));
-  font-size: calc(14.6 * var(--pm-u));
+  gap: max(8px, calc(9 * var(--pm-u)));
+  font-size: max(16px, calc(17 * var(--pm-u)));
   font-weight: 500;
   letter-spacing: -0.01em;
   white-space: nowrap;
@@ -211,15 +212,15 @@
 
 .cf-pm__btn svg,
 .cf-pm__link svg {
-  width: calc(14 * var(--pm-u));
+  width: max(15px, calc(16 * var(--pm-u)));
   height: auto;
   transition: transform 0.45s var(--pm-ease);
 }
 
 .cf-pm__btn {
-  height: calc(46 * var(--pm-u));
-  padding: 0 calc(22 * var(--pm-u)) 0 calc(24 * var(--pm-u));
-  border-radius: calc(12 * var(--pm-u));
+  height: max(52px, calc(56 * var(--pm-u)));
+  padding: 0 max(24px, calc(26 * var(--pm-u))) 0 max(26px, calc(28 * var(--pm-u)));
+  border-radius: 12px;
   background: var(--pm-white);
   color: #111111;
   font-weight: 600;
@@ -232,8 +233,9 @@
 }
 
 .cf-pm__link {
-  min-height: 44px;
-  background: linear-gradient(currentColor, currentColor) 0 calc(100% - 10px) / 0 1px no-repeat;
+  min-height: max(52px, calc(56 * var(--pm-u)));
+  font-weight: 600;
+  background: linear-gradient(currentColor, currentColor) 0 calc(100% - 13px) / 0 1px no-repeat;
   transition: background-size 0.45s var(--pm-ease);
 }
 
@@ -309,6 +311,12 @@
   .cf-pm__btn {
     height: 48px;
     padding: 0 24px;
+  }
+
+  .cf-pm__link {
+    min-height: 44px;
+    font-weight: 500;
+    background-position: 0 calc(100% - 10px);
   }
 
   .cf-pm__btn svg,

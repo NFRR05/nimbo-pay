@@ -11,6 +11,13 @@ import gsap from "gsap";
  *                                turn toward the pointer, blink, and jump when tapped, at any moment
  * <div data-nb-marks3d="lineup"> final call to action: the five in a row, rising in, blinking, looking,
  *                                and now and then one hops
+ * <div data-nb-marks3d="solo" data-nb-color="coral" data-nb-side="right">
+ *                                one mark on its own (the section where they introduce themselves): it drops
+ *                                in when its row comes up, turns toward its words (data-nb-side) or the
+ *                                pointer, bobs as if talking while you scroll through its text
+ *                                ([data-nb-talk-text] in the same [data-nb-talk-row]) and jumps when tapped.
+ *                                All the solo boxes share one renderer: each frame is copied into the box's
+ *                                own 2D canvas, so the page holds one WebGL context for all of them.
  * A poster <img data-nb-marks3d-poster> inside the box stays visible without script or WebGL.
  * The box frames the scene; the canvas can reach above it (CSS --nb-head, a fraction of the box height) so
  * jumps are not cut at the top, while the marks keep the size and place they have in the box.
@@ -144,6 +151,15 @@ const LAYOUTS = {
     tilt: 0.1,
     tap: { height: 1, dur: 0.75 },
   },
+  // one mark, standing low in an 8:9 box, with room above for a jump
+  solo: {
+    need: [2.3, 2.75],
+    fov: 22,
+    lookAtY: 1.05, // the floor at about 12% up the box
+    tilt: 0.2,
+    tap: { height: 1, dur: 0.8 },
+    turn: 0.32, // how far it turns toward its words
+  },
 };
 
 /**
@@ -196,12 +212,26 @@ function buildScene(mode, renderer, w, h, ch = h) {
 /**
  * Render a still: the whole scene for a mode, or one mark. `view: "perch"` sees the mark a little from above,
  * as if standing on the top edge of a card, with the rim light of the dark scenes (`dark: true`).
+ * `mode: "solo"` with a `color` and a `side` is the poster of a talking mark, framed as the live one.
  * Returns a canvas (transparent background).
  */
-export function renderStill({ mode = "play", color = null, view = "icon", dark = false, width = 512, height = 512, blink = false, dpr = 1 } = {}) {
+export function renderStill({ mode = "play", color = null, view = "icon", side = "right", dark = false, width = 512, height = 512, blink = false, dpr = 1 } = {}) {
   const renderer = makeRenderer(width, height, dpr, true);
   let scene, camera;
-  if (color) {
+  if (mode === "solo" && color) {
+    const layout = LAYOUTS.solo;
+    scene = new THREE.Scene();
+    lights(scene, renderer, { dark: false });
+    camera = new THREE.PerspectiveCamera(layout.fov, width / height, 0.1, 100);
+    frame(camera, layout, width, height);
+    const m = createMark(color);
+    m.yaw = (side === "left" ? -1 : 1) * layout.turn;
+    m.root.rotation.y = m.yaw;
+    m.look.rotation.y = -m.yaw * 0.45;
+    m.look.rotation.x = 0.04;
+    if (blink) m.eyes.scale.y = 0.12;
+    scene.add(m.root, m.shadow);
+  } else if (color) {
     scene = new THREE.Scene();
     lights(scene, renderer, { dark });
     const perch = view === "perch";
@@ -285,14 +315,17 @@ function blinkLoop(m) {
 export default function initMarks3D(root = document) {
   const boxes = [...root.querySelectorAll("[data-nb-marks3d]")];
   if (!boxes.length) return () => {};
-  const cleanups = boxes.map((box) => {
+  const solos = boxes.filter((box) => box.dataset.nbMarks3d === "solo");
+  const guard = (fn) => {
     try {
-      return setup(box);
+      return fn();
     } catch (err) {
-      // no WebGL: the poster stays
+      // no WebGL: the posters stay
       return () => {};
     }
-  });
+  };
+  const cleanups = boxes.filter((box) => !solos.includes(box)).map((box) => guard(() => setup(box)));
+  if (solos.length) cleanups.push(guard(() => setupSolos(solos)));
   return () => cleanups.forEach((fn) => fn());
 }
 
@@ -632,5 +665,227 @@ function setup(box) {
     canvas.remove();
     box.classList.remove("is-live");
     if (poster) poster.hidden = false;
+  };
+}
+
+/* ---------- the marks on their own (the section where they introduce themselves) ---------- */
+
+function setupSolos(boxes) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return () => {};
+  const layout = LAYOUTS.solo;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const renderer = makeRenderer(1, 1, dpr); // off screen: each frame is copied into the box's 2D canvas
+  const scene = new THREE.Scene();
+  lights(scene, renderer, { dark: false });
+  const camera = new THREE.PerspectiveCamera(layout.fov, 1, 0.1, 100);
+  const ray = new THREE.Raycaster();
+  const offs = [];
+  const tweens = new Set();
+
+  const slots = boxes.map((box) => {
+    const m = createMark(box.dataset.nbColor || "coral");
+    const side = box.dataset.nbSide === "left" ? -1 : 1;
+    m.yaw = side * layout.turn;
+    m.root.rotation.y = m.yaw;
+    m.root.visible = m.shadow.visible = false;
+    scene.add(m.root, m.shadow);
+    const canvas = document.createElement("canvas");
+    canvas.className = "nb-marks3d__canvas";
+    canvas.setAttribute("aria-hidden", "true");
+    box.appendChild(canvas);
+    const text = box.closest("[data-nb-talk-row]")?.querySelector("[data-nb-talk-text]") || null;
+    offs.push(blinkLoop(m));
+    return { box, canvas, ctx: canvas.getContext("2d"), m, side, text, w: 1, h: 1, visible: false, entered: false, talk: 0 };
+  });
+  if (slots.some((s) => !s.ctx)) throw new Error("no 2D canvas");
+
+  const size = (s) => {
+    s.w = Math.max(1, s.box.clientWidth);
+    s.h = Math.max(1, s.box.clientHeight);
+    // as three sizes its own drawing buffer, so the copy is pixel for pixel
+    s.canvas.width = Math.floor(s.w * dpr);
+    s.canvas.height = Math.floor(s.h * dpr);
+  };
+  slots.forEach(size);
+  const ro = new ResizeObserver((entries) => entries.forEach((e) => size(slots.find((s) => s.box === e.target))));
+  slots.forEach((s) => ro.observe(s.box));
+  offs.push(() => ro.disconnect());
+
+  /* ----- pointer: where they look; taps on the mark itself (its canvas sits beside the text, not over it) ----- */
+  const pointer = { x: 0, y: 0, at: -1e9 };
+  const onMove = (e) => {
+    pointer.x = e.clientX;
+    pointer.y = e.clientY;
+    pointer.at = performance.now();
+  };
+  window.addEventListener("pointermove", onMove, { passive: true });
+  offs.push(() => window.removeEventListener("pointermove", onMove));
+
+  const hit = (s, e) => {
+    const r = s.canvas.getBoundingClientRect();
+    const ndc = new THREE.Vector2(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    frame(camera, layout, s.w, s.h);
+    s.m.root.updateMatrixWorld(true);
+    ray.setFromCamera(ndc, camera);
+    return ray.intersectObject(s.m.mesh, false).length > 0;
+  };
+  slots.forEach((s) => {
+    const onDown = (e) => {
+      if (!s.entered || s.m.tapped || !hit(s, e)) return;
+      s.m.tapped = true;
+      const tl = tapHop(s.m, layout.tap);
+      tweens.add(tl);
+      tl.eventCallback("onComplete", () => {
+        s.m.tapped = false;
+        tweens.delete(tl);
+      });
+    };
+    const onHover = (e) => {
+      if (e.pointerType === "mouse") s.canvas.style.cursor = s.entered && hit(s, e) ? "pointer" : "";
+    };
+    s.canvas.addEventListener("pointerdown", onDown);
+    s.canvas.addEventListener("pointermove", onHover);
+    offs.push(() => {
+      s.canvas.removeEventListener("pointerdown", onDown);
+      s.canvas.removeEventListener("pointermove", onHover);
+    });
+  });
+
+  /* ----- each frame: talk while its words are lighting up and the page is moving ----- */
+  let raf = 0;
+  let last = performance.now();
+  let t = 0;
+  let lastY = window.scrollY;
+  let speed = 0;
+  const update = (s, dt) => {
+    const { m } = s;
+    const vh = window.innerHeight;
+    // the same range as the word fill: from the text's top at 82% of the screen to its bottom at 58%
+    let reading = false;
+    if (s.text) {
+      const r = s.text.getBoundingClientRect();
+      const p = (vh * 0.82 - r.top) / (vh * 0.24 + r.height);
+      reading = p > 0 && p < 1.05;
+    }
+    s.talk += ((reading ? speed : 0) - s.talk) * (1 - Math.exp(-dt * 10));
+    const b = Math.sin(t * 2.1 + m.phase);
+    const pulse = s.talk * Math.max(0, Math.sin(t * 15 + m.phase));
+    m.breath.scale.set(1 - b * 0.008 + pulse * 0.04, 1 + b * 0.016 - pulse * 0.08, 1 - b * 0.008 + pulse * 0.04);
+    m.breath.position.y = pulse * 0.05;
+    // look: at the pointer when it moved lately, else toward the viewer, turned a little to its words
+    const r = s.box.getBoundingClientRect();
+    let yaw;
+    let pitch;
+    if (performance.now() - pointer.at < 4000) {
+      const dx = pointer.x - (r.left + r.width / 2);
+      const dy = pointer.y - (r.top + r.height * 0.6);
+      yaw = Math.atan2(dx, 900) - m.yaw;
+      pitch = Math.atan2(dy, 900);
+    } else {
+      yaw = -m.yaw * 0.45 + Math.sin(t * 0.4 + m.phase) * 0.12;
+      pitch = 0.04 + Math.sin(t * 0.55 + m.phase) * 0.05;
+    }
+    const k = 1 - Math.exp(-dt * 6);
+    m.look.rotation.y += (THREE.MathUtils.clamp(yaw, -0.75, 0.75) - m.look.rotation.y) * k;
+    m.look.rotation.x += (THREE.MathUtils.clamp(pitch, -0.4, 0.4) - m.look.rotation.x) * k;
+    const lift = THREE.MathUtils.clamp((m.root.position.y + m.pop.position.y) / 2.5, 0, 1);
+    m.shadow.material.opacity = 1 - lift;
+    m.shadow.scale.setScalar(1 - lift * 0.45);
+  };
+  const draw = (s) => {
+    const { m } = s;
+    const [rw, rh] = [renderer.domElement.width, renderer.domElement.height];
+    if (rw !== s.canvas.width || rh !== s.canvas.height) renderer.setSize(s.w, s.h, false);
+    frame(camera, layout, s.w, s.h);
+    m.root.visible = m.shadow.visible = true;
+    renderer.render(scene, camera);
+    m.root.visible = m.shadow.visible = false;
+    s.ctx.clearRect(0, 0, s.canvas.width, s.canvas.height);
+    s.ctx.drawImage(renderer.domElement, 0, 0, s.canvas.width, s.canvas.height);
+  };
+  const loop = (now) => {
+    raf = requestAnimationFrame(loop);
+    const dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+    t += dt;
+    const y = window.scrollY;
+    const v = Math.abs(y - lastY) / Math.max(dt, 0.001);
+    lastY = y;
+    speed += (Math.min(v / 700, 1) - speed) * (1 - Math.exp(-dt * 8));
+    for (const s of slots) {
+      if (!s.visible || !s.entered) continue;
+      update(s, dt);
+      draw(s);
+    }
+  };
+  const anyVisible = () => slots.some((s) => s.visible);
+  const start = () => {
+    if (raf || document.hidden || !anyVisible()) return;
+    last = performance.now();
+    lastY = window.scrollY;
+    raf = requestAnimationFrame(loop);
+  };
+  const stop = () => {
+    cancelAnimationFrame(raf);
+    raf = 0;
+  };
+
+  /* ----- entrance: it drops in when its row comes up ----- */
+  const enter = (s) => {
+    s.entered = true;
+    const { m } = s;
+    m.root.position.y = 3.4;
+    const tl = gsap
+      .timeline()
+      .to(m.root.position, { y: 0, duration: 0.55, ease: "power2.in" })
+      .to(m.squash.scale, { x: 1.2, y: 0.75, z: 1.2, duration: 0.09, ease: "power2.out" })
+      .to(m.squash.scale, { x: 1, y: 1, z: 1, duration: 0.6, ease: "elastic.out(1, 0.42)" });
+    tweens.add(tl);
+  };
+  slots.forEach((s) => s.box.classList.add("is-live"));
+  const seen = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        const s = slots.find((x) => x.box === e.target);
+        s.visible = e.isIntersecting;
+        if (!s.visible) s.ctx.clearRect(0, 0, s.canvas.width, s.canvas.height);
+      });
+      if (anyVisible()) start();
+      else stop();
+    },
+    { rootMargin: "80px 0px" },
+  );
+  const arrive = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const s = slots.find((x) => x.box === e.target);
+        if (!s.entered) enter(s);
+        arrive.unobserve(e.target);
+      });
+    },
+    { rootMargin: "0px 0px -18% 0px" },
+  );
+  slots.forEach((s) => {
+    seen.observe(s.box);
+    arrive.observe(s.box);
+  });
+  offs.push(() => {
+    seen.disconnect();
+    arrive.disconnect();
+  });
+  const onVis = () => (document.hidden ? stop() : start());
+  document.addEventListener("visibilitychange", onVis);
+  offs.push(() => document.removeEventListener("visibilitychange", onVis));
+
+  return () => {
+    stop();
+    tweens.forEach((tl) => tl.kill());
+    offs.forEach((fn) => fn());
+    renderer.dispose();
+    slots.forEach((s) => {
+      s.canvas.remove();
+      s.box.classList.remove("is-live");
+    });
   };
 }

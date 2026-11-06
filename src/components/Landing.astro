@@ -27,6 +27,7 @@ import { wordmarkSvg } from "../lib/brand.js";
 import Hero from "./Hero.astro";
 import Products from "./Products.astro";
 import Numbers from "./Numbers.astro";
+import Talk from "./Talk.astro";
 import Bento from "./Bento.astro";
 import Security from "./Security.astro";
 import Pricing from "./Pricing.astro";
@@ -81,6 +82,7 @@ const site = "https://nimbo-pay.vercel.app";
     <main id="main">
       <Hero t={t} lang={lang} />
       <Numbers t={t} lang={lang} />
+      <Talk t={t} lang={lang} />
       <Bento t={t} lang={lang} />
       <Products t={t} lang={lang} />
       <Security t={t} lang={lang} />
@@ -98,6 +100,7 @@ const site = "https://nimbo-pay.vercel.app";
       import initBento from "../collectify/ref-finax-bento/script.js";
       import initScrollReveal from "../collectify/scroll-reveal/script.js";
       import initLineReveal from "../collectify/hero-line-reveal/script.js";
+      import initWordFill from "../collectify/scroll-word-fill/script.js";
       import initProducts from "../collectify/ref-travelora-features/script.js";
       import initPricing from "../collectify/ref-nexwealth-pricing/script.js";
       import initFaq from "../collectify/ref-rumo-faq/script.js";
@@ -110,6 +113,7 @@ const site = "https://nimbo-pay.vercel.app";
       initBento();
       initScrollReveal();
       initLineReveal();
+      initWordFill();
       initProducts();
       initPricing();
       initFaq();

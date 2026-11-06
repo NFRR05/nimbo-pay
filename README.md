@@ -15,10 +15,14 @@ Online su https://nimbo-pay.vercel.app.
   i salti non vengono tagliati in alto. Three.js si carica a parte, dopo la pagina, e solo con il movimento attivo:
   senza, restano i poster in `public/media/marks/`. Sulle card prodotto stanno in piedi sul bordo alto, a sinistra, a
   scala (`markPerch` in `src/lib/brand.js`, saltello in CSS al passaggio sulla card, `src/lib/perch.js`); negli avatar
-  del bento sono render piccoli (`mark3d`). Le palpebre si chiudono in CSS. I render si rigenerano con
-  `scripts/render-marks.html`.
+  del bento sono render piccoli (`mark3d`). Le palpebre si chiudono in CSS. Nella sezione «Lasciamo che si
+  presentino» (`Talk.astro`, dopo i numeri) ognuno sta accanto al suo fumetto, a destra e a sinistra a turno, e dice
+  in prima persona cosa fa: cade in scena quando arriva la sua riga, le parole si accendono allo scroll (Collectify
+  «scroll-word-fill») e lui saltella come se parlasse mentre scorri il suo testo. I cinque condividono un solo
+  renderer WebGL (modalità `solo` di `marks3d.js`, che copia ogni fotogramma nel canvas 2D di ciascuno).
+  I render si rigenerano con `scripts/render-marks.html`.
 - Sezioni:
-  - numeri e sicurezza: componenti Nimbo (`src/styles/sections.css`);
+  - numeri, «Lasciamo che si presentino» e sicurezza: componenti Nimbo (`src/styles/sections.css`);
   - hero, bento, prodotti, domande, prezzi, invito finale e footer: layout dei componenti "da reference" di Collectify (`src/collectify/<slug>`):
     `ref-pelmatech-hero` (vetro rigato nero), `ref-finax-bento` (cinque card con una mini interfaccia ciascuna),
     `ref-travelora-features` (le card che si impilano),
