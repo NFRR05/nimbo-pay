@@ -4,7 +4,7 @@ Landing page (IT su `/`, EN su `/en/`) per **Nimbo**, concept di brand per un'in
 Online su https://nimbo-pay.vercel.app.
 
 - Astro 7 + GSAP, tutto statico.
-- Colori, font (Outfit, Inter, Geist Mono) e forme vengono dal design system Nimbo (`src/styles/nimbo.css`):
+- Colori, font (Outfit per i titoli, Inter per tutto il resto) e forme vengono dal design system Nimbo (`src/styles/nimbo.css`):
   interfaccia in bianco e nero, bordi sottili invece delle ombre, raggi 12/20/28, una sola testata di sezione
   (`.nb-head`) e un solo bottone (`.nb-btn`).
 - Il colore è solo sui cinque marchi colorati, uno per prodotto, in 3D: cubi morbidi con gli angoli dell'icona dell'app

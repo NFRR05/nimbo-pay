@@ -12,7 +12,6 @@
   --dk-dim: #8b8b8b;
   --dk-font: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --dk-display: "Outfit Variable", "Outfit", "Inter Variable", system-ui, sans-serif;
-  --dk-mono: "Geist Mono Variable", "Geist Mono", ui-monospace, Menlo, monospace;
   --dk-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --dk-s: clamp(0.6px, calc(100vw / 1600), 1px);
 

@@ -160,12 +160,13 @@
   border-radius: var(--cf-radius-l) var(--cf-radius-l) 6px var(--cf-radius-l);
 }
 
+/* the speaker's name, in the site's text font (Inter), like the section ledes */
 .nb-talk__who {
-  margin: 0 0 12px;
-  font-family: var(--nb-font-mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  margin: 0 0 10px;
+  font-family: var(--cf-font-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--cf-muted);
 }
 
@@ -859,8 +860,9 @@
   border: 1px solid var(--fx-line);
   border-top: 0;
   background: #ffffff;
-  font-family: var(--nb-font-mono);
-  font-size: 12px;
+  font-family: var(--cf-font-body);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
   -webkit-mask:
     linear-gradient(#000 0 0) top / 100% calc(100% - 7px) no-repeat,
     conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 14px 7px repeat-x;
@@ -873,10 +875,9 @@
   padding-bottom: 10px;
   border-bottom: 1px dashed #d6d6d3;
   color: var(--fx-muted);
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-size: 13px;
+  font-weight: 600;
   text-align: center;
-  text-transform: uppercase;
 }
 
 .cf-fx-receipt__lines {

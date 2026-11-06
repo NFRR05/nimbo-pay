@@ -4,7 +4,6 @@
 :root {
   --cf-font-display: "Outfit Variable", "Outfit", "Inter Variable", system-ui, sans-serif;
   --cf-font-body: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --nb-font-mono: "Geist Mono Variable", "Geist Mono", ui-monospace, Menlo, monospace;
 
   --cf-radius-s: 12px;
   --cf-radius-m: 20px;
