@@ -2,8 +2,9 @@
    Kept: the white panel on a grey page, the five-card grid (three thirds above, two halves below), the dotted
    map behind the transfer, the cascade entrance and one small animation per card. What changes: Nimbo header,
    Nimbo icons, black-and-white interfaces made of the same bordered tile (12px corners, no shadows),
-   a coloured mark only as the avatar of an event, no phone, no infinity rings, no chart, no purple.
-   Under 700px the cards become a row you swipe. */
+   a coloured mark only as the avatar of an event, no infinity rings, no purple. The phone (the Nimbo app on a
+   real iPhone, reconciliation), the live treasury with its forecast and the receipt are Nimbo's, styled in
+   src/styles/sections.css. Under 700px the cards become a row you swipe. */
 .cf-fx {
   --fx-line: #e7e7e5;
   --fx-ink: #111111;

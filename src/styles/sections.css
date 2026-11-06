@@ -219,3 +219,738 @@
     border-radius: var(--cf-radius-l) 6px var(--cf-radius-l) var(--cf-radius-l);
   }
 }
+
+/* ---------- Bento, reconciliation: the Nimbo app on a real iPhone ----------
+   The phone is an image (Meta's free device set, iPhone 12 Pro graphite) with a transparent screen; the screen
+   underneath is HTML. It rises from the bottom of the card and the card clips it; on hover it comes up a little.
+   Inside, everything is measured in iPhone points (--pt: the screen is 390pt wide), so it scales with the phone. */
+
+/* the phone starts low enough that, raised on hover, it still clears the text */
+.cf-fx-phonestage {
+  min-height: 320px;
+  margin-top: 58px;
+  padding: 0;
+}
+
+.cf-fx-phonewrap {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(250px, 74%);
+  translate: -50% 0;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cf-fx__card--phone:hover .cf-fx-phonewrap,
+.cf-fx__card--phone:focus-within .cf-fx-phonewrap {
+  transform: translateY(-30px);
+}
+
+.nb-phone {
+  position: relative;
+  aspect-ratio: 640 / 1295;
+}
+
+.nb-phone__frame {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* the screen of the device image: 72,63 → 1242,2595 on 1314 × 2658 */
+.nb-phone__screen {
+  position: absolute;
+  top: 2.37%;
+  left: 5.48%;
+  width: 89.04%;
+  height: 95.26%;
+  overflow: hidden;
+  border-radius: 13% / 6%;
+  background: #ffffff;
+  container-type: inline-size;
+}
+
+.nb-app {
+  --pt: calc(100cqw / 390);
+  --app-ink: #111111;
+  --app-muted: #8a8a87;
+  --app-line: #efefed;
+
+  position: absolute;
+  inset: 0;
+  color: var(--app-ink);
+  font-family: var(--cf-font-body);
+  font-size: calc(15 * var(--pt));
+  line-height: 1.3;
+  -webkit-font-smoothing: antialiased;
+}
+
+.nb-app :where(p, ul) {
+  margin: 0;
+  padding: 0;
+}
+
+.nb-app button {
+  appearance: none;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.nb-app :focus-visible {
+  outline: 2px solid var(--app-ink);
+  outline-offset: 2px;
+}
+
+.nb-app__status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(47 * var(--pt));
+  padding: calc(12 * var(--pt)) calc(26 * var(--pt)) 0 calc(38 * var(--pt));
+}
+
+.nb-app__time {
+  font-size: calc(16 * var(--pt));
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.nb-app__sys {
+  display: flex;
+  align-items: center;
+  gap: calc(5 * var(--pt));
+}
+
+.nb-app__sys svg {
+  width: auto;
+  height: calc(11.5 * var(--pt));
+  fill: currentColor;
+}
+
+.nb-app__head {
+  padding: calc(16 * var(--pt)) calc(20 * var(--pt)) 0;
+}
+
+.nb-app__when {
+  color: var(--app-muted);
+  font-size: calc(13 * var(--pt));
+}
+
+.nb-app__title {
+  margin-top: calc(2 * var(--pt)) !important;
+  font-family: var(--cf-font-display);
+  font-size: calc(32 * var(--pt));
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.nb-app__summary {
+  margin: calc(16 * var(--pt)) calc(16 * var(--pt)) 0;
+  padding: calc(16 * var(--pt));
+  border-radius: calc(18 * var(--pt));
+  background: #f4f4f3;
+}
+
+.nb-app__count {
+  font-family: var(--cf-font-display);
+  font-size: calc(30 * var(--pt));
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.nb-app__count span {
+  color: var(--app-muted);
+}
+
+.nb-app__note {
+  margin-top: calc(2 * var(--pt)) !important;
+  color: #5f5f5c;
+  font-size: calc(13 * var(--pt));
+}
+
+.nb-app__bar {
+  display: block;
+  height: calc(6 * var(--pt));
+  margin-top: calc(12 * var(--pt));
+  overflow: hidden;
+  border-radius: 99px;
+  background: #e4e4e2;
+}
+
+.nb-app__bar i {
+  display: block;
+  width: calc(var(--p, 0) * 100%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--app-ink);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nb-app__seg {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: calc(16 * var(--pt)) calc(16 * var(--pt)) calc(6 * var(--pt));
+  padding: calc(2 * var(--pt));
+  border-radius: calc(10 * var(--pt));
+  background: #eeeeec;
+}
+
+.nb-app__seg button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(6 * var(--pt));
+  height: calc(30 * var(--pt));
+  border: 1px solid transparent !important;
+  border-radius: calc(8 * var(--pt));
+  font-size: calc(13 * var(--pt));
+  font-weight: 600;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.nb-app__seg button[aria-pressed="true"] {
+  border-color: #e2e2e0 !important;
+  background: #ffffff;
+}
+
+.nb-app__badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: calc(18 * var(--pt));
+  height: calc(18 * var(--pt));
+  padding: 0 calc(5 * var(--pt));
+  border-radius: 99px;
+  background: var(--app-ink);
+  color: #ffffff;
+  font-size: calc(11 * var(--pt));
+}
+
+.nb-app__badge[hidden] {
+  display: none;
+}
+
+.nb-app__list {
+  padding: 0 calc(12 * var(--pt)) !important;
+  list-style: none;
+}
+
+.nb-app__row {
+  display: grid;
+  grid-template-columns: calc(38 * var(--pt)) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: calc(12 * var(--pt));
+  padding: calc(10 * var(--pt)) calc(8 * var(--pt));
+  border-radius: calc(12 * var(--pt));
+  transition: background-color 0.2s;
+}
+
+.nb-app__row + .nb-app__row {
+  box-shadow: 0 -1px 0 var(--app-line);
+}
+
+.nb-app__row:hover {
+  background: #f6f6f5;
+}
+
+.nb-app__ava {
+  display: grid;
+  place-items: center;
+  width: calc(38 * var(--pt));
+  height: calc(38 * var(--pt));
+  border-radius: 50%;
+  background: #f1f1ef;
+  color: #3a3a38;
+  font-size: calc(13 * var(--pt));
+  font-weight: 600;
+}
+
+.nb-app__who {
+  display: grid;
+  min-width: 0;
+}
+
+.nb-app__who b {
+  overflow: hidden;
+  font-size: calc(15 * var(--pt));
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nb-app__who small {
+  display: grid;
+  overflow: hidden;
+  color: var(--app-muted);
+  font-size: calc(13 * var(--pt));
+  white-space: nowrap;
+}
+
+.nb-app__who small > span {
+  grid-area: 1 / 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity 0.3s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nb-app__ref {
+  opacity: 0;
+  transform: translateY(60%);
+}
+
+.nb-app__row[data-state="todo"] .nb-app__wait {
+  color: #5f5f5c;
+}
+
+.nb-app__row[data-state="done"] .nb-app__wait {
+  opacity: 0;
+  transform: translateY(-60%);
+}
+
+.nb-app__row[data-state="done"] .nb-app__ref {
+  opacity: 1;
+  transform: none;
+  color: var(--app-ink);
+}
+
+.nb-app__right {
+  display: grid;
+  justify-items: end;
+  gap: calc(4 * var(--pt));
+}
+
+.nb-app__amt {
+  font-size: calc(14 * var(--pt));
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.nb-app__ok,
+.nb-app__spin,
+.nb-app__btn {
+  grid-area: 2 / 1;
+}
+
+.nb-app__ok {
+  display: grid;
+  place-items: center;
+  width: calc(18 * var(--pt));
+  height: calc(18 * var(--pt));
+  border-radius: 50%;
+  background: var(--app-ink);
+  color: #ffffff;
+  transform: scale(0);
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nb-app__ok svg {
+  width: 62%;
+  height: 62%;
+}
+
+.nb-app__row[data-state="done"] .nb-app__ok {
+  transform: scale(1);
+}
+
+.nb-app__spin {
+  width: calc(16 * var(--pt));
+  height: calc(16 * var(--pt));
+  border: calc(2 * var(--pt)) solid #dcdcda;
+  border-top-color: var(--app-ink);
+  border-radius: 50%;
+}
+
+.nb-app__btn {
+  height: calc(26 * var(--pt));
+  padding: 0 calc(12 * var(--pt)) !important;
+  border-radius: 99px;
+  background: var(--app-ink) !important;
+  color: #ffffff !important;
+  font-size: calc(12 * var(--pt)) !important;
+  font-weight: 600;
+  transition: transform 0.15s, background-color 0.2s;
+}
+
+.nb-app__btn:hover {
+  background: #3a3a38 !important;
+}
+
+.nb-app__btn:active {
+  transform: scale(0.94);
+}
+
+.nb-app__row[data-state="done"] :is(.nb-app__spin, .nb-app__btn) {
+  display: none;
+}
+
+/* the filter: only what is left to check */
+.nb-app[data-filter="todo"] .nb-app__row:not([data-state="todo"]) {
+  display: none;
+}
+
+.nb-app__empty {
+  display: none;
+  margin: calc(28 * var(--pt)) calc(24 * var(--pt)) 0 !important;
+  color: var(--app-muted);
+  font-size: calc(14 * var(--pt));
+  text-align: center;
+}
+
+.nb-app[data-filter="todo"][data-empty] .nb-app__empty {
+  display: block;
+}
+
+.nb-app__tabs {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: calc(83 * var(--pt));
+  padding-top: calc(8 * var(--pt));
+  border-top: 1px solid #ededeb;
+  background: rgb(255 255 255 / 0.96);
+}
+
+.nb-app__tab {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: calc(3 * var(--pt));
+  color: #9a9a97;
+  font-size: calc(10 * var(--pt));
+  font-weight: 500;
+}
+
+.nb-app__tab svg {
+  width: calc(24 * var(--pt));
+  height: calc(24 * var(--pt));
+}
+
+.nb-app__tab.is-on {
+  color: var(--app-ink);
+}
+
+.nb-app__home {
+  position: absolute;
+  bottom: calc(8 * var(--pt));
+  left: 50%;
+  width: calc(134 * var(--pt));
+  height: calc(5 * var(--pt));
+  border-radius: 99px;
+  background: var(--app-ink);
+  translate: -50% 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nb-app__spin {
+    animation: nb-app-spin 0.8s linear infinite;
+  }
+}
+
+@keyframes nb-app-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* ---------- Bento, treasury: the balance follows the movements, the forecast answers the pointer ---------- */
+
+.cf-fx-treasury {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 290px;
+}
+
+.cf-fx-live {
+  position: relative;
+  padding: 18px 18px 0;
+  overflow: hidden;
+}
+
+.cf-fx-live__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cf-fx-live__label {
+  color: var(--fx-text);
+  font-size: 13px;
+}
+
+.cf-fx-live__dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--fx-text);
+  font-size: 12px;
+}
+
+.cf-fx-live__dot::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--fx-ink);
+}
+
+.cf-fx-live__amount {
+  margin-top: 4px !important;
+  font-family: var(--cf-font-display);
+  font-size: clamp(28px, 1.2rem + 1.4vw, 38px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+/* the movement that just arrived: black when money comes in, white when it goes out */
+.cf-fx-live__toast {
+  position: absolute;
+  top: 50px;
+  right: 18px;
+  max-width: calc(100% - 36px);
+  overflow: hidden;
+  padding: 6px 11px;
+  border: 1px solid var(--fx-ink);
+  border-radius: 999px;
+  background: var(--fx-ink);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cf-fx-live__toast.is-out {
+  border-color: var(--fx-line);
+  background: #ffffff;
+  color: var(--fx-ink);
+}
+
+.cf-fx-live__toast.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+.cf-fx-chart {
+  margin: 16px -18px 0;
+}
+
+.cf-fx-chart__read {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  min-height: 20px;
+  padding: 0 18px;
+  color: var(--fx-text);
+  font-size: 12px;
+}
+
+.cf-fx-chart__read b {
+  color: var(--fx-ink);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.cf-fx-chart__delta {
+  font-variant-numeric: tabular-nums;
+}
+
+.cf-fx-chart__plot {
+  position: relative;
+  height: 112px;
+  margin-top: 6px;
+  cursor: crosshair;
+  touch-action: pan-y;
+}
+
+.cf-fx-chart svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cf-fx-chart__area {
+  fill: #f1f1ef;
+}
+
+.cf-fx-chart__line {
+  fill: none;
+  stroke: var(--fx-ink);
+  stroke-width: 1.75;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.cf-fx-chart__cursor {
+  stroke: var(--fx-ink);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.cf-fx-chart__dot {
+  position: absolute;
+  top: var(--y, 50%);
+  left: var(--x, 0%);
+  width: 11px;
+  height: 11px;
+  border: 2px solid var(--fx-ink);
+  border-radius: 50%;
+  background: #ffffff;
+  translate: -50% -50%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.cf-fx-chart.is-reading :is(.cf-fx-chart__cursor, .cf-fx-chart__dot) {
+  opacity: 1;
+}
+
+/* ---------- Bento, costs: a receipt that prints, with the volume on a slider ---------- */
+
+.cf-fx-receiptstage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 290px;
+}
+
+.cf-fx-printer {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 348px);
+  height: 14px;
+  border-radius: 7px;
+  background: var(--fx-ink);
+}
+
+.cf-fx-receiptclip {
+  width: min(100% - 24px, 320px);
+  margin-top: -7px;
+  padding-bottom: 4px;
+  overflow: hidden;
+}
+
+/* the paper, with a torn edge at the bottom */
+.cf-fx-receipt {
+  padding: 22px 18px 22px;
+  border: 1px solid var(--fx-line);
+  border-top: 0;
+  background: #ffffff;
+  font-family: var(--nb-font-mono);
+  font-size: 12px;
+  -webkit-mask:
+    linear-gradient(#000 0 0) top / 100% calc(100% - 7px) no-repeat,
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 14px 7px repeat-x;
+  mask:
+    linear-gradient(#000 0 0) top / 100% calc(100% - 7px) no-repeat,
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom / 14px 7px repeat-x;
+}
+
+.cf-fx-receipt__head {
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #d6d6d3;
+  color: var(--fx-muted);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.cf-fx-receipt__lines {
+  margin: 8px 0 0;
+}
+
+.cf-fx-receipt__lines div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
+}
+
+.cf-fx-receipt__lines dt {
+  color: var(--fx-text);
+}
+
+.cf-fx-receipt__lines dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.cf-fx-receipt__free {
+  margin-top: 6px;
+  padding-top: 10px !important;
+  border-top: 1px dashed #d6d6d3;
+}
+
+.cf-fx-receipt__total {
+  margin-top: 6px;
+  padding-top: 10px !important;
+  border-top: 1px dashed #d6d6d3;
+  font-size: 14px;
+}
+
+.cf-fx-receipt__total :is(dt, dd) {
+  color: var(--fx-ink) !important;
+  font-weight: 700;
+}
+
+.cf-fx-receipt__slider {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed #d6d6d3;
+  color: var(--fx-text);
+  font-family: var(--cf-font-body);
+  font-size: 13px;
+}
+
+.cf-fx-receipt__slider output {
+  color: var(--fx-ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.cf-fx-receipt__slider input {
+  grid-column: 1 / -1;
+  width: 100%;
+  margin: 0;
+  accent-color: var(--fx-ink);
+  cursor: pointer;
+}
+
+/* hidden until the script runs: the forecast still to draw (left to right), the paper still in the printer */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .cf-fx-chart svg {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  .cf-fx-receipt {
+    transform: translateY(-100%);
+  }
+}

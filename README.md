@@ -23,6 +23,12 @@ Online su https://nimbo-pay.vercel.app.
   I render si rigenerano con `scripts/render-marks.html`.
 - Sezioni:
   - numeri, «Lasciamo che si presentino» e sicurezza: componenti Nimbo (`src/styles/sections.css`);
+  - nel bento la riconciliazione è l'app Nimbo su un iPhone vero: la cornice è l'immagine dell'iPhone 12 Pro grafite
+    del set gratuito di dispositivi di Meta (Facebook Design, preso da `fredyshox/ScreenFramer`), con lo schermo
+    trasparente; lo schermo sotto è HTML misurato in punti iPhone (`--pt`). Quattro righe si abbinano da sole, due
+    restano da abbinare col bottone, c'è il filtro (`src/lib/recon-app.js`). La tesoreria è viva (movimenti che
+    arrivano, saldo che li segue, previsione a 30 giorni che si legge col puntatore) e i costi sono uno scontrino
+    che si stampa, con il volume su un cursore (`src/lib/bento-live.js`);
   - hero, bento, prodotti, domande, prezzi, invito finale e footer: layout dei componenti "da reference" di Collectify (`src/collectify/<slug>`):
     `ref-pelmatech-hero` (vetro rigato nero), `ref-finax-bento` (cinque card con una mini interfaccia ciascuna),
     `ref-travelora-features` (le card che si impilano),

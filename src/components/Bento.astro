@@ -3,7 +3,10 @@
 // the Nimbo design system: a white panel with five cards (three above, two wide below), each with a Nimbo
 // icon, a title, one sentence and one small black-and-white interface. Thin borders, no shadows; the only
 // colour is a mark used as the avatar of an event (coral on the transfer, amber on the new account).
-// The two wide cards stay plain: two figures for the treasury, a short bill for the costs.
+// Reconciliation shows the Nimbo app on a real iPhone (device image from Meta's free device set, the screen in
+// HTML): four rows get matched while you watch, two are left for you to match, and a filter. The treasury is
+// live (movements arrive and the balance follows, the 30-day forecast answers the pointer) and the costs are a
+// receipt that prints, with a slider for the monthly volume. Scripts: src/lib/recon-app.js, src/lib/bento-live.js.
 import { mark3d } from "../lib/brand.js";
 import { iconSvg } from "../lib/icons.js";
 import copy from "../copy/bento.js";
@@ -13,6 +16,32 @@ const b = copy[lang] || copy.it;
 const locale = t?.locale || (lang === "en" ? "en-IE" : "it-IT");
 const euro = (n, d = 2) => new Intl.NumberFormat(locale, { style: "currency", currency: "EUR", minimumFractionDigits: d, maximumFractionDigits: d, useGrouping: "always" }).format(n);
 const check = iconSvg("check", { size: 14 });
+
+// the app on the phone
+const app = b.recon.app;
+const initials = (name) => name.split(/[\s&]+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+const fill = (tpl, map) => tpl.replace(/\{(\w+)\}/g, (_, k) => map[k] ?? "");
+const tabIcons = ["home", "transfer", "invoice", "card"];
+
+// treasury: today's balance and a 30-day forecast with the month's movements in it (payroll, rent, incomings)
+const tr = b.treasury;
+const fmt0 = (n) => euro(n, 0);
+const forecast = Array.from({ length: 31 }, (_, d) => {
+  const trend = tr.amount + ((tr.forecastAmount - tr.amount) * d) / 30;
+  const bump = (at, size, width) => size * Math.exp(-((d - at) ** 2) / (2 * width ** 2));
+  return Math.round(trend + bump(4, 46000, 1.6) - bump(9, 92000, 1.3) + bump(14, 38000, 2) - bump(20, 41000, 1.4) + bump(25, 30000, 2.2));
+});
+const lo = Math.min(...forecast);
+const hi = Math.max(...forecast);
+const px = (d) => (d / 30) * 300;
+const py = (v) => 86 - ((v - lo) / (hi - lo)) * 72;
+const line = forecast.map((v, d) => `${d ? "L" : "M"}${px(d).toFixed(1)} ${py(v).toFixed(1)}`).join(" ");
+const area = `${line} L300 100 L0 100 Z`;
+
+// costs: the receipt
+const fees = b.fees;
+const usageFor = (n) => Math.max(0, n - 10000) * fees.usagePrice;
+const numberFmt = new Intl.NumberFormat(locale, { useGrouping: "always" });
 ---
 
 <section class="cf-fx" data-cf-fx data-theme="light" aria-labelledby="bento-title">
@@ -40,22 +69,77 @@ const check = iconSvg("check", { size: 14 });
           </div>
         </article>
 
-        <!-- 2. Reconciliation: invoices matched one after the other -->
-        <article class="cf-fx__card cf-fx__card--third" data-cf-fx-in="card">
+        <!-- 2. Reconciliation: the Nimbo app on an iPhone, rising from the bottom of the card -->
+        <article class="cf-fx__card cf-fx__card--third cf-fx__card--phone" data-cf-fx-in="card">
           <div class="cf-fx__text">
             <Fragment set:html={iconSvg("clock", { className: "cf-fx__icon", size: 22 })} />
             <h3 class="cf-fx__h3">{b.recon.title}</h3>
             <p class="cf-fx__p">{b.recon.text}</p>
           </div>
-          <ul class="cf-fx__stage cf-fx-list" role="list" aria-hidden="true">
-            {b.recon.rows.map(([n, amount]) => (
-              <li class="cf-fx-tile cf-fx-tile__row" data-cf-fx-part>
-                <b>{b.recon.invoice} {n}</b>
-                <span>{euro(amount)}</span>
-                <span class="cf-fx-ok" set:html={check} />
-              </li>
-            ))}
-          </ul>
+          <div class="cf-fx__stage cf-fx-phonestage">
+            <div class="cf-fx-phonewrap">
+              <div class="nb-phone" data-cf-fx-rise>
+                <div class="nb-phone__screen">
+                  <div class="nb-app" role="group" aria-label={app.label} data-nb-recon data-total={app.total} data-start={app.start} data-filter="all">
+                    <div class="nb-app__status" aria-hidden="true">
+                      <span class="nb-app__time">{app.time}</span>
+                      <span class="nb-app__sys">
+                        <svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" /><rect x="5" y="5.5" width="3" height="6.5" rx="1" /><rect x="10" y="3" width="3" height="9" rx="1" /><rect x="15" y="0" width="3" height="12" rx="1" /></svg>
+                        <svg viewBox="0 0 16 12"><path d="M8 2.2c2.4 0 4.6.9 6.3 2.5l1.2-1.3A10.8 10.8 0 0 0 8 .4 10.8 10.8 0 0 0 .5 3.4l1.2 1.3A9 9 0 0 1 8 2.2Zm0 3.6c1.4 0 2.7.5 3.7 1.4l1.2-1.3A7.3 7.3 0 0 0 8 4a7.3 7.3 0 0 0-4.9 1.9l1.2 1.3c1-.9 2.3-1.4 3.7-1.4Zm0 3.6c.5 0 1 .2 1.3.5L8 11.4 6.7 9.9c.3-.3.8-.5 1.3-.5Z" /></svg>
+                        <svg viewBox="0 0 27 13"><rect x="0.5" y="0.5" width="23" height="12" rx="3.6" fill="none" stroke="currentColor" opacity="0.4" /><rect x="2" y="2" width="17" height="9" rx="2.2" /><path d="M25 4.5v4c.8-.3 1.3-1.1 1.3-2s-.5-1.7-1.3-2Z" opacity="0.45" /></svg>
+                      </span>
+                    </div>
+
+                    <div class="nb-app__head">
+                      <p class="nb-app__when">{app.when}</p>
+                      <p class="nb-app__title">{app.title}</p>
+                    </div>
+
+                    <div class="nb-app__summary">
+                      <p class="nb-app__count"><b data-nb-recon-count>{app.start}</b><span>/{app.total}</span></p>
+                      <p class="nb-app__note">{app.matched}</p>
+                      <span class="nb-app__bar" style={`--p: ${app.start / app.total}`} data-nb-recon-bar><i></i></span>
+                    </div>
+
+                    <div class="nb-app__seg">
+                      <button type="button" aria-pressed="true" data-nb-recon-filter="all">{app.all}</button>
+                      <button type="button" aria-pressed="false" data-nb-recon-filter="todo">{app.todo}<span class="nb-app__badge" data-nb-recon-todo>{app.rows.filter((r) => r.hint).length}</span></button>
+                    </div>
+
+                    <ul class="nb-app__list" role="list">
+                      {app.rows.map((row) => (
+                        <li class="nb-app__row" data-nb-recon-row data-state={row.hint ? "todo" : "waiting"}>
+                          <span class="nb-app__ava" aria-hidden="true">{initials(row.who)}</span>
+                          <span class="nb-app__who">
+                            <b>{row.who}</b>
+                            <small><span class="nb-app__wait">{row.hint || app.waiting}</span><span class="nb-app__ref">{row.ref}</span></small>
+                          </span>
+                          <span class="nb-app__right">
+                            <span class="nb-app__amt">{euro(row.amount)}</span>
+                            <span class="nb-app__ok" aria-hidden="true" set:html={check} />
+                            {row.hint ? (
+                              <button class="nb-app__btn" type="button" aria-label={fill(app.matchLabel, { who: row.who, ref: row.ref })}>{app.match}</button>
+                            ) : (
+                              <span class="nb-app__spin" aria-hidden="true" />
+                            )}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                    <p class="nb-app__empty">{app.empty}</p>
+
+                    <div class="nb-app__tabs" aria-hidden="true">
+                      {app.tabs.map((tab, i) => (
+                        <span class:list={["nb-app__tab", { "is-on": i === 2 }]}><Fragment set:html={iconSvg(tabIcons[i], { size: 22 })} />{tab}</span>
+                      ))}
+                    </div>
+                    <span class="nb-app__home" aria-hidden="true"></span>
+                  </div>
+                </div>
+                <img class="nb-phone__frame" src="/media/devices/iphone-12-pro-graphite.webp" width="640" height="1295" alt="" decoding="async" loading="lazy" />
+              </div>
+            </div>
+          </div>
         </article>
 
         <!-- 3. Virtual accounts: two accounts and the new one arriving -->
@@ -77,40 +161,67 @@ const check = iconSvg("check", { size: 14 });
           </div>
         </article>
 
-        <!-- 4. Treasury: today's balance and the 30-day forecast -->
+        <!-- 4. Treasury: the balance follows the movements as they arrive; the forecast answers the pointer -->
         <article class="cf-fx__card cf-fx__card--half" data-cf-fx-in="card">
           <div class="cf-fx__text">
             <Fragment set:html={iconSvg("bank", { className: "cf-fx__icon", size: 22 })} />
-            <h3 class="cf-fx__h3">{b.treasury.title}</h3>
-            <p class="cf-fx__p">{b.treasury.text}</p>
+            <h3 class="cf-fx__h3">{tr.title}</h3>
+            <p class="cf-fx__p">{tr.text}</p>
           </div>
-          <div class="cf-fx__stage cf-fx-pair" aria-hidden="true">
-            <p class="cf-fx-tile cf-fx-stat" data-cf-fx-part>
-              <small>{b.treasury.today}</small>
-              <b data-cf-fx-amount={b.treasury.amount} data-cf-fx-locale={locale}>{euro(b.treasury.amount, 0)}</b>
-            </p>
-            <p class="cf-fx-tile cf-fx-stat" data-cf-fx-part>
-              <small>{b.treasury.forecast}</small>
-              <b>{euro(b.treasury.forecastAmount, 0)}</b>
-              <span>{b.treasury.delta}</span>
-            </p>
+          <div class="cf-fx__stage cf-fx-treasury">
+            <div class="cf-fx-tile cf-fx-live" data-nb-treasury data-amount={tr.amount} data-locale={locale} data-feed={JSON.stringify(tr.feed)}>
+              <div class="cf-fx-live__top">
+                <p class="cf-fx-live__label">{tr.all}</p>
+                <p class="cf-fx-live__dot">{tr.live}</p>
+              </div>
+              <p class="cf-fx-live__amount" data-nb-treasury-amount>{fmt0(tr.amount)}</p>
+              <p class="cf-fx-live__toast" data-nb-treasury-toast aria-hidden="true"></p>
+              <figure class="cf-fx-chart" data-nb-forecast data-values={JSON.stringify(forecast)} data-day={tr.day} data-today={tr.today} data-locale={locale}>
+                <figcaption class="cf-fx-chart__read">
+                  <span data-nb-forecast-when>{tr.forecast}</span>
+                  <b data-nb-forecast-value>{fmt0(tr.forecastAmount)}</b>
+                  <span class="cf-fx-chart__delta" data-nb-forecast-delta>{tr.delta}</span>
+                </figcaption>
+                <div class="cf-fx-chart__plot" data-nb-forecast-plot>
+                  <svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true">
+                    <path class="cf-fx-chart__area" d={area} />
+                    <path class="cf-fx-chart__line" d={line} pathLength="1" data-nb-forecast-line />
+                    <line class="cf-fx-chart__cursor" x1="0" x2="0" y1="0" y2="100" data-nb-forecast-cursor />
+                  </svg>
+                  <span class="cf-fx-chart__dot" data-nb-forecast-dot aria-hidden="true"></span>
+                </div>
+              </figure>
+            </div>
           </div>
         </article>
 
-        <!-- 5. No hidden costs: the bill, with zeros everywhere but the usage line -->
+        <!-- 5. No hidden costs: a receipt that prints, with the monthly volume on a slider -->
         <article class="cf-fx__card cf-fx__card--half" data-cf-fx-in="card">
           <div class="cf-fx__text">
             <Fragment set:html={iconSvg("euro", { className: "cf-fx__icon", size: 22 })} />
-            <h3 class="cf-fx__h3">{b.fees.title}</h3>
-            <p class="cf-fx__p">{b.fees.text}</p>
+            <h3 class="cf-fx__h3">{fees.title}</h3>
+            <p class="cf-fx__p">{fees.text}</p>
           </div>
-          <div class="cf-fx__stage cf-fx-billwrap">
-            <dl class="cf-fx-tile cf-fx-bill" aria-label={b.fees.label}>
-              {b.fees.items.map((item) => (
-                <div data-cf-fx-part><dt>{item}</dt><dd>{euro(0, 0)}</dd></div>
-              ))}
-              <div class="cf-fx-bill__usage" data-cf-fx-part><dt>{b.fees.usage}</dt><dd>{euro(b.fees.usagePrice)}</dd></div>
-            </dl>
+          <div class="cf-fx__stage cf-fx-receiptstage">
+            <div class="cf-fx-printer" aria-hidden="true"></div>
+            <div class="cf-fx-receiptclip">
+              <div class="cf-fx-receipt" data-nb-receipt data-locale={locale} data-price={fees.usagePrice} data-times={fees.times}>
+                <p class="cf-fx-receipt__head">{fees.receipt}</p>
+                <dl class="cf-fx-receipt__lines" aria-label={fees.label}>
+                  {fees.items.map((item) => (
+                    <div><dt>{item}</dt><dd>{euro(0)}</dd></div>
+                  ))}
+                  <div class="cf-fx-receipt__free"><dt>{fees.free}</dt><dd>{fees.freeValue}</dd></div>
+                  <div><dt data-nb-receipt-times>{fill(fees.times, { n: numberFmt.format(Math.max(0, fees.defaultVolume - 10000)) })}</dt><dd data-nb-receipt-usage>{euro(usageFor(fees.defaultVolume))}</dd></div>
+                  <div class="cf-fx-receipt__total"><dt>{fees.total}</dt><dd data-nb-receipt-total>{euro(usageFor(fees.defaultVolume))}</dd></div>
+                </dl>
+                <label class="cf-fx-receipt__slider">
+                  <span>{fees.volume}</span>
+                  <output data-nb-receipt-volume>{numberFmt.format(fees.defaultVolume)}</output>
+                  <input type="range" min="1000" max="100000" step="1000" value={fees.defaultVolume} data-nb-receipt-range />
+                </label>
+              </div>
+            </div>
           </div>
         </article>
       </div>
