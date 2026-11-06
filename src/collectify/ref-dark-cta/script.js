@@ -113,10 +113,13 @@ function setupDots(canvas, reduce) {
     draw(0);
   };
 
+  // dots grouped by shade: a handful of fillStyle changes per frame instead of one per dot
+  const buckets = new Map();
   const draw = (time) => {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, width, height);
     const t = time / 1000;
+    buckets.forEach((list) => (list.length = 0));
     for (let c = 0; c < cols; c += 1) {
       const s = seeds[c];
       const x = c * s.pitch + s.pitch / 2;
@@ -129,11 +132,21 @@ function setupDots(canvas, reduce) {
         const base = inDash ? 0.28 : 0.08;
         const glow = Math.max(0, 1 - cx * 1.6) * (y / height);
         const a = base * (0.6 + 0.8 * rand(c * 131 + r));
-        const v = Math.round(200 + 55 * glow);
-        ctx.fillStyle = `rgba(${v}, ${v}, ${v}, ${Math.min(0.55, a + glow * 0.12)})`;
-        ctx.fillRect(x - 0.8, y - 0.8, 1.6, 1.6);
+        const v = Math.round((200 + 55 * glow) / 11) * 11;
+        const alpha = Math.round(Math.min(0.55, a + glow * 0.12) * 40) / 40;
+        const key = v * 100 + alpha * 40;
+        let list = buckets.get(key);
+        if (!list) buckets.set(key, (list = []));
+        list.push(x - 0.8, y - 0.8);
       }
     }
+    buckets.forEach((list, key) => {
+      if (!list.length) return;
+      const v = Math.floor(key / 100);
+      const alpha = (key - v * 100) / 40;
+      ctx.fillStyle = `rgba(${v}, ${v}, ${v}, ${alpha})`;
+      for (let i = 0; i < list.length; i += 2) ctx.fillRect(list[i], list[i + 1], 1.6, 1.6);
+    });
   };
 
   const loop = (time) => {

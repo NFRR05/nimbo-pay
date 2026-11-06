@@ -121,10 +121,21 @@
   position: relative;
   z-index: 1;
   aspect-ratio: 8 / 9;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.nb-talk__poster,
-.nb-talk__mark .nb-marks3d__canvas {
+/* three wrappers, one movement each: the drop on arrival, the hop on a tap, the talking bob */
+.nb-talk__drop,
+.nb-talk__hop,
+.nb-talk__body {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform-origin: 50% 88%; /* the floor line of the render, 12% up the box */
+}
+
+.nb-talk__body img {
   position: absolute;
   inset: 0;
   display: block;
@@ -132,19 +143,74 @@
   height: 100%;
 }
 
-.nb-talk__mark .nb-marks3d__canvas {
+.nb-talk__blink {
   opacity: 0;
-  pointer-events: auto;
-  touch-action: pan-y;
-  transition: opacity 0.3s linear;
 }
 
-.nb-talk__mark.is-live .nb-marks3d__canvas {
-  opacity: 1;
+@media (prefers-reduced-motion: no-preference) {
+  .nb-talk__blink {
+    animation: nb-blink 5.6s linear infinite;
+    animation-delay: var(--d, 0s);
+  }
+
+  .nb-talk__mark.is-in .nb-talk__drop {
+    animation: nb-talk-drop 0.85s both;
+  }
+
+  .nb-talk__mark.is-hop .nb-talk__hop {
+    animation: nb-perch-hop 0.7s both;
+  }
+
+  .nb-talk.is-scrolling .nb-talk__row.is-reading .nb-talk__body {
+    animation: nb-talk-bob 0.26s ease-in-out infinite alternate;
+  }
 }
 
-.nb-talk__mark.is-live .nb-talk__poster {
-  visibility: hidden;
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  .nb-talk__mark:not(.is-in) .nb-talk__drop {
+    opacity: 0;
+  }
+}
+
+/* falls in from above, squashes on landing, settles */
+@keyframes nb-talk-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-70%);
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  55% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  }
+
+  66% {
+    transform: scale(1.16, 0.8);
+  }
+
+  80% {
+    transform: scale(0.95, 1.06);
+  }
+
+  100% {
+    transform: none;
+  }
+}
+
+/* talking: a quick, small squash and stretch */
+@keyframes nb-talk-bob {
+  from {
+    transform: none;
+  }
+
+  to {
+    transform: scale(1.035, 0.94);
+  }
 }
 
 .nb-talk__bubble {
@@ -664,7 +730,7 @@
   }
 }
 
-/* ---------- Bento, treasury: the balance follows the movements, the forecast answers the pointer ---------- */
+/* ---------- Bento, treasury: the balance, and each movement arriving at the top of the list ---------- */
 
 .cf-fx-treasury {
   display: flex;
@@ -717,116 +783,86 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* the movement that just arrived: black when money comes in, white when it goes out */
-.cf-fx-live__toast {
-  position: absolute;
-  top: 50px;
-  right: 18px;
-  max-width: calc(100% - 36px);
-  overflow: hidden;
-  padding: 6px 11px;
-  border: 1px solid var(--fx-ink);
-  border-radius: 999px;
-  background: var(--fx-ink);
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.35s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.cf-fx-live__toast.is-out {
-  border-color: var(--fx-line);
-  background: #ffffff;
-  color: var(--fx-ink);
-}
-
-.cf-fx-live__toast.is-on {
-  opacity: 1;
-  transform: none;
-}
-
-.cf-fx-chart {
-  margin: 16px -18px 0;
-}
-
-.cf-fx-chart__read {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 10px;
-  min-height: 20px;
-  padding: 0 18px;
+/* the latest movements: a short list, the newest on top (it slides in, the oldest leaves) */
+.cf-fx-live__recent {
+  margin-top: 18px !important;
   color: var(--fx-text);
   font-size: 12px;
 }
 
-.cf-fx-chart__read b {
-  color: var(--fx-ink);
+.cf-fx-moves {
+  margin-top: 6px !important;
+  overflow: hidden;
+}
+
+.cf-fx-move {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid var(--fx-line);
+}
+
+.cf-fx-move__who {
+  display: grid;
+  min-width: 0;
+}
+
+.cf-fx-move__who b {
+  overflow: hidden;
   font-size: 14px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cf-fx-move__who small {
+  color: var(--fx-text);
+  font-size: 12px;
+}
+
+.cf-fx-move__amt {
+  flex: none;
+  font-size: 14px;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
 }
 
-.cf-fx-chart__delta {
+.cf-fx-move__amt.is-out {
+  color: var(--fx-text);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cf-fx-move.is-new {
+    animation: cf-fx-move-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes cf-fx-move-in {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+.cf-fx-live__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 2px -18px 0 !important;
+  padding: 12px 18px;
+  border-top: 1px solid var(--fx-line);
+  background: #fafafa;
+  color: var(--fx-text);
+  font-size: 12px;
+}
+
+.cf-fx-live__foot b {
+  color: var(--fx-ink);
+  font-size: 13px;
   font-variant-numeric: tabular-nums;
-}
-
-.cf-fx-chart__plot {
-  position: relative;
-  height: 112px;
-  margin-top: 6px;
-  cursor: crosshair;
-  touch-action: pan-y;
-}
-
-.cf-fx-chart svg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.cf-fx-chart__area {
-  fill: #f1f1ef;
-}
-
-.cf-fx-chart__line {
-  fill: none;
-  stroke: var(--fx-ink);
-  stroke-width: 1.75;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-}
-
-.cf-fx-chart__cursor {
-  stroke: var(--fx-ink);
-  stroke-width: 1;
-  stroke-dasharray: 3 3;
-  vector-effect: non-scaling-stroke;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.cf-fx-chart__dot {
-  position: absolute;
-  top: var(--y, 50%);
-  left: var(--x, 0%);
-  width: 11px;
-  height: 11px;
-  border: 2px solid var(--fx-ink);
-  border-radius: 50%;
-  background: #ffffff;
-  translate: -50% -50%;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s;
-}
-
-.cf-fx-chart.is-reading :is(.cf-fx-chart__cursor, .cf-fx-chart__dot) {
-  opacity: 1;
 }
 
 /* ---------- Bento, costs: a receipt that prints, with the volume on a slider ---------- */
@@ -949,12 +985,8 @@
   cursor: pointer;
 }
 
-/* hidden until the script runs: the forecast still to draw (left to right), the paper still in the printer */
+/* hidden until the script runs: the paper still in the printer */
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
-  .cf-fx-chart svg {
-    clip-path: inset(0 100% 0 0);
-  }
-
   .cf-fx-receipt {
     transform: translateY(-100%);
   }
@@ -988,13 +1020,14 @@
   min-width: 0;
 }
 
+/* the tilt and the light, as plain numbers (degrees, percent, pixels) the script eases */
 .nb-card3d {
-  --rx: 0deg;
-  --ry: 0deg;
-  --mx: 30%;
-  --my: 20%;
-  --sx: 0%;
-  --shx: 0px;
+  --rx: 0;
+  --ry: 0;
+  --mx: 30;
+  --my: 20;
+  --sx: 0;
+  --shx: 0;
 
   position: relative;
   width: min(100%, 240px);
@@ -1010,7 +1043,7 @@
 }
 
 .nb-card3d__tilt {
-  transform: rotateZ(-8deg) rotateX(calc(16deg + var(--rx))) rotateY(calc(-18deg + var(--ry)));
+  transform: rotateZ(-8deg) rotateX(calc((16 + var(--rx)) * 1deg)) rotateY(calc((var(--ry) - 18) * 1deg));
 }
 
 /* the card's thickness, seen at an angle */
@@ -1029,7 +1062,7 @@
   overflow: hidden;
   border-radius: 6.5% / 10.3%;
   background:
-    radial-gradient(130% 100% at var(--mx) var(--my), rgb(255 255 255 / 0.16), transparent 55%),
+    radial-gradient(130% 100% at calc(var(--mx) * 1%) calc(var(--my) * 1%), rgb(255 255 255 / 0.16), transparent 55%),
     repeating-linear-gradient(0deg, rgb(255 255 255 / 0.025) 0 1px, transparent 1px 3px),
     linear-gradient(135deg, #2b2b2b 0%, #0e0e0e 42%, #1c1c1c 68%, #060606 100%);
   box-shadow:
@@ -1125,16 +1158,14 @@
 /* the light that follows the tilt, and the glint that crosses now and then */
 .nb-card3d__sheen {
   inset: -40%;
-  background: linear-gradient(105deg, transparent 38%, rgb(255 255 255 / 0.2) 47%, rgb(255 255 255 / 0.05) 53%, transparent 62%);
-  mix-blend-mode: screen;
-  transform: translateX(var(--sx));
+  background: linear-gradient(105deg, transparent 38%, rgb(255 255 255 / 0.13) 47%, rgb(255 255 255 / 0.04) 53%, transparent 62%);
+  transform: translateX(calc(var(--sx) * 1%));
   pointer-events: none;
 }
 
 .nb-card3d__glint {
   inset: 0;
-  background: linear-gradient(110deg, transparent 38%, rgb(255 255 255 / 0.5) 50%, transparent 62%);
-  mix-blend-mode: screen;
+  background: linear-gradient(110deg, transparent 38%, rgb(255 255 255 / 0.3) 50%, transparent 62%);
   opacity: 0;
   pointer-events: none;
 }
@@ -1148,7 +1179,7 @@
   border-radius: 50%;
   background: radial-gradient(closest-side, rgb(0 0 0 / 0.22), transparent);
   filter: blur(6px);
-  transform: translateX(var(--shx));
+  transform: translateX(calc(var(--shx) * 1px));
 }
 
 @media (prefers-reduced-motion: no-preference) {

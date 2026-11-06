@@ -34,10 +34,9 @@
 
 .cf-nav[data-scrolled="true"] .cf-nav__inner,
 .cf-nav[data-open="true"] .cf-nav__inner {
-  background-color: color-mix(in srgb, var(--cf-bg) 82%, transparent);
+  /* no backdrop blur: it is redrawn on every scroll frame, heavy on old computers */
+  background-color: color-mix(in srgb, var(--cf-bg) 95%, transparent);
   border-color: var(--cf-line);
-  backdrop-filter: blur(14px) saturate(1.4);
-  -webkit-backdrop-filter: blur(14px) saturate(1.4);
 }
 
 .cf-nav__brand {

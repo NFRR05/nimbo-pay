@@ -5,7 +5,7 @@
 // colour is a mark used as the avatar of an event (coral on the transfer, amber on the new account).
 // Reconciliation shows the Nimbo app on a real iPhone (device image from Meta's free device set, the screen in
 // HTML): four rows get matched while you watch, two are left for you to match, and a filter. The treasury is
-// live (movements arrive and the balance follows, the 30-day forecast answers the pointer) and the costs are a
+// live (movements arrive at the top of a short list and the balance follows) and the costs are a
 // receipt that prints, with a slider for the monthly volume, beside the black metal Nimbo card (CSS 3D: it leans
 // toward the pointer, the light moves on it as the page scrolls, now and then it glints).
 // Scripts: src/lib/recon-app.js, src/lib/bento-live.js, src/lib/card3d.js.
@@ -25,20 +25,10 @@ const initials = (name) => name.split(/[\s&]+/).filter(Boolean).slice(0, 2).map(
 const fill = (tpl, map) => tpl.replace(/\{(\w+)\}/g, (_, k) => map[k] ?? "");
 const tabIcons = ["home", "transfer", "invoice", "card"];
 
-// treasury: today's balance and a 30-day forecast with the month's movements in it (payroll, rent, incomings)
+// treasury: the balance and the latest movements (+ in, − out with the true minus sign)
 const tr = b.treasury;
 const fmt0 = (n) => euro(n, 0);
-const forecast = Array.from({ length: 31 }, (_, d) => {
-  const trend = tr.amount + ((tr.forecastAmount - tr.amount) * d) / 30;
-  const bump = (at, size, width) => size * Math.exp(-((d - at) ** 2) / (2 * width ** 2));
-  return Math.round(trend + bump(4, 46000, 1.6) - bump(9, 92000, 1.3) + bump(14, 38000, 2) - bump(20, 41000, 1.4) + bump(25, 30000, 2.2));
-});
-const lo = Math.min(...forecast);
-const hi = Math.max(...forecast);
-const px = (d) => (d / 30) * 300;
-const py = (v) => 86 - ((v - lo) / (hi - lo)) * 72;
-const line = forecast.map((v, d) => `${d ? "L" : "M"}${px(d).toFixed(1)} ${py(v).toFixed(1)}`).join(" ");
-const area = `${line} L300 100 L0 100 Z`;
+const signed = (n) => (n < 0 ? "\u2212" : "+") + euro(Math.abs(n));
 
 // costs: the receipt
 const fees = b.fees;
@@ -66,7 +56,7 @@ const numberFmt = new Intl.NumberFormat(locale, { useGrouping: "always" });
             <div class="cf-fx-tile cf-fx-transfer" data-cf-fx-part>
               <p class="cf-fx-tile__row"><span class="cf-fx-ava" set:html={mark3d("coral", { size: 26, delay: 0.8 })} /><b>{b.sepa.name}</b></p>
               <p class="cf-fx-transfer__amount">{euro(b.sepa.amount)}</p>
-              <p class="cf-fx-transfer__eta"><Fragment set:html={check} />{b.sepa.eta}<span class="cf-fx-route">IT → DE</span></p>
+              <p class="cf-fx-transfer__eta"><Fragment set:html={check} />{b.sepa.eta}<span class="cf-fx-route">IT<Fragment set:html={iconSvg("arrow-right", { size: 12 })} />DE</span></p>
             </div>
           </div>
         </article>
@@ -163,7 +153,7 @@ const numberFmt = new Intl.NumberFormat(locale, { useGrouping: "always" });
           </div>
         </article>
 
-        <!-- 4. Treasury: the balance follows the movements as they arrive; the forecast answers the pointer -->
+        <!-- 4. Treasury: the balance, and each movement arriving at the top of the list -->
         <article class="cf-fx__card cf-fx__card--half" data-cf-fx-in="card">
           <div class="cf-fx__text">
             <Fragment set:html={iconSvg("bank", { className: "cf-fx__icon", size: 22 })} />
@@ -171,28 +161,22 @@ const numberFmt = new Intl.NumberFormat(locale, { useGrouping: "always" });
             <p class="cf-fx__p">{tr.text}</p>
           </div>
           <div class="cf-fx__stage cf-fx-treasury">
-            <div class="cf-fx-tile cf-fx-live" data-nb-treasury data-amount={tr.amount} data-locale={locale} data-feed={JSON.stringify(tr.feed)}>
+            <div class="cf-fx-tile cf-fx-live" data-nb-treasury data-amount={tr.amount} data-locale={locale} data-feed={JSON.stringify(tr.feed)} data-in={tr.in} data-out={tr.out}>
               <div class="cf-fx-live__top">
                 <p class="cf-fx-live__label">{tr.all}</p>
                 <p class="cf-fx-live__dot">{tr.live}</p>
               </div>
               <p class="cf-fx-live__amount" data-nb-treasury-amount>{fmt0(tr.amount)}</p>
-              <p class="cf-fx-live__toast" data-nb-treasury-toast aria-hidden="true"></p>
-              <figure class="cf-fx-chart" data-nb-forecast data-values={JSON.stringify(forecast)} data-day={tr.day} data-today={tr.today} data-locale={locale}>
-                <figcaption class="cf-fx-chart__read">
-                  <span data-nb-forecast-when>{tr.forecast}</span>
-                  <b data-nb-forecast-value>{fmt0(tr.forecastAmount)}</b>
-                  <span class="cf-fx-chart__delta" data-nb-forecast-delta>{tr.delta}</span>
-                </figcaption>
-                <div class="cf-fx-chart__plot" data-nb-forecast-plot>
-                  <svg viewBox="0 0 300 100" preserveAspectRatio="none" aria-hidden="true">
-                    <path class="cf-fx-chart__area" d={area} />
-                    <path class="cf-fx-chart__line" d={line} pathLength="1" data-nb-forecast-line />
-                    <line class="cf-fx-chart__cursor" x1="0" x2="0" y1="0" y2="100" data-nb-forecast-cursor />
-                  </svg>
-                  <span class="cf-fx-chart__dot" data-nb-forecast-dot aria-hidden="true"></span>
-                </div>
-              </figure>
+              <p class="cf-fx-live__recent">{tr.recent}</p>
+              <ul class="cf-fx-moves" role="list" data-nb-treasury-list>
+                {tr.seen.map(([who, value]) => (
+                  <li class="cf-fx-move">
+                    <span class="cf-fx-move__who"><b>{who}</b><small>{value < 0 ? tr.out : tr.in}</small></span>
+                    <span class:list={["cf-fx-move__amt", { "is-out": value < 0 }]}>{signed(value)}</span>
+                  </li>
+                ))}
+              </ul>
+              <p class="cf-fx-live__foot"><span>{tr.forecast}</span><b>{fmt0(tr.forecastAmount)}</b><span>{tr.delta}</span></p>
             </div>
           </div>
         </article>

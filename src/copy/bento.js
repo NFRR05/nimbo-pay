@@ -57,11 +57,12 @@ export default {
       delta: "+3,9%",
       live: "In tempo reale",
       all: "Saldo di tutti i conti",
-      chartLabel: "Cassa prevista nei prossimi 30 giorni",
-      day: "fra {n} giorni",
-      today: "oggi",
-      // movements that arrive while you look at the card (positive in, negative out)
-      feed: [["Rossi Srl", 1250], ["Bauer GmbH", 2700], ["Stipendi di novembre", -9800], ["Studio Lenti", 480], ["Ferri & Figli", 1920], ["Affitto uffici", -3200], ["Hotel Lago", 7350]],
+      recent: "Ultimi movimenti",
+      in: "Bonifico in entrata",
+      out: "Pagamento in uscita",
+      // the three already in the list, newest first, then the ones that arrive while you look (+ in, − out)
+      seen: [["Affitto uffici", -3200], ["Ferri & Figli", 1920], ["Studio Lenti", 480]],
+      feed: [["Rossi Srl", 1250], ["Bauer GmbH", 2700], ["Stipendi di novembre", -9800], ["Hotel Lago", 7350], ["Fornitore cloud", -640], ["Bar Centrale", 380]],
     },
     fees: {
       title: "Nessun costo nascosto",
@@ -137,10 +138,11 @@ export default {
       delta: "+3.9%",
       live: "Live",
       all: "Balance across all accounts",
-      chartLabel: "Expected cash over the next 30 days",
-      day: "in {n} days",
-      today: "today",
-      feed: [["Rossi Srl", 1250], ["Bauer GmbH", 2700], ["November payroll", -9800], ["Studio Lenti", 480], ["Ferri & Figli", 1920], ["Office rent", -3200], ["Hotel Lago", 7350]],
+      recent: "Latest movements",
+      in: "Incoming transfer",
+      out: "Outgoing payment",
+      seen: [["Office rent", -3200], ["Ferri & Figli", 1920], ["Studio Lenti", 480]],
+      feed: [["Rossi Srl", 1250], ["Bauer GmbH", 2700], ["November payroll", -9800], ["Hotel Lago", 7350], ["Cloud provider", -640], ["Bar Centrale", 380]],
     },
     fees: {
       title: "No hidden costs",

@@ -20,18 +20,17 @@ function setup(card) {
   let mouseAt = -1e9;
   let raf = 0;
 
-  // nx, ny in -1…1: where the light comes from, relative to the card's centre
-  const lean = (nx, ny, duration = 0.7) => {
-    gsap.to(card, {
-      "--ry": `${nx * 14}deg`,
-      "--rx": `${-ny * 11}deg`,
-      "--mx": `${50 + nx * 45}%`,
-      "--my": `${40 + ny * 45}%`,
-      "--sx": `${nx * 28}%`,
-      "--shx": `${-nx * 10}px`,
-      duration,
-      ease: "power3.out",
-      overwrite: "auto",
+  // nx, ny in -1…1: where the light comes from. One reusable tween per property (quickTo), no new tweens per frame.
+  // [amount, base]: degrees for the tilt, percent for the light, pixels for the shadow (units added in CSS)
+  const props = { "--ry": [14], "--rx": [-11], "--mx": [45, 50], "--my": [45, 40], "--sx": [28], "--shx": [-10] };
+  const to = (duration) => Object.fromEntries(Object.keys(props).map((k) => [k, gsap.quickTo(card, k, { duration, ease: "power3.out" })]));
+  const fast = to(0.7);
+  const slow = to(1.2);
+  const lean = (nx, ny, calm = false) => {
+    const set = calm ? slow : fast;
+    Object.entries(props).forEach(([k, [amount, base = 0]]) => {
+      const n = k === "--rx" || k === "--my" ? ny : nx;
+      set[k](base + n * amount);
     });
   };
 
@@ -43,12 +42,15 @@ function setup(card) {
   };
   const onLeave = (e) => {
     if (e.pointerType !== "mouse") return;
-    lean(0, 0, 1.2);
+    lean(0, 0, true);
   };
 
-  // phones (or a mouse that has been still for a while): the scroll position tips the card
+  // phones (or a mouse that has been still for a while): the scroll position tips the card, only while it is on screen
+  let onScreen = false;
+  const seen = new IntersectionObserver(([e]) => (onScreen = e.isIntersecting));
+  seen.observe(card);
   const onScroll = () => {
-    if (raf) return;
+    if (raf || !onScreen) return;
     raf = requestAnimationFrame(() => {
       raf = 0;
       if (performance.now() - mouseAt < 2500) return;
@@ -56,7 +58,7 @@ function setup(card) {
       const vh = window.innerHeight;
       if (r.bottom < 0 || r.top > vh) return;
       const t = clamp(((r.top + r.height / 2) / vh) * 2 - 1); // -1 at the top of the screen, 1 at the bottom
-      lean(t * 0.45, t * 0.9, 0.9);
+      lean(t * 0.45, t * 0.9, true);
     });
   };
 
@@ -64,6 +66,7 @@ function setup(card) {
   area.addEventListener("pointerleave", onLeave);
   window.addEventListener("scroll", onScroll, { passive: true });
   return () => {
+    seen.disconnect();
     cancelAnimationFrame(raf);
     area.removeEventListener("pointermove", onMove);
     area.removeEventListener("pointerleave", onLeave);

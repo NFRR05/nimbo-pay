@@ -117,9 +117,7 @@ body {
     gap: 0;
     padding: 6px;
     border-radius: 16px;
-    background: color-mix(in srgb, var(--cf-text) 9%, transparent);
-    -webkit-backdrop-filter: blur(18px);
-    backdrop-filter: blur(18px);
+    background: color-mix(in srgb, var(--cf-text) 10%, transparent);
   }
 
   .nb-nav .cf-nav__links a {

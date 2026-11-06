@@ -100,6 +100,7 @@ const site = "https://nimbo-pay.vercel.app";
       import initScrollReveal from "../collectify/scroll-reveal/script.js";
       import initLineReveal from "../collectify/hero-line-reveal/script.js";
       import initWordFill from "../collectify/scroll-word-fill/script.js";
+      import initTalk from "../lib/talk.js";
       import initProducts from "../collectify/ref-travelora-features/script.js";
       import initPricing from "../collectify/ref-nexwealth-pricing/script.js";
       import initFaq from "../collectify/ref-rumo-faq/script.js";
@@ -119,17 +120,21 @@ const site = "https://nimbo-pay.vercel.app";
       initScrollReveal();
       initLineReveal();
       initWordFill();
+      initTalk();
       initProducts();
       initPricing();
       initFaq();
       initCta();
       initPerch();
-      // The 3D marks (Three.js) load on their own, after the page: with reduced motion the posters are the still
-      // frame, so the library isn't loaded at all.
-      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && document.querySelector("[data-nb-marks3d]")) {
+      // The 3D marks (Three.js) load on their own, after the page, when the browser has a moment free. With reduced
+      // motion, or on a very weak device (two cores or two gigabytes), the posters are the frame and the library
+      // isn't loaded at all.
+      const weak = (navigator.hardwareConcurrency || 8) <= 2 || (navigator.deviceMemory || 8) <= 2;
+      if (!weak && !window.matchMedia("(prefers-reduced-motion: reduce)").matches && document.querySelector("[data-nb-marks3d]")) {
         const load3d = () => import("../lib/marks3d.js").then((m) => m.default());
-        if (document.readyState === "complete") load3d();
-        else window.addEventListener("load", load3d, { once: true });
+        const whenFree = () => ("requestIdleCallback" in window ? requestIdleCallback(load3d, { timeout: 2500 }) : setTimeout(load3d, 800));
+        if (document.readyState === "complete") whenFree();
+        else window.addEventListener("load", whenFree, { once: true });
       }
     </script>
   </body>

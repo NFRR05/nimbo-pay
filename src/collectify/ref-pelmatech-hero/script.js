@@ -3,8 +3,8 @@ import gsap from "gsap";
 /**
  * Hero from Collectify «ref-pelmatech-hero», restyled for Nimbo: no bar, no schedule panel (the site navbar
  * takes the bar's place) and no row of points, so no line moving between them. New: two white shades drift
- * behind the ribbed glass and the ribs sway a little, so the curtain moves (paused off screen, still with
- * reduced motion).
+ * behind the ribbed glass, so the curtain seems to move (paused off screen, still with reduced motion). They
+ * only move with transforms on their own layers: nothing is repainted while they drift.
  * Original notes — Hero «Pelmatech».
  * - Ingresso: fondo che si mette a fuoco, barra, titolo riga per riga, testo e bottoni con blur,
  *   scheda degli orari da destra con le card una dopo l'altra, punti in basso.
@@ -50,7 +50,7 @@ function setupMotion(section) {
     const [main, soft] = shades;
     if (main) loops.push(gsap.fromTo(main, { x: 0, xPercent: -20 }, { xPercent: 150, duration: 12, ease: "sine.inOut", yoyo: true, repeat: -1 }));
     if (soft) loops.push(gsap.fromTo(soft, { x: 0, xPercent: 250 }, { xPercent: -30, duration: 16, ease: "sine.inOut", yoyo: true, repeat: -1 }));
-    if (ribs) loops.push(gsap.fromTo(ribs, { "--pm-sway": "0px" }, { "--pm-sway": "12px", duration: 5.5, ease: "sine.inOut", yoyo: true, repeat: -1 }));
+    // (the ribs no longer sway: animating their background repainted the whole hero on every frame)
 
     // Fuori schermo il respiro e la tenda si fermano
     const io = new IntersectionObserver(([entry]) => {

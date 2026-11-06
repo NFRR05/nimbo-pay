@@ -152,6 +152,9 @@
 }
 
 .cf-fx-route {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   margin-left: auto;
   color: var(--fx-muted);
   font-size: 12px;

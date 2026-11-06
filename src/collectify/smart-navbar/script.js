@@ -1,6 +1,7 @@
 /**
  * Navbar che si nasconde scorrendo verso il basso e ricompare appena torni su.
- * Legge il data-theme della sezione che ha sotto e si adatta (chiaro/scuro).
+ * Legge il data-theme della sezione che ha sotto e si adatta (chiaro/scuro): un IntersectionObserver su una
+ * striscia sottile all'altezza della barra, invece di un elementsFromPoint a ogni fotogramma di scroll.
  * Sotto i 48rem i link finiscono in un pannello aperto dal bottone "Menu".
  */
 export default function initSmartNav(root = document) {
@@ -23,11 +24,34 @@ function setupNav(nav) {
     window.cfLenis?.[open ? "stop" : "start"]?.();
   };
 
-  const themeUnderNav = () => {
-    const y = nav.offsetHeight / 2;
-    const stack = document.elementsFromPoint(window.innerWidth / 2, y);
-    const below = stack.find((el) => !nav.contains(el) && el.closest("[data-theme]"));
-    return below?.closest("[data-theme]")?.dataset.theme;
+  // sections with a theme under the bar's middle line; the innermost one wins
+  const under = new Set();
+  const depth = (el) => {
+    let d = 0;
+    for (let n = el; n; n = n.parentElement) d += 1;
+    return d;
+  };
+  const applyTheme = () => {
+    let best = null;
+    under.forEach((el) => {
+      if (!best || depth(el) > depth(best)) best = el;
+    });
+    const theme = best?.dataset.theme;
+    if (theme && nav.dataset.theme !== theme) nav.dataset.theme = theme;
+  };
+  let themeIO = null;
+  const watchThemes = () => {
+    themeIO?.disconnect();
+    under.clear();
+    const y = Math.round(nav.offsetHeight / 2);
+    themeIO = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => (e.isIntersecting ? under.add(e.target) : under.delete(e.target)));
+        applyTheme();
+      },
+      { rootMargin: `-${y}px 0px -${Math.max(0, window.innerHeight - y - 1)}px 0px` },
+    );
+    document.querySelectorAll("[data-theme]").forEach((el) => !nav.contains(el) && el !== nav && themeIO.observe(el));
   };
 
   const update = () => {
@@ -43,8 +67,6 @@ function setupNav(nav) {
       lastY = y;
     }
 
-    const theme = themeUnderNav();
-    if (theme && nav.dataset.theme !== theme) nav.dataset.theme = theme;
   };
 
   const onScroll = () => {
@@ -72,8 +94,12 @@ function setupNav(nav) {
   const desktop = window.matchMedia("(min-width: 48rem)");
   const onBreakpoint = () => desktop.matches && setOpen(false);
 
+  const onResize = () => {
+    onScroll();
+    watchThemes();
+  };
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll);
+  window.addEventListener("resize", onResize);
   toggle?.addEventListener("click", onToggle);
   panel?.addEventListener("click", onPanelClick);
   nav.addEventListener("focusin", onFocusIn);
@@ -82,10 +108,12 @@ function setupNav(nav) {
 
   setOpen(false);
   update();
+  watchThemes();
 
   return () => {
+    themeIO?.disconnect();
     window.removeEventListener("scroll", onScroll);
-    window.removeEventListener("resize", onScroll);
+    window.removeEventListener("resize", onResize);
     toggle?.removeEventListener("click", onToggle);
     panel?.removeEventListener("click", onPanelClick);
     nav.removeEventListener("focusin", onFocusIn);

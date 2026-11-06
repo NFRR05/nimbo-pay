@@ -26,8 +26,8 @@ export default {
       {
         id: "analytics", mark: "lavender", area: "Analisi",
         title: "La contabilità trova tutto già abbinato",
-        text: "Ogni notte abbiniamo pagamenti e fatture e prepariamo i rendiconti per il gestionale. Ogni pagamento ha anche la sua ricevuta di CO₂.",
-        specs: [["Riconciliazione", "Ogni notte, con il tuo gestionale"], ["Rendiconti", "CSV e PDF per la contabilità"], ["CO₂", "Grammi stimati su ogni pagamento"]],
+        text: "Ogni notte abbiniamo pagamenti e fatture e prepariamo i rendiconti per il gestionale. Ogni pagamento ha anche la sua ricevuta di CO2.",
+        specs: [["Riconciliazione", "Ogni notte, con il tuo gestionale"], ["Rendiconti", "CSV e PDF per la contabilità"], ["CO2", "Grammi stimati su ogni pagamento"]],
       },
       {
         id: "api", mark: "blue", area: "API",
@@ -63,8 +63,8 @@ export default {
       {
         id: "analytics", mark: "lavender", area: "Analytics",
         title: "Accounting finds everything already matched",
-        text: "Every night we match payments to invoices and prepare the reports for your accounting system. Every payment also gets its CO₂ receipt.",
-        specs: [["Reconciliation", "Every night, with your accounting system"], ["Reports", "CSV and PDF for your accountants"], ["CO₂", "Estimated grams on every payment"]],
+        text: "Every night we match payments to invoices and prepare the reports for your accounting system. Every payment also gets its CO2 receipt.",
+        specs: [["Reconciliation", "Every night, with your accounting system"], ["Reports", "CSV and PDF for your accountants"], ["CO2", "Estimated grams on every payment"]],
       },
       {
         id: "api", mark: "blue", area: "API",

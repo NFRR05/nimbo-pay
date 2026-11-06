@@ -84,9 +84,8 @@
   bottom: -12%;
   left: 0;
   width: 44%;
-  background: radial-gradient(50% 58% at 50% 42%, rgb(255 255 255 / 0.34), rgb(255 255 255 / 0.12) 46%, rgb(255 255 255 / 0) 72%);
-  filter: blur(18px);
-  mix-blend-mode: screen;
+  /* soft enough without a blur filter; white over the dark glass needs no blend mode (screen = normal for white) */
+  background: radial-gradient(50% 58% at 50% 42%, rgb(255 255 255 / 0.3), rgb(255 255 255 / 0.13) 40%, rgb(255 255 255 / 0.04) 62%, rgb(255 255 255 / 0) 76%);
   pointer-events: none;
   transform: translateX(95%);
   will-change: transform;
