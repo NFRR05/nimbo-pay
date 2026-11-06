@@ -78,6 +78,7 @@ export default {
       times: "{n} × 0,05 €",
       total: "Totale",
       defaultVolume: 25000,
+      card: { label: "La carta aziendale Nimbo", type: "Business debit", number: "•••• 3456", name: "ROSSI SRL" },
     },
   },
   en: {
@@ -155,6 +156,7 @@ export default {
       times: "{n} × €0.05",
       total: "Total",
       defaultVolume: 25000,
+      card: { label: "The Nimbo business card", type: "Business debit", number: "•••• 3456", name: "ROSSI SRL" },
     },
   },
 };

@@ -6,8 +6,10 @@
 // Reconciliation shows the Nimbo app on a real iPhone (device image from Meta's free device set, the screen in
 // HTML): four rows get matched while you watch, two are left for you to match, and a filter. The treasury is
 // live (movements arrive and the balance follows, the 30-day forecast answers the pointer) and the costs are a
-// receipt that prints, with a slider for the monthly volume. Scripts: src/lib/recon-app.js, src/lib/bento-live.js.
-import { mark3d } from "../lib/brand.js";
+// receipt that prints, with a slider for the monthly volume, beside the black metal Nimbo card (CSS 3D: it leans
+// toward the pointer, the light moves on it as the page scrolls, now and then it glints).
+// Scripts: src/lib/recon-app.js, src/lib/bento-live.js, src/lib/card3d.js.
+import { mark3d, wordmarkSvg, MARK_COLORS, MARKS } from "../lib/brand.js";
 import { iconSvg } from "../lib/icons.js";
 import copy from "../copy/bento.js";
 
@@ -203,6 +205,27 @@ const numberFmt = new Intl.NumberFormat(locale, { useGrouping: "always" });
             <p class="cf-fx__p">{fees.text}</p>
           </div>
           <div class="cf-fx__stage cf-fx-receiptstage">
+            <div class="cf-fx-cardcol">
+              <div class="nb-card3d" data-nb-card3d role="img" aria-label={fees.card.label}>
+                <div class="nb-card3d__float">
+                  <div class="nb-card3d__tilt">
+                    <div class="nb-card3d__face" aria-hidden="true">
+                      <span class="nb-card3d__brand" set:html={wordmarkSvg({ height: 18, label: "" })} />
+                      <span class="nb-card3d__type">{fees.card.type}</span>
+                      <span class="nb-card3d__chip"></span>
+                      <span class="nb-card3d__nfc" set:html={iconSvg("contactless", { size: 18 })} />
+                      <span class="nb-card3d__num">{fees.card.number}</span>
+                      <span class="nb-card3d__name">{fees.card.name}</span>
+                      <span class="nb-card3d__marks">{MARKS.map((c) => <i style={`background: ${MARK_COLORS[c]}`}></i>)}</span>
+                      <span class="nb-card3d__sheen"></span>
+                      <span class="nb-card3d__glint"></span>
+                    </div>
+                  </div>
+                </div>
+                <span class="nb-card3d__shadow" aria-hidden="true"></span>
+              </div>
+            </div>
+            <div class="cf-fx-receiptcol">
             <div class="cf-fx-printer" aria-hidden="true"></div>
             <div class="cf-fx-receiptclip">
               <div class="cf-fx-receipt" data-nb-receipt data-locale={locale} data-price={fees.usagePrice} data-times={fees.times}>
@@ -221,6 +244,7 @@ const numberFmt = new Intl.NumberFormat(locale, { useGrouping: "always" });
                   <input type="range" min="1000" max="100000" step="1000" value={fees.defaultVolume} data-nb-receipt-range />
                 </label>
               </div>
+            </div>
             </div>
           </div>
         </article>
