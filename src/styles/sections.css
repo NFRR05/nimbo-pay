@@ -1244,3 +1244,68 @@
     font-size: 12.5px;
   }
 }
+
+/* ---------- Bento on phones: the cards have one fixed height (ref-finax-bento) ----------
+   The phone rises from the bottom edge as on desktop, only lower; the treasury shows the balance, the two latest
+   movements (name and amount) and the forecast; the metal card sits on top and the receipt prints off the bottom edge, so the zero lines
+   show and the slider (which would fight the swipe) is left out. */
+@media (max-width: 699px) {
+  .cf-fx-phonestage {
+    margin-top: 20px;
+    padding: 0;
+  }
+
+  .cf-fx-phonewrap {
+    width: min(200px, 74%);
+  }
+
+  .cf-fx__card--phone:hover .cf-fx-phonewrap,
+  .cf-fx__card--phone:focus-within .cf-fx-phonewrap {
+    transform: none;
+  }
+
+  .cf-fx-treasury {
+    min-height: 0;
+  }
+
+  .cf-fx-live {
+    padding: 14px 16px 0;
+  }
+
+  .cf-fx-live__dot {
+    font-size: 0;
+  }
+
+  .cf-fx-live__amount {
+    font-size: 26px;
+  }
+
+  .cf-fx-live__amount {
+    margin-bottom: 10px !important;
+  }
+
+  .cf-fx-live__recent,
+  .cf-fx-move:nth-child(n + 3),
+  .cf-fx-move__who small {
+    display: none;
+  }
+
+  .cf-fx-live__foot {
+    margin-inline: -16px !important;
+    padding: 10px 16px;
+  }
+
+  .cf-fx-receiptstage {
+    min-height: 0;
+    padding-bottom: 0;
+  }
+
+  .cf-fx-receiptstage > .cf-fx-cardcol {
+    width: min(100% - 48px, 172px);
+    padding: 0 0 14px;
+  }
+
+  .cf-fx-receipt__slider {
+    display: none;
+  }
+}

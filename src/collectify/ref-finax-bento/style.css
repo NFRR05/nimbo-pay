@@ -326,12 +326,17 @@
 /* ---------- Phone: a row of cards you swipe ---------- */
 
 @media (max-width: 699px) {
+  .cf-fx {
+    padding-block: 28px;
+  }
+
   .cf-fx__panel {
     padding: 20px 0 20px;
     border-radius: var(--cf-radius-m);
   }
 
   .cf-fx__head {
+    margin-bottom: 20px;
     padding-inline: 20px;
   }
 
@@ -350,18 +355,26 @@
     display: none;
   }
 
+  /* in a row the cards would all grow to the tallest: one fixed height, the content cut to fit it
+     (the phone and the receipt run off the bottom edge, src/styles/sections.css) */
   .cf-fx__card {
     flex: 0 0 86%;
+    height: 420px;
     scroll-snap-align: start;
   }
 
   .cf-fx__text {
-    padding: 22px 20px 0;
+    padding: 20px 20px 0;
+  }
+
+  .cf-fx__icon {
+    margin-bottom: 12px;
   }
 
   .cf-fx__stage {
-    min-height: 180px;
-    padding: 0 20px 20px;
+    min-height: 0;
+    margin-top: 14px;
+    padding: 0 20px 16px;
   }
 
   .cf-fx-pair {

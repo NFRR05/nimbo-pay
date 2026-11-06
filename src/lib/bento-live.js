@@ -122,7 +122,8 @@ function receipt(el) {
   offs.push(() => range.removeEventListener("input", update));
 
   if (!reduced()) {
-    offs.push(onceSeen(el.parentElement || el, () => gsap.fromTo(el, { y: 0, yPercent: -100 }, { y: 0, yPercent: 0, duration: 1.6, ease: "power2.out", delay: 0.2 }), 0.3));
+    // watch the card, not the paper: on phones the card crops the paper, which would never be 30% in view
+    offs.push(onceSeen(el.closest(".cf-fx__card") || el.parentElement || el, () => gsap.fromTo(el, { y: 0, yPercent: -100 }, { y: 0, yPercent: 0, duration: 1.6, ease: "power2.out", delay: 0.2 }), 0.3));
   }
   return () => offs.forEach((fn) => fn());
 }
