@@ -323,14 +323,15 @@ body {
 }
 
 /* hero, desktop: on the right of the whole text block (title, text and buttons), its floor about level with
-   the text; measured on the hero's board (--pm-u, as in ref-pelmatech-hero), the box ends where the content
-   ends, at the board's right and bottom padding. The canvas reaches higher (--nb-head) for the tower and jumps. */
+   the text; measured on the hero's board (--pm-u, as in ref-pelmatech-hero), the box reaches a little past the
+   board's right edge and ends at its bottom padding. The canvas reaches higher (--nb-head) for the tower and jumps. */
 .nb-marks3d--hero {
   --pm-u: calc(min(100cqi, 1680px, 154svh) / 1440);
   --nb-head: 0.45;
 
   z-index: 0;
-  right: calc((100% - 1440 * var(--pm-u)) / 2 + 30 * var(--pm-u));
+  /* past the board's right padding, toward the edge of the screen: the group stands well to the right */
+  right: calc((100% - 1440 * var(--pm-u)) / 2 - 10 * var(--pm-u));
   bottom: calc(96 * var(--pm-u));
   width: calc(640 * var(--pm-u));
   height: calc(500 * var(--pm-u));
